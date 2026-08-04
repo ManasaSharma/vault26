@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>frontend-systems-lab &mdash; README</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --text-muted: #555555;
+    --text-faint: #888888;
+    --border: #dddddd;
+    --code-bg: #f2f2f2;
+    --code-text: #1a1a1a;
+    --pre-bg: #1e1e1e;
+    --pre-text: #f5f5f5;
+    --th-bg: #f7f7f7;
+    --badge-bg: #eef2ff;
+    --badge-text: #3730a3;
+    --note-bg: #fff8e6;
+    --note-border: #e0b400;
+    --note-text: #4a3b00;
+    --link: #1a56db;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --text: #e6edf3;
+      --text-muted: #b3bac2;
+      --text-faint: #8b949e;
+      --border: #30363d;
+      --code-bg: #1f2530;
+      --code-text: #ffd479;
+      --pre-bg: #161b22;
+      --pre-text: #e6edf3;
+      --th-bg: #161b22;
+      --badge-bg: #1f2937;
+      --badge-text: #c7d2fe;
+      --note-bg: #2b2410;
+      --note-border: #e0b400;
+      --note-text: #f3e6ae;
+      --link: #58a6ff;
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+  }
+  a { color: var(--link); }
+  h1, h2, h3 { color: var(--text); }
+  h1 { font-size: 1.9rem; margin-bottom: 4px; }
+  h2 {
+    font-size: 1.3rem;
+    margin-top: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+  }
+  h3 { font-size: 1.05rem; margin-top: 1.5rem; }
+  p.tagline { color: var(--text-muted); margin-top: 0; }
+  code, pre {
+    font-family: "SF Mono", Consolas, Menlo, monospace;
+    font-size: 0.9em;
+  }
+  code {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  pre {
+    background: var(--pre-bg);
+    color: var(--pre-text);
+    padding: 14px 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  pre code { background: none; padding: 0; color: inherit; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 0.92em;
+    color: var(--text);
+  }
+  th { background: var(--th-bg); }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 24px; }
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--badge-bg);
+    color: var(--badge-text);
+  }
+  .note {
+    background: var(--note-bg);
+    border-left: 4px solid var(--note-border);
+    color: var(--note-text);
+    padding: 10px 14px;
+    margin: 1rem 0;
+    font-size: 0.95em;
+  }
+  .note code { background: rgba(0,0,0,0.15); }
+  ol, ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  footer {
+    margin-top: 3rem;
+    font-size: 0.85em;
+    color: var(--text-faint);
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<h1>frontend-systems-lab</h1>
+<p class="tagline">Personal portfolio + an evolving engineering lab, built with Next.js and TypeScript.</p>
+
+<div class="badge-row">
+  <span class="badge">Next.js 16</span>
+  <span class="badge">TypeScript</span>
+  <span class="badge">Tailwind CSS</span>
+  <span class="badge">React Query</span>
+  <span class="badge">Zustand</span>
+  <span class="badge">Jest + RTL</span>
+</div>
+
+<h2>What this is</h2>
+<p>
+  A frontend-only portfolio site with two parts:
+</p>
+<ul>
+  <li><strong>Portfolio</strong> &mdash; About, Experience, Skills, Projects, Contact.</li>
+  <li><strong>Engineering Lab</strong> &mdash; a growing set of small, interactive case studies:
+    a real-world frontend problem, an approach, and a fix, each with a live demo.</li>
+</ul>
+<p>
+  The "backend" is mocked using real Next.js API routes (<code>src/app/api/*/route.ts</code>) that
+  return JSON with simulated network delay and occasional simulated errors, consumed on the
+  frontend via React Query. There is no external database or real backend service.
+</p>
+
+<h2>Prerequisites</h2>
+<table>
+  <tr><th>Tool</th><th>Version</th><th>Notes</th></tr>
+  <tr><td>Node.js</td><td>20.x</td><td>See <code>.nvmrc</code> below &mdash; do not use Node 18, the build will fail.</td></tr>
+  <tr><td>npm</td><td>10.x</td><td>Ships with Node 20.</td></tr>
+  <tr><td>nvm</td><td>any recent</td><td>Recommended for managing the Node version. <a href="https://github.com/nvm-sh/nvm">nvm-sh/nvm</a></td></tr>
+  <tr><td>Git</td><td>any recent</td><td>To clone the repo.</td></tr>
+</table>
+
+<div class="note">
+  <strong>Node version note:</strong> This repo has its own <code>.nvmrc</code> file pinning Node
+  <code>20.20.2</code>. It does not change your global Node version &mdash; it only applies when
+  you <code>cd</code> into this folder and run <code>nvm use</code>.
+</div>
+
+<div class="note">
+  <strong>npm registry note:</strong> This repo has its own <code>.npmrc</code> file pointing npm
+  at the public registry (<code>registry.npmjs.org</code>). This only takes effect when npm
+  commands are run from inside this folder &mdash; it does not change any global or other-project
+  npm configuration.
+</div>
+
+<h2>1. Clone the repo</h2>
+<pre><code>git clone &lt;your-github-repo-url&gt;
+cd frontend-systems-lab</code></pre>
+
+<h2>2. Use the correct Node version</h2>
+<pre><code>nvm install   <span style="color:#9aa5b1"># installs the version pinned in .nvmrc, if you don't already have it</span>
+nvm use       <span style="color:#9aa5b1"># switches this shell to that version</span>
+node -v       <span style="color:#9aa5b1"># should print v20.20.2</span></code></pre>
+
+<h2>3. Install dependencies</h2>
+<pre><code>npm install</code></pre>
+<p>This installs everything from the public npm registry (see the note above about <code>.npmrc</code>).</p>
+
+<h2>4. Run the app locally</h2>
+<pre><code>npm run dev</code></pre>
+<p>Then open <a href="http://localhost:3000">http://localhost:3000</a> in your browser.</p>
+
+<h2>5. Other useful commands</h2>
+<table>
+  <tr><th>Command</th><th>What it does</th></tr>
+  <tr><td><code>npm run build</code></td><td>Creates an optimized production build</td></tr>
+  <tr><td><code>npm start</code></td><td>Runs the production build (run <code>build</code> first)</td></tr>
+  <tr><td><code>npm run lint</code></td><td>Runs ESLint</td></tr>
+  <tr><td><code>npm test</code></td><td>Runs the Jest test suite</td></tr>
+</table>
+
+<h2>Project structure</h2>
+<pre><code>frontend-systems-lab/
+&#9500;&#9472; src/
+&#9474;  &#9500;&#9472; app/
+&#9474;  &#9474;  &#9500;&#9472; api/            &lt;- mock backend (Next.js API routes)
+&#9474;  &#9474;  &#9500;&#9472; page.tsx        &lt;- entry page
+&#9474;  &#9474;  &#9492;&#9472; layout.tsx
+&#9474;  &#9492;&#9472; ...
+&#9500;&#9472; .nvmrc               &lt;- pins Node version for this project
+&#9500;&#9472; .npmrc                &lt;- pins npm registry for this project
+&#9500;&#9472; jest.config.js
+&#9500;&#9472; jest.setup.ts
+&#9492;&#9472; package.json</code></pre>
+
+<footer>
+  Built by Manasa B. Last updated: see git history.
+</footer>
+
+</body>
+</html>
