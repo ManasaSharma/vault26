@@ -22,6 +22,21 @@
     --note-border: #e0b400;
     --note-text: #4a3b00;
     --link: #1a56db;
+    --tab-bg: #f2f2f2;
+    --tab-active-bg: #ffffff;
+    --tab-active-border: #1a56db;
+    --done-bg: #e6f4ea;
+    --done-text: #1e7d32;
+    --wip-bg: #fff4e0;
+    --wip-text: #8a5a00;
+    --todo-bg: #eeeeee;
+    --todo-text: #555555;
+    --critical-bg: #fde8e8;
+    --critical-text: #b42318;
+    --critical-border: #d92d20;
+    --chip-bg: #eef2ff;
+    --chip-text: #4338ca;
+    --chip-code: #b42318;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -41,13 +56,30 @@
       --note-border: #e0b400;
       --note-text: #f3e6ae;
       --link: #58a6ff;
+      --tab-bg: #161b22;
+      --tab-active-bg: #0d1117;
+      --tab-active-border: #58a6ff;
+      --done-bg: #113322;
+      --done-text: #7ee2a8;
+      --wip-bg: #33270f;
+      --wip-text: #f0c674;
+      --todo-bg: #1f242c;
+      --todo-text: #b3bac2;
+      --critical-bg: #3b1614;
+      --critical-text: #ff8a80;
+      --critical-border: #ff5449;
+      --chip-bg: #1f2937;
+      --chip-text: #a5b4fc;
+      --chip-code: #ff8a80;
     }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    margin: 0;
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
     line-height: 1.6;
     color: var(--text);
     background: var(--bg);
@@ -104,6 +136,19 @@
     background: var(--badge-bg);
     color: var(--badge-text);
   }
+  .status {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-left: 8px;
+  }
+  .status.done { background: var(--done-bg); color: var(--done-text); }
+  .status.wip { background: var(--wip-bg); color: var(--wip-text); }
+  .status.todo { background: var(--todo-bg); color: var(--todo-text); }
   .note {
     background: var(--note-bg);
     border-left: 4px solid var(--note-border);
@@ -122,87 +167,684 @@
     border-top: 1px solid var(--border);
     padding-top: 16px;
   }
+
+  /* ---- Setup panel: compact two-column layout ---- */
+  .setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 40px;
+    margin-bottom: 1.5rem;
+  }
+  .setup-grid h2:first-child { margin-top: 0; }
+  .setup-grid h2 {
+    font-size: 1.05rem;
+    margin-top: 1.5rem;
+    margin-bottom: 8px;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .setup-grid p { margin: 0 0 8px; font-size: 0.92em; }
+  .setup-grid pre { margin: 0 0 4px; font-size: 0.82em; }
+  #panel-setup > h2 { font-size: 1.05rem; margin-top: 0.5rem; }
+
+  @media (max-width: 900px) {
+    .setup-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Project Plan: interactive phase/story flowchart ---- */
+  .plan-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .plan-blurb { margin: 0; font-size: 0.92em; color: var(--text-muted); }
+  .plan-buttons { display: flex; gap: 8px; flex-shrink: 0; }
+  .plan-buttons button {
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--tab-bg);
+    color: var(--text);
+  }
+  .plan-buttons button:hover { border-color: var(--tab-active-border); }
+
+  .plan-flow {
+    overflow-x: auto;
+    padding-bottom: 12px;
+  }
+  .phase-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .phase-block {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phase-tile {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 260px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--tab-bg);
+  }
+  .phase-tile:hover { border-color: var(--tab-active-border); }
+  .phase-tile.is-open { border-color: var(--tab-active-border); border-width: 2px; }
+  .phase-num { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint); }
+  .phase-name { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+  .phase-body {
+    display: none;
+    margin-top: 14px;
+    padding-left: 12px;
+    border-left: 2px dashed var(--border);
+  }
+  .phase-body.is-open { display: block; }
+
+  .story-chain {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .plan-node {
+    all: unset;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px 12px 8px 0;
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    position: relative;
+  }
+  .plan-node:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 26px;
+    bottom: -8px;
+    width: 2px;
+    background: var(--border);
+  }
+  .node-dot {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 2px solid var(--tab-bg);
+  }
+  .plan-node:hover .node-label { color: var(--text); }
+  .plan-node.is-active .node-dot { background: var(--tab-active-border); }
+  .plan-node.is-active .node-label { color: var(--text); font-weight: 600; }
+  .node-dot.dot-done { background: var(--done-text); }
+  .node-label .status { margin-left: 6px; vertical-align: middle; }
+
+  .plan-detail {
+    display: none;
+    margin: 4px 0 12px 20px;
+    padding: 12px 16px;
+    max-width: 420px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--tab-bg);
+    font-size: 0.85em;
+  }
+  .plan-detail.is-open { display: block; }
+  .plan-detail h4 { margin: 0 0 6px; font-size: 0.92rem; }
+  .plan-detail p { margin: 0 0 6px; }
+  .plan-detail ul { margin: 0; padding-left: 18px; }
+  .plan-detail li { margin-bottom: 4px; }
+
+  .how-list { font-size: 0.92em; }
+
+  /* expand-all mode: force every phase body and detail open, ignore individual toggles */
+  .plan-flow.expand-all .phase-body { display: block !important; }
+  .plan-flow.expand-all .phase-tile { border-color: var(--tab-active-border); }
+  .plan-flow.expand-all .plan-detail { display: block !important; }
+
+  /* ---- Learning Log: collapsible per-story sections + code tree ---- */
+  .log-intro { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.85em; color: var(--text-muted); margin: 4px 0 14px; }
+  .log-toolbar { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+  .log-buttons { display: flex; gap: 8px; }
+  .log-buttons button {
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--tab-bg);
+    color: var(--text);
+  }
+  .log-buttons button:hover { border-color: var(--tab-active-border); }
+
+  .log-sections { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .log-story {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .log-story-header {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    cursor: pointer;
+    padding: 14px 18px;
+    background: var(--tab-bg);
+  }
+  .log-story-header.is-open { background: var(--tab-active-bg); }
+  .log-story-title { font-weight: 600; font-size: 0.95rem; }
+  .log-chevron {
+    margin-left: auto;
+    color: var(--text-faint);
+    transition: transform 0.15s ease;
+  }
+  .log-story-header.is-open .log-chevron { transform: rotate(180deg); }
+
+  .log-body { display: none; padding: 14px 16px; background: var(--tab-active-bg); }
+  .log-body.is-open { display: block; }
+
+  .code-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 6px 0 12px;
+  }
+  .tree-node {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--tab-bg);
+    font-size: 0.8rem;
+    box-sizing: border-box;
+  }
+  .tree-node:hover { border-color: var(--tab-active-border); }
+  .tree-node.is-active { border-color: var(--tab-active-border); border-width: 2px; background: var(--tab-active-bg); }
+  .tree-file { font-family: "SF Mono", Consolas, Menlo, monospace; font-weight: 600; font-size: 0.78rem; }
+  .tree-tag { font-size: 0.68rem; color: var(--text-faint); }
+
+  .tree-branches { display: flex; flex-direction: column; align-items: stretch; width: 100%; }
+  .tree-connector {
+    width: 2px;
+    height: 14px;
+    background: var(--border);
+    margin-left: 12px;
+  }
+  .tree-children {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 16px;
+    padding-top: 4px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .tree-children::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 12px;
+    left: 6px;
+    width: 2px;
+    background: var(--border);
+  }
+  .tree-children .tree-node { position: relative; }
+  .tree-children .tree-node::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    width: 8px;
+    height: 2px;
+    background: var(--border);
+  }
+
+  /* ---- Learning Log: two-pane split (tree left, detail right) ---- */
+  .log-split {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .log-split-left {
+    flex: 0 0 240px;
+    position: sticky;
+    top: 12px;
+  }
+  .log-split-hint {
+    font-size: 0.76rem;
+    color: var(--text-faint);
+    text-align: center;
+    margin: 10px 0 0;
+  }
+  .log-split-right {
+    flex: 1 1 auto;
+    min-width: 0;
+    border-left: 1px solid var(--border);
+    padding-left: 24px;
+  }
+
+  @media (max-width: 800px) {
+    .log-split { flex-direction: column; }
+    .log-split-left { flex: 1 1 auto; position: static; width: 100%; }
+    .log-split-right { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px; }
+  }
+
+  .code-detail { display: none; }
+  .code-detail.is-open { display: block; }
+  .code-detail h4 { margin: 0 0 12px; font-size: 1rem; }
+  .code-detail pre { margin: 0 0 12px; font-size: 0.8em; padding: 10px 12px; }
+  .code-detail .hl { color: var(--chip-text); font-weight: 700; }
+  .code-detail .hl-red { color: var(--critical-text); font-weight: 700; }
+
+  /* compact data-flow diagram: 2-4 boxes + arrows, each with a one-line caption */
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .flow-box {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--tab-bg);
+    font-family: "SF Mono", Consolas, Menlo, monospace;
+    font-size: 0.82rem;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .flow-box span { display: block; font-family: -apple-system, sans-serif; font-size: 0.68em; color: var(--text-faint); margin-top: 3px; font-weight: 400; }
+  .flow-box-slot { border-color: var(--critical-border); color: var(--critical-text); font-weight: 700; }
+  .flow-box-page { border-color: var(--tab-active-border); }
+  .flow-arrow-h { font-size: 0.76rem; color: var(--text-faint); white-space: nowrap; }
+
+  .chip {
+    font-family: "SF Mono", Consolas, Menlo, monospace;
+    font-size: 0.85em;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: var(--chip-bg);
+    color: var(--chip-code);
+    white-space: nowrap;
+  }
+  .chip-red {
+    background: var(--critical-bg);
+    color: var(--critical-text);
+    font-weight: 700;
+    border: 1px solid var(--critical-border);
+  }
+
+  /* WHAT / WHY / BREAKS-IF explanation rows: the interview-answer structure */
+  .explain-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+  }
+  .explain-row:first-of-type { border-top: none; padding-top: 0; }
+  .explain-tag {
+    flex: 0 0 84px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 0;
+  }
+  .explain-what .explain-tag { color: var(--text-faint); }
+  .explain-why .explain-tag { color: var(--tab-active-border); }
+  .explain-break .explain-tag { color: var(--critical-text); }
+  .explain-row p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: var(--text); }
+  .explain-break { background: var(--critical-bg); border-radius: 8px; padding: 10px 12px; border-top: none; margin-top: 4px; }
+  .explain-break .explain-tag { flex: 0 0 96px; }
+
+  /* ANALOGY intro row + INTERVIEW TRAP drill row (spatial-analogy teaching format) */
+  .explain-analogy { border-top: none; padding-top: 0; padding-bottom: 6px; }
+  .explain-analogy .explain-tag { color: var(--accent, var(--tab-active-border)); flex: 0 0 84px; }
+  .explain-trap {
+    background: var(--code-bg, #12141a);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .explain-trap .explain-tag { color: var(--critical-text); flex: none; }
+  .explain-trap p { font-size: 0.85rem; }
+
+  /* IN PLAIN WORDS: the "confirmed understanding" recap, phrased the way Manasa said it back */
+  .explain-plain {
+    background: var(--tab-active-bg, rgba(94, 158, 255, 0.08));
+    border: 1px solid var(--tab-active-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .explain-plain .explain-tag { color: var(--tab-active-border); flex: none; }
+  .explain-plain p { font-size: 0.85rem; }
+
+  /* Minimalist ASCII structural map */
+  .ascii-map {
+    font-size: 0.72rem;
+    line-height: 1.35;
+    background: var(--code-bg, #12141a);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    overflow-x: auto;
+    margin: 8px 0 14px;
+  }
+
+  /* Interactive simulation box (bob skill, part 3): small, scoped, one concept per box */
+  .sim-box {
+    background: var(--code-bg, #12141a);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin: 8px 0 14px;
+  }
+  .sim-frame {
+    border: 2px solid var(--tab-active-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .sim-header, .sim-footer {
+    background: var(--surface, rgba(255,255,255,0.04));
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+  .sim-slot {
+    padding: 16px 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    background: rgba(94, 158, 255, 0.06);
+  }
+  .sim-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .sim-controls button {
+    background: var(--tab-active-bg, rgba(94,158,255,0.12));
+    border: 1px solid var(--tab-active-border);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+  .sim-controls button:hover { filter: brightness(1.15); }
+  .sim-caption {
+    margin: 8px 0 0;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+  }
+  .sim-pulse-swap { animation: simPulseSwap 0.5s ease; }
+  .sim-pulse-static { animation: simPulseStatic 0.5s ease; }
+  @keyframes simPulseSwap {
+    0% { background: rgba(94, 158, 255, 0.35); }
+    100% { background: rgba(94, 158, 255, 0.06); }
+  }
+  @keyframes simPulseStatic {
+    0% { outline: 2px solid var(--critical-border, #999); }
+    100% { outline: 2px solid transparent; }
+  }
+
+  /* key demo: two side-by-side lists, bad (index key) vs good (stable key) */
+  .sim-key-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .sim-key-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .sim-key-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.82rem;
+  }
+  .sim-key-list input {
+    flex: 1;
+    background: var(--code-bg, #12141a);
+    border: 1px solid var(--tab-active-border);
+    border-radius: 4px;
+    color: var(--text);
+    font-size: 0.78rem;
+    padding: 3px 6px;
+  }
+  #sim-keys-typed {
+    background: var(--code-bg, #12141a);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 5px 10px;
+    font-size: 0.78rem;
+  }
+  @media (max-width: 640px) {
+    .sim-key-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .tree-children { flex-direction: column; gap: 10px; }
+    .tree-children .tree-node::before { display: none; }
+  }
+
+  /* ---- Sidebar tabs layout (pure CSS, no JS) ---- */
+  .tabs {
+    display: flex;
+    align-items: stretch;
+    height: 100vh;
+    width: 100vw;
+  }
+  .tabs input[type="radio"] {
+    display: none;
+  }
+
+  .sidebar {
+    flex: 0 0 260px;
+    width: 260px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 28px 20px;
+    background: var(--tab-bg);
+    border-right: 1px solid var(--border);
+  }
+  .sidebar h1 {
+    font-size: 1.3rem;
+    margin: 0 0 2px;
+  }
+  .sidebar .tagline {
+    font-size: 0.82rem;
+    margin: 0 0 16px;
+  }
+  .sidebar .badge-row {
+    margin: 0 0 20px;
+  }
+  .sidebar .note {
+    font-size: 0.78rem;
+    padding: 10px 12px;
+    margin: 0 0 20px;
+  }
+
+  .tab-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tab-labels label {
+    cursor: pointer;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: 8px;
+    border: 1px solid transparent;
+  }
+  .tab-labels label:hover {
+    background: var(--tab-active-bg);
+  }
+
+  .content {
+    flex: 1 1 auto;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .tab-panels {
+    padding: 40px 48px 80px;
+    background: var(--tab-active-bg);
+    min-height: 100%;
+  }
+  .tab-panel { display: none; }
+
+  #tab-setup:checked ~ .sidebar .tab-labels label[for="tab-setup"],
+  #tab-plan:checked ~ .sidebar .tab-labels label[for="tab-plan"],
+  #tab-react:checked ~ .sidebar .tab-labels label[for="tab-react"],
+  #tab-nextjs:checked ~ .sidebar .tab-labels label[for="tab-nextjs"],
+  #tab-rules:checked ~ .sidebar .tab-labels label[for="tab-rules"],
+  #tab-progress:checked ~ .sidebar .tab-labels label[for="tab-progress"] {
+    color: var(--text);
+    background: var(--tab-active-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--tab-active-border);
+  }
+
+  #tab-setup:checked ~ .content .tab-panels #panel-setup,
+  #tab-plan:checked ~ .content .tab-panels #panel-plan,
+  #tab-react:checked ~ .content .tab-panels #panel-react,
+  #tab-nextjs:checked ~ .content .tab-panels #panel-nextjs,
+  #tab-rules:checked ~ .content .tab-panels #panel-rules,
+  #tab-progress:checked ~ .content .tab-panels #panel-progress {
+    display: block;
+  }
+
+  @media (max-width: 720px) {
+    .tabs { flex-direction: column; height: auto; }
+    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .content { height: auto; }
+    .tab-panels { padding: 24px; }
+  }
 </style>
 </head>
 <body>
 
-<h1>frontend-systems-lab</h1>
-<p class="tagline">Personal portfolio + an evolving engineering lab, built with Next.js and TypeScript.</p>
+<div class="tabs">
+  <input type="radio" name="tabs" id="tab-setup" checked>
+  <input type="radio" name="tabs" id="tab-plan">
+  <input type="radio" name="tabs" id="tab-react">
+  <input type="radio" name="tabs" id="tab-nextjs">
+  <input type="radio" name="tabs" id="tab-rules">
+  <input type="radio" name="tabs" id="tab-progress">
 
-<div class="badge-row">
-  <span class="badge">Next.js 16</span>
-  <span class="badge">TypeScript</span>
-  <span class="badge">Tailwind CSS</span>
-  <span class="badge">React Query</span>
-  <span class="badge">Zustand</span>
-  <span class="badge">Jest + RTL</span>
-</div>
+  <div class="sidebar">
+    <h1>frontend-systems-lab</h1>
+    <p class="tagline">Personal portfolio + engineering lab &mdash; a from-scratch React learning project.</p>
 
-<h2>What this is</h2>
-<p>
-  A frontend-only portfolio site with two parts:
-</p>
-<ul>
-  <li><strong>Portfolio</strong> &mdash; About, Experience, Skills, Projects, Contact.</li>
-  <li><strong>Engineering Lab</strong> &mdash; a growing set of small, interactive case studies:
-    a real-world frontend problem, an approach, and a fix, each with a live demo.</li>
-</ul>
-<p>
-  The "backend" is mocked using real Next.js API routes (<code>src/app/api/*/route.ts</code>) that
-  return JSON with simulated network delay and occasional simulated errors, consumed on the
-  frontend via React Query. There is no external database or real backend service.
-</p>
+    <div class="badge-row">
+      <span class="badge">Next.js 16</span>
+      <span class="badge">TypeScript</span>
+      <span class="badge">Tailwind CSS</span>
+      <span class="badge">React Query</span>
+      <span class="badge">Zustand</span>
+      <span class="badge">Jest + RTL</span>
+    </div>
 
-<h2>Prerequisites</h2>
-<table>
-  <tr><th>Tool</th><th>Version</th><th>Notes</th></tr>
-  <tr><td>Node.js</td><td>20.x</td><td>See <code>.nvmrc</code> below &mdash; do not use Node 18, the build will fail.</td></tr>
-  <tr><td>npm</td><td>10.x</td><td>Ships with Node 20.</td></tr>
-  <tr><td>nvm</td><td>any recent</td><td>Recommended for managing the Node version. <a href="https://github.com/nvm-sh/nvm">nvm-sh/nvm</a></td></tr>
-  <tr><td>Git</td><td>any recent</td><td>To clone the repo.</td></tr>
-</table>
+    <div class="note">
+      <strong>Scope note:</strong> All work is local to <code>fe-pro/vault26</code>. This file is
+      the single source of truth &mdash; kept in sync with <code>README.md</code>.
+    </div>
 
-<div class="note">
-  <strong>Node version note:</strong> This repo has its own <code>.nvmrc</code> file pinning Node
-  <code>20.20.2</code>. It does not change your global Node version &mdash; it only applies when
-  you <code>cd</code> into this folder and run <code>nvm use</code>.
-</div>
+    <div class="tab-labels">
+      <label for="tab-setup">Setup</label>
+      <label for="tab-plan">Project Plan</label>
+      <label for="tab-react">React</label>
+      <label for="tab-nextjs">Next.js</label>
+      <label for="tab-rules">Rules</label>
+      <label for="tab-progress">Progress</label>
+    </div>
+  </div>
 
-<div class="note">
-  <strong>npm registry note:</strong> This repo has its own <code>.npmrc</code> file pointing npm
-  at the public registry (<code>registry.npmjs.org</code>). This only takes effect when npm
-  commands are run from inside this folder &mdash; it does not change any global or other-project
-  npm configuration.
-</div>
+  <div class="content">
+  <div class="tab-panels">
 
-<h2>1. Clone the repo</h2>
-<pre><code>git clone &lt;your-github-repo-url&gt;
-cd frontend-systems-lab</code></pre>
+    <!-- ===================== SETUP ===================== -->
+    <div class="tab-panel" id="panel-setup">
 
-<h2>2. Use the correct Node version</h2>
-<pre><code>nvm install   <span style="color:#9aa5b1"># installs the version pinned in .nvmrc, if you don't already have it</span>
-nvm use       <span style="color:#9aa5b1"># switches this shell to that version</span>
-node -v       <span style="color:#9aa5b1"># should print v20.20.2</span></code></pre>
+      <div class="setup-grid">
 
-<h2>3. Install dependencies</h2>
-<pre><code>npm install</code></pre>
-<p>This installs everything from the public npm registry (see the note above about <code>.npmrc</code>).</p>
+        <div class="setup-col">
+          <h2>What this is</h2>
+          <p>
+            A frontend-only portfolio site: <strong>Portfolio</strong> (About, Experience, Skills,
+            Projects, Contact) + <strong>Engineering Lab</strong> (small interactive case studies,
+            each a real frontend problem &rarr; approach &rarr; fix, with a live demo). The
+            "backend" is mocked via Next.js API routes (<code>src/app/api/*/route.ts</code>),
+            consumed with React Query &mdash; no real database or backend service.
+          </p>
 
-<h2>4. Run the app locally</h2>
-<pre><code>npm run dev</code></pre>
-<p>Then open <a href="http://localhost:3000">http://localhost:3000</a> in your browser.</p>
+          <h2>Prerequisites</h2>
+          <pre><code>Node.js  20.x   <span style="color:#9aa5b1"># pinned in .nvmrc &mdash; Node 18 will fail the build</span>
+npm      10.x   <span style="color:#9aa5b1"># ships with Node 20</span>
+nvm      any    <span style="color:#9aa5b1"># manages the Node version, see nvm-sh/nvm</span>
+Git      any</code></pre>
+        </div>
 
-<h2>5. Other useful commands</h2>
-<table>
-  <tr><th>Command</th><th>What it does</th></tr>
-  <tr><td><code>npm run build</code></td><td>Creates an optimized production build</td></tr>
-  <tr><td><code>npm start</code></td><td>Runs the production build (run <code>build</code> first)</td></tr>
-  <tr><td><code>npm run lint</code></td><td>Runs ESLint</td></tr>
-  <tr><td><code>npm test</code></td><td>Runs the Jest test suite</td></tr>
-</table>
+        <div class="setup-col">
+          <h2>Run it</h2>
+          <pre><code><span style="color:#9aa5b1">1. clone</span>
+git clone &lt;repo-url&gt; &amp;&amp; cd frontend-systems-lab
 
-<h2>Project structure</h2>
-<pre><code>frontend-systems-lab/
+<span style="color:#9aa5b1">2. correct node version (folder-scoped, not global)</span>
+nvm install &amp;&amp; nvm use
+
+<span style="color:#9aa5b1">3. install deps</span>
+npm install
+
+<span style="color:#9aa5b1">4. run dev server &rarr; localhost:3000</span>
+npm run dev</code></pre>
+
+          <h2>Other commands</h2>
+          <pre><code>npm run build   <span style="color:#9aa5b1"># production build</span>
+npm start       <span style="color:#9aa5b1"># run the production build</span>
+npm run lint    <span style="color:#9aa5b1"># ESLint</span>
+npm test        <span style="color:#9aa5b1"># Jest suite</span></code></pre>
+        </div>
+
+      </div>
+
+      <h2>Project structure</h2>
+      <pre><code>frontend-systems-lab/
 &#9500;&#9472; src/
 &#9474;  &#9500;&#9472; app/
 &#9474;  &#9474;  &#9500;&#9472; api/            &lt;- mock backend (Next.js API routes)
@@ -213,11 +855,1935 @@ node -v       <span style="color:#9aa5b1"># should print v20.20.2</span></code><
 &#9500;&#9472; .npmrc                &lt;- pins npm registry for this project
 &#9500;&#9472; jest.config.js
 &#9500;&#9472; jest.setup.ts
-&#9492;&#9472; package.json</code></pre>
+&#9492;&#9472; package.json
+&#9492;&#9472; README.html / README.md   &lt;- this file (setup + plan + learning log + rules + progress)</code></pre>
 
-<footer>
-  Built by Manasa B. Last updated: see git history.
-</footer>
+    </div>
+
+    <!-- ===================== PROJECT PLAN ===================== -->
+    <div class="tab-panel" id="panel-plan">
+
+      <div class="plan-toolbar">
+        <p class="plan-blurb">Two goals: ship a real portfolio, and use building it to learn React/Next.js start to finish.</p>
+        <div class="plan-buttons">
+          <button type="button" id="plan-expand-all">Expand all</button>
+          <button type="button" id="plan-collapse-all">Collapse all</button>
+        </div>
+      </div>
+
+      <div class="plan-flow" id="plan-flow">
+
+        <!-- ============ PHASE ROW ============ -->
+        <div class="phase-row">
+
+          <!-- PHASE 0 -->
+          <div class="phase-block" data-phase="0">
+            <button type="button" class="phase-tile status-done" data-target="phase-0-body">
+              <span class="phase-num">Phase 0</span>
+              <span class="phase-name">Foundations &amp; repo literacy</span>
+              <span class="status done">done</span>
+            </button>
+            <div class="phase-body" id="phase-0-body">
+              <div class="story-chain" data-phase-chain="0">
+
+                <div class="plan-node" data-story="0-1">
+                  <div class="node-dot"></div>
+                  <div class="node-label">Stack &amp; tooling check</div>
+                </div>
+                <div class="plan-detail" data-detail="0-1">
+                  <h4>Stack &amp; tooling check</h4>
+                  <p>Read <code>package.json</code> to see what's already installed: Next.js 16 (App Router), React 19, TypeScript, Tailwind 4, React Query, Zustand, Jest + RTL. React Query/Zustand/Jest are in the project from day one but sit unused until Phase 2.</p>
+                </div>
+
+                <div class="plan-node" data-story="0-2">
+                  <div class="node-dot"></div>
+                  <div class="node-label">Node version pinning</div>
+                </div>
+                <div class="plan-detail" data-detail="0-2">
+                  <h4>Node version pinning</h4>
+                  <p><code>.nvmrc</code> pins Node <code>20.20.2</code>. Node 18 breaks the build. Running <code>nvm use</code> inside this folder only switches that shell session &mdash; it never touches the global Node version.</p>
+                </div>
+
+                <div class="plan-node" data-story="0-3">
+                  <div class="node-dot"></div>
+                  <div class="node-label">First run &amp; file tour</div>
+                </div>
+                <div class="plan-detail" data-detail="0-3">
+                  <h4>First run &amp; file tour</h4>
+                  <p>Ran <code>npm run dev</code>, confirmed the default Next.js scaffold loads at <code>localhost:3000</code>. Read through <code>src/app/layout.tsx</code>, <code>src/app/page.tsx</code>, and <code>src/app/globals.css</code> to see what a fresh <code>create-next-app</code> gives you before changing anything.</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- PHASE 1 -->
+          <div class="phase-block" data-phase="1">
+            <button type="button" class="phase-tile status-wip" data-target="phase-1-body">
+              <span class="phase-num">Phase 1</span>
+              <span class="phase-name">Portfolio &mdash; core React/Next skills</span>
+              <span class="status wip">in progress</span>
+            </button>
+            <div class="phase-body" id="phase-1-body">
+              <div class="story-chain" data-phase-chain="1">
+
+                <div class="plan-node" data-story="1-1">
+                  <div class="node-dot dot-done"></div>
+                  <div class="node-label">1. Layout shell &amp; nav <span class="status done">done</span></div>
+                </div>
+                <div class="plan-detail" data-detail="1-1">
+                  <h4>Story 1 &mdash; Layout shell &amp; nav</h4>
+                  <p>Header with nav (About, Experience, Skills, Projects, Contact, Lab) and a footer, both dark/light aware.</p>
+                  <p><em>Teaches:</em> Next.js App Router root layout, semantic HTML structure, Tailwind layout utilities.</p>
+                  <p><strong>Built:</strong> <code>src/components/Header.tsx</code> and
+                    <code>src/components/Footer.tsx</code>, wired into <code>src/app/layout.tsx</code>
+                    (which already had <code>flex flex-col</code> on <code>&lt;body&gt;</code>, so
+                    header/main/footer stack with <code>main</code> growing via <code>flex-1</code>).
+                    Nav links point at <code>/about</code>, <code>/experience</code>, <code>/skills</code>,
+                    <code>/projects</code>, <code>/contact</code>, <code>/lab</code> &mdash; they 404 until
+                    Story 2 builds those routes, which is expected. <code>page.tsx</code> swapped from the
+                    default <code>create-next-app</code> template to a plain placeholder.</p>
+                </div>
+
+                <div class="plan-node" data-story="1-2">
+                  <div class="node-dot dot-done"></div>
+                  <div class="node-label">2. Route structure <span class="status done">done</span></div>
+                </div>
+                <div class="plan-detail" data-detail="1-2">
+                  <h4>Story 2 &mdash; Route structure for Portfolio pages</h4>
+                  <p>Create routes/sections for About, Experience, Skills, Projects, Contact with placeholder content blocks (no real content yet).</p>
+                  <p><em>Teaches:</em> App Router file conventions (<code>page.tsx</code> per route), linking with <code>next/link</code>.</p>
+                  <p><strong>Built:</strong> <code>src/app/about/page.tsx</code>,
+                    <code>experience/page.tsx</code>, <code>skills/page.tsx</code>,
+                    <code>projects/page.tsx</code>, <code>contact/page.tsx</code> &mdash; each a
+                    default-exported placeholder component, same pattern. All 5 routes verified
+                    returning <code>200</code> from the running dev server (no more 404s from
+                    Story 1's nav links). <code>next/link</code> was already correct in
+                    <code>Header.tsx</code> from Story 1, so no changes needed there.</p>
+                </div>
+
+                <div class="plan-node" data-story="1-3">
+                  <div class="node-dot"></div>
+                  <div class="node-label">3. Reusable UI primitives</div>
+                </div>
+                <div class="plan-detail" data-detail="1-3">
+                  <h4>Story 3 &mdash; Reusable UI primitives</h4>
+                  <p>Build a small set of shared components (Card, Section, Badge) used across the placeholder pages.</p>
+                  <p><em>Teaches:</em> component composition, prop typing in TypeScript, avoiding duplication.</p>
+                </div>
+
+                <div class="plan-node" data-story="1-4">
+                  <div class="node-dot"></div>
+                  <div class="node-label">4. Real content pass</div>
+                </div>
+                <div class="plan-detail" data-detail="1-4">
+                  <h4>Story 4 &mdash; Real content pass</h4>
+                  <p>Once structure is validated, swap placeholder text for real About/Experience/Skills/Projects/Contact content.</p>
+                  <p><em>Teaches:</em> content-driven component design (props vs hardcoded text).</p>
+                </div>
+
+                <div class="plan-node" data-story="1-5">
+                  <div class="node-dot"></div>
+                  <div class="node-label">5. Responsive &amp; dark mode</div>
+                </div>
+                <div class="plan-detail" data-detail="1-5">
+                  <h4>Story 5 &mdash; Responsive polish &amp; dark mode check</h4>
+                  <p><em>Teaches:</em> Tailwind responsive breakpoints, <code>dark:</code> variants.</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- PHASE 2 -->
+          <div class="phase-block" data-phase="2">
+            <button type="button" class="phase-tile status-todo" data-target="phase-2-body">
+              <span class="phase-num">Phase 2</span>
+              <span class="phase-name">Engineering Lab &mdash; advanced skills</span>
+              <span class="status todo">not started</span>
+            </button>
+            <div class="phase-body" id="phase-2-body">
+              <div class="story-chain" data-phase-chain="2">
+
+                <div class="plan-node" data-story="2-6">
+                  <div class="node-dot"></div>
+                  <div class="node-label">6. Lab route + mock API</div>
+                </div>
+                <div class="plan-detail" data-detail="2-6">
+                  <h4>Story 6 &mdash; Lab route + mock API convention</h4>
+                  <p>Set up <code>/lab</code> index route and the <code>src/app/api/*/route.ts</code> convention with one placeholder route returning mock JSON (simulated delay/error).</p>
+                  <p><em>Teaches:</em> Next.js Route Handlers, server-side code in the App Router.</p>
+                </div>
+
+                <div class="plan-node" data-story="2-7">
+                  <div class="node-dot"></div>
+                  <div class="node-label">7. React Query wiring</div>
+                </div>
+                <div class="plan-detail" data-detail="2-7">
+                  <h4>Story 7 &mdash; First case study skeleton wired to React Query</h4>
+                  <p>A <code>/lab/[case-study]</code> page fetching from the mock API via React Query &mdash; wiring only, no real "problem/fix" write-up yet.</p>
+                  <p><em>Teaches:</em> React Query setup (<code>QueryClientProvider</code>), loading/error states, caching basics.</p>
+                </div>
+
+                <div class="plan-node" data-story="2-8">
+                  <div class="node-dot"></div>
+                  <div class="node-label">8. Zustand state case study</div>
+                </div>
+                <div class="plan-detail" data-detail="2-8">
+                  <h4>Story 8 &mdash; State management case study with Zustand</h4>
+                  <p>A small interactive demo that needs shared client state across components.</p>
+                  <p><em>Teaches:</em> when to reach for a store vs local state/props.</p>
+                </div>
+
+                <div class="plan-node" data-story="2-9">
+                  <div class="node-dot"></div>
+                  <div class="node-label">9. Testing pass</div>
+                </div>
+                <div class="plan-detail" data-detail="2-9">
+                  <h4>Story 9 &mdash; Testing pass</h4>
+                  <p>Add Jest + React Testing Library tests for at least one portfolio component and one lab case study.</p>
+                  <p><em>Teaches:</em> component testing fundamentals, testing async data-fetching UI.</p>
+                </div>
+
+                <div class="plan-node" data-story="2-10">
+                  <div class="node-dot"></div>
+                  <div class="node-label">10. Deploy</div>
+                </div>
+                <div class="plan-detail" data-detail="2-10">
+                  <h4>Story 10 &mdash; Deploy</h4>
+                  <p>Ship it (e.g. Vercel) so the portfolio is a real, shareable URL.</p>
+                  <p><em>Teaches:</em> production build vs dev, environment basics.</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h2>How each story is worked</h2>
+      <ol class="how-list">
+        <li>Discuss the story: what it builds, what concept it teaches, why this approach.</li>
+        <li>Build it, explaining decisions as they're made.</li>
+        <li>Run/verify it in the browser together.</li>
+        <li>Write it up in the <strong>Learning Log</strong> tab (and mirrored to <code>README.md</code>).</li>
+        <li>Update the <strong>Progress</strong> tab.</li>
+      </ol>
+
+    </div>
+
+    <!-- ===================== REACT ===================== -->
+    <div class="tab-panel" id="panel-react">
+
+      <h2>React</h2>
+      <p class="log-intro">Concepts ordered basic &rarr; advanced, as they showed up while building.
+        Click a box &rarr; syntax + diagram. <span class="chip chip-red" style="pointer-events:none">red</span> = memorize. <span class="chip-note-yellow" style="pointer-events:none"><span class="chip-label">yellow</span></span> = good to know.</p>
+
+      <div class="log-toolbar">
+        <div class="log-buttons">
+          <button type="button" id="react-log-expand-all">Expand all</button>
+          <button type="button" id="react-log-collapse-all">Collapse all</button>
+        </div>
+      </div>
+
+      <div class="log-sections" id="react-log-sections">
+
+        <!-- ============ REACT CONCEPTS ============ -->
+        <div class="log-story">
+          <button type="button" class="log-story-header is-open" data-target="log-body-react">
+            <span class="log-story-title">React fundamentals &rarr; composition</span>
+            <span class="status done">done</span>
+            <span class="log-chevron">&#9662;</span>
+          </button>
+
+          <div class="log-body is-open" id="log-body-react">
+            <div class="log-split">
+
+              <!-- LEFT: tree, always visible -->
+              <div class="log-split-left">
+                <div class="code-tree">
+                  <div class="tree-node is-active" data-code="header">
+                    <span class="tree-file">Header.tsx</span>
+                    <span class="tree-tag">1. .map() + key</span>
+                  </div>
+                  <div class="tree-branches">
+                    <div class="tree-connector"></div>
+                    <div class="tree-children">
+                      <div class="tree-node" data-code="footer">
+                        <span class="tree-file">Footer.tsx</span>
+                        <span class="tree-tag">2. dumb component</span>
+                      </div>
+                      <div class="tree-node" data-code="layout">
+                        <span class="tree-file">layout.tsx</span>
+                        <span class="tree-tag">3&ndash;4. children slot + typing</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="log-split-hint">&larr; click a box to load its concept here</p>
+              </div>
+
+              <!-- RIGHT: detail panel, fills in on click -->
+              <div class="log-split-right">
+
+                <!-- 1. HEADER: .map() + key -->
+                <div class="code-detail is-open" data-code-detail="header">
+                  <h4>1. Rendering a list: <code>.map()</code> + <code>key</code></h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Coat Check Ticket.</strong> Each coat gets one ticket stub, glued
+                      to that coat only. Lose the stub system, and the attendant hands back
+                      <em>a</em> coat &mdash; not necessarily yours.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+----------------------------------------+
+| NAV_LINKS (The Rack of Coats)            |
+|  [0] Home   --ticket--&gt; key="/"          |
+|  [1] About  --ticket--&gt; key="/about"     |
+|  [2] Skills --ticket--&gt; key="/skills"    |
+|  --&gt; reorder-safe: ticket travels with   |
+|      the coat, not the hook number       |
++----------------------------------------+</code></pre>
+
+                  <pre><code>NAV_LINKS.<span class="hl">map</span>((link) =&gt; (
+  &lt;li <span class="hl-red">key={link.href}</span>&gt;
+    &lt;Link href={link.href}&gt;{link.label}&lt;/Link&gt;
+  &lt;/li&gt;
+))</code></pre>
+
+                  <div class="sim-box" id="sim-keys">
+                    <div class="sim-key-grid">
+                      <div>
+                        <p class="sim-caption">Index key (buggy)</p>
+                        <ul class="sim-key-list" id="sim-keys-bad"></ul>
+                      </div>
+                      <div>
+                        <p class="sim-caption">Stable key (correct)</p>
+                        <ul class="sim-key-list" id="sim-keys-good"></ul>
+                      </div>
+                    </div>
+                    <div class="sim-controls">
+                      <input type="text" id="sim-keys-typed" placeholder="type in row 'About'&hellip;" oninput="simKeysType(this.value)" />
+                      <button type="button" onclick="simKeysDeleteHome()">Delete "Home"</button>
+                      <button type="button" onclick="simKeysReset()">Reset</button>
+                    </div>
+                    <p class="sim-caption">Type in About's box, delete Home &rarr; watch where the text ends up.</p>
+                  </div>
+                  <script>
+                    (function () {
+                      var items = [
+                        { href: '/', label: 'Home' },
+                        { href: '/about', label: 'About' },
+                        { href: '/skills', label: 'Skills' }
+                      ];
+                      var typedValue = '';
+
+                      function render() {
+                        var bad = document.getElementById('sim-keys-bad');
+                        var good = document.getElementById('sim-keys-good');
+                        bad.innerHTML = '';
+                        good.innerHTML = '';
+                        items.forEach(function (item, index) {
+                          // BAD: key is array index -> input value "sticks" to the row position
+                          var liBad = document.createElement('li');
+                          liBad.innerHTML = '<span>' + item.label + '</span>';
+                          if (index === 0) {
+                            var inputBad = document.createElement('input');
+                            inputBad.value = typedValue;
+                            inputBad.disabled = true;
+                            liBad.appendChild(inputBad);
+                          }
+                          bad.appendChild(liBad);
+
+                          // GOOD: key is item.href -> input value travels with the item, not the slot
+                          var liGood = document.createElement('li');
+                          liGood.innerHTML = '<span>' + item.label + '</span>';
+                          if (item.href === '/about') {
+                            var inputGood = document.createElement('input');
+                            inputGood.value = typedValue;
+                            inputGood.disabled = true;
+                            liGood.appendChild(inputGood);
+                          }
+                          good.appendChild(liGood);
+                        });
+                      }
+
+                      window.simKeysType = function (value) {
+                        typedValue = value;
+                        render();
+                      };
+                      window.simKeysDeleteHome = function () {
+                        items = items.filter(function (item) { return item.href !== '/'; });
+                        render();
+                      };
+                      window.simKeysReset = function () {
+                        items = [
+                          { href: '/', label: 'Home' },
+                          { href: '/about', label: 'About' },
+                          { href: '/skills', label: 'Skills' }
+                        ];
+                        typedValue = '';
+                        document.getElementById('sim-keys-typed').value = '';
+                        render();
+                      };
+
+                      render();
+                    })();
+                  </script>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p>React can't render a raw JS array. <code>.map()</code> transforms
+                      <code>[{"{href, label}"}, ...]</code> into an array of <code>&lt;li&gt;</code>
+                      JSX elements &mdash; one data array in, one element per item out.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY <code class="chip chip-red">key</code></span>
+                    <p>React re-renders lists by diffing old vs new. <code>key</code> is how it
+                      matches "this li was already here" instead of tearing down and rebuilding
+                      every item on each render. Without a stable key, React falls back to
+                      <strong>array index</strong> &mdash; which breaks the moment items get
+                      reordered, inserted, or removed.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">BREAKS IF</span>
+                    <p>You use the array index as <code>key</code> and the list can reorder (e.g. a
+                      sortable list, or items get deleted from the middle) &mdash; React reuses the
+                      wrong DOM node for the wrong item, so input state, focus, or animations attach
+                      to the wrong row. This is a <strong>very common interview question</strong>:
+                      "why is key={"{index}"} an anti-pattern?"</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> dev keys a to-do list by index; deleting item 2
+                      makes item 3's input steal item 2's typed text.</p>
+                    <p><strong>Drill:</strong> "Why is <code>key={"{index}"}</code> called an
+                      anti-pattern?" Defend in 1 sentence.</p>
+                  </div>
+                  <div class="explain-row explain-plain">
+                    <span class="explain-tag">IN PLAIN WORDS</span>
+                    <p>React does <strong>not</strong> re-read every label on every render. It sees
+                      "key <code>0</code> still exists" and just updates that same DOM node's text
+                      &mdash; it never notices <em>which</em> item disappeared.</p>
+                    <p>Example: list is <code>key0=Home, key1=About, key2=Skills</code>. Delete
+                      "Home" &rarr; new list is <code>key0=About, key1=Skills</code>. React thinks
+                      "key <code>0</code> already exists, just relabel it" &mdash; so the DOM node
+                      that <em>used to be</em> Home silently becomes About, same node. Anything
+                      attached to that node (typed text, focus, animation) rides along onto the
+                      wrong item.</p>
+                    <p>Using <code>key={"{link.href}"}</code> fixes this because the tag travels
+                      with the <em>data</em>, not the <em>position</em> &mdash; so React can tell
+                      "About" was never removed, it just moved up a slot.</p>
+                  </div>
+                </div>
+
+                <!-- 2. FOOTER: presentational component -->
+                <div class="code-detail" data-code-detail="footer">
+                  <h4>2. Presentational ("dumb") components</h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Vending Machine Sticker.</strong> A sticker on the machine's
+                      front just displays art. Unplug the machine, sticker looks identical. It
+                      holds zero wiring to the mechanism inside.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+----------------------------------------+
+| Footer.tsx (The Sticker)                |
+|  - no props in                          |
+|  - no state inside                      |
+|  - no hooks wired                       |
+|  --&gt; output is 100% predictable         |
++----------------------------------------+</code></pre>
+
+                  <pre><code>export default function Footer() {
+  return &lt;footer&gt;...&lt;/footer&gt;;
+}</code></pre>
+
+                  <div class="sim-box" id="sim-presentational">
+                    <div class="sim-frame">
+                      <div class="sim-header" id="sim-pres-counter">Shared counter: 0</div>
+                      <div class="sim-slot" id="sim-pres-page">Some other page content</div>
+                      <div class="sim-footer sim-pulse-target" id="sim-pres-footer">Footer.tsx &mdash; no props, no state, no hooks</div>
+                    </div>
+                    <div class="sim-controls">
+                      <button type="button" onclick="simPresBump()">Bump shared counter</button>
+                    </div>
+                    <p class="sim-caption">Counter changes elsewhere. Footer never pulses &mdash; nothing wired to it.</p>
+                  </div>
+                  <script>
+                    (function () {
+                      var count = 0;
+                      window.simPresBump = function () {
+                        count += 1;
+                        var counterEl = document.getElementById('sim-pres-counter');
+                        counterEl.textContent = 'Shared counter: ' + count;
+                        counterEl.classList.remove('sim-pulse-swap');
+                        void counterEl.offsetWidth;
+                        counterEl.classList.add('sim-pulse-swap');
+                        // Footer.tsx intentionally NOT touched here — no props/state feed it.
+                      };
+                    })();
+                  </script>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p>A component with <strong>no props, no state, no hooks</strong> &mdash; it only
+                      renders markup. In interviews this is called a "presentational" or "dumb"
+                      component, as opposed to a "container" component that holds logic/state.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY</span>
+                    <p>Splitting it out of <code>layout.tsx</code> isn't just tidiness: a component
+                      with zero dependencies is trivially unit-testable (render it, assert the
+                      output) and can never be the cause of a bug in <em>other</em> parts of the
+                      layout, since it can't read or affect any shared state.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">GOOD TO KNOW</span>
+                    <p>This is exactly the split Story 9 (testing pass) will exploit &mdash; presentational
+                      components are the easiest first target for a test suite.</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> dev sneaks a <code>useContext</code> into "just a
+                      footer" &mdash; now every unrelated test has to mock a provider.</p>
+                    <p><strong>Drill:</strong> "How do you spot a component secretly holding
+                      state?" Defend in 1 sentence.</p>
+                  </div>
+                </div>
+
+                <!-- 3-4. LAYOUT: children slot pattern + typing -->
+                <div class="code-detail" data-code-detail="layout">
+                  <h4>3. The layout / <code>{"{children}"}</code> slot pattern</h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Picture Frame and Photo.</strong> The frame stays fixed on the
+                      wall. Only the photo inside changes. <code>{"{children}"}</code> is the empty
+                      glass pane waiting for the photo.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+----------------------------------------+
+| layout.tsx (The Permanent Frame)        |
+|  - &lt;Header /&gt; (Never moves)             |
+|  +------------------------------------+ |
+|  | {"{children}"} (The Empty Slot)     | |
+|  |  --&gt; Dynamically drops in:         | |
+|  |  --&gt; page.tsx (The Active Photo)   | |
+|  +------------------------------------+ |
+|  - &lt;Footer /&gt; (Never moves)             |
++----------------------------------------+</code></pre>
+
+                  <div class="sim-box" id="sim-layout">
+                    <div class="sim-frame">
+                      <div class="sim-header" id="sim-layout-header">Header (fixed)</div>
+                      <div class="sim-slot" id="sim-layout-slot">Home page</div>
+                      <div class="sim-footer" id="sim-layout-footer">Footer (fixed)</div>
+                    </div>
+                    <div class="sim-controls">
+                      <button type="button" onclick="simLayoutNav('Home page')">Home</button>
+                      <button type="button" onclick="simLayoutNav('About page')">About</button>
+                      <button type="button" onclick="simLayoutNav('Skills page')">Skills</button>
+                    </div>
+                    <p class="sim-caption">Click a route &rarr; slot swaps, frame pulses <em>static</em>.</p>
+                  </div>
+                  <script>
+                    function simLayoutNav(label) {
+                      var slot = document.getElementById('sim-layout-slot');
+                      var header = document.getElementById('sim-layout-header');
+                      var footer = document.getElementById('sim-layout-footer');
+                      slot.textContent = label;
+                      slot.classList.remove('sim-pulse-swap');
+                      void slot.offsetWidth;
+                      slot.classList.add('sim-pulse-swap');
+                      [header, footer].forEach(function (el) {
+                        el.classList.remove('sim-pulse-static');
+                        void el.offsetWidth;
+                        el.classList.add('sim-pulse-static');
+                      });
+                    }
+                  </script>
+
+                  <div class="flow-diagram">
+                    <div class="flow-box">layout.tsx<span>renders once, wraps everything</span></div>
+                    <div class="flow-arrow-h">passes &rarr;</div>
+                    <div class="flow-box flow-box-slot">{"{children}"}<span>a prop, not magic</span></div>
+                    <div class="flow-arrow-h">is &rarr;</div>
+                    <div class="flow-box flow-box-page">page.tsx<span>whichever route you're on</span></div>
+                  </div>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p><code class="chip chip-red">{"{children}"}</code> is a normal React prop that
+                      Next.js automatically fills with the current page's component. Every layout
+                      function receives it &mdash; it's not framework magic, it's just
+                      <code>function RootLayout({"{ children }"})</code> destructuring a prop.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY</span>
+                    <p>Header/nav/footer should render <em>once</em>, not be copy-pasted into every
+                      page. The layout renders once and reuses the same shell; only
+                      <code>{"{children}"}</code> swaps as you navigate between routes. This is the
+                      React composition pattern interviewers call <strong>"slot" or "wrapper"
+                      components</strong> &mdash; same idea as a modal that takes arbitrary content.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">BREAKS IF</span>
+                    <p>You forget to render <code>{"{children}"}</code> in the layout &mdash; the app
+                      compiles fine, but every page shows a blank body under the header. Easy
+                      interview trap: "why is my page empty" almost always traces back to a layout
+                      that never renders its children.</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> dev nests a layout inside a layout, forgets the inner
+                      <code>{"{children}"}</code> &mdash; nested route renders blank, outer shell fine.</p>
+                    <p><strong>Drill:</strong> "URL changed, but state inside your sidebar layout
+                      didn't reset. Why?" Defend in 1 sentence.</p>
+                  </div>
+
+                  <h4 style="margin-top:22px;">4. Typing <code>{"{children}"}</code> with TypeScript &mdash; <code>Readonly&lt;{"{ children: React.ReactNode }"}&gt;</code></h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Sealed Delivery Box.</strong> Box only accepts one labeled slot:
+                      "children." Nothing else fits, and once packed, contents can't be swapped out.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+----------------------------------------+
+| RootLayout(props)  (The Sealed Box)     |
+|  props: Readonly&lt;{
+|    children: React.ReactNode  &lt;-- only  |
+|  }&gt;                              slot   |
+|  --&gt; "Readonly" = box can't be repacked |
+|  --&gt; "ReactNode" = anything renderable  |
+|      (JSX, string, number, null, array) |
++----------------------------------------+</code></pre>
+
+                  <pre><code>export default function RootLayout({
+  <span class="hl-red">children</span>,                          <span class="hl">// destructured from the sealed box</span>
+}: Readonly&lt;{
+  <span class="hl-red">children</span>: React.ReactNode;         <span class="hl">// the ONLY declared slot</span>
+}&gt;) {
+  return (
+    &lt;body&gt;
+      &lt;Header /&gt;
+      &lt;main&gt;{"{children}"}&lt;/main&gt;        <span class="hl">{/* the slot's contents, placed here */}</span>
+      &lt;Footer /&gt;
+    &lt;/body&gt;
+  );
+}</code></pre>
+
+                  <div class="sim-box" id="sim-layout-types">
+                    <div class="sim-controls">
+                      <button type="button" onclick="simLayoutTypeCheck('children')">Pass only children</button>
+                      <button type="button" onclick="simLayoutTypeCheck('theme')">Try passing theme=&quot;dark&quot;</button>
+                    </div>
+                    <div class="sim-frame" style="margin-top:10px;">
+                      <div class="sim-slot" id="sim-layout-type-result">Click a button to type-check&hellip;</div>
+                    </div>
+                    <p class="sim-caption">The type only declares one field &mdash; anything else is rejected.</p>
+                  </div>
+                  <script>
+                    function simLayoutTypeCheck(propName) {
+                      var result = document.getElementById('sim-layout-type-result');
+                      if (propName === 'children') {
+                        result.textContent = 'OK — "children" matches the declared type.';
+                      } else {
+                        result.textContent = 'Type error — "' + propName + '" is not in Readonly<{ children: React.ReactNode }>.';
+                      }
+                      result.classList.remove('sim-pulse-swap');
+                      void result.offsetWidth;
+                      result.classList.add('sim-pulse-swap');
+                    }
+                  </script>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p><code>Readonly&lt;{"{ children: React.ReactNode }"}&gt;</code> is a TypeScript
+                      type, not a React feature. It says: "this function's props object has exactly
+                      one field, <code>children</code>, and it can't be reassigned." <code>React.ReactNode</code>
+                      is the type for "anything React can render" &mdash; JSX, strings, numbers,
+                      arrays, or <code>null</code>.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY</span>
+                    <p>Yes &mdash; in this exact code, <code>children</code> is the <strong>only</strong>
+                      prop the type allows. Passing anything else (e.g. <code>&lt;RootLayout theme="dark"&gt;</code>)
+                      is a TypeScript compile error, not a runtime surprise. <code>Readonly</code> also
+                      blocks accidentally reassigning <code>props.children</code> inside the function body.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">BREAKS IF</span>
+                    <p>You need to pass a new prop later (e.g. a page-specific <code>title</code>) and
+                      forget to add it to the type &mdash; TypeScript blocks it at compile time, which is
+                      the point. The only way to silently break this contract is switching the type to
+                      <code>any</code>, which throws away all of these guarantees.</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> team types props as <code>any</code> "to move faster" —
+                      six months later, a renamed prop silently breaks three call sites with no compile error.</p>
+                    <p><strong>Drill:</strong> "Your teammate says 'just use <code>any</code> for props,
+                      it's faster.' Why is that a bad trade here?" Defend in 1 sentence.</p>
+                  </div>
+                  <div class="explain-row explain-plain">
+                    <span class="explain-tag">UNDERSTOOD</span>
+                    <p>Manasa's answer: <code>any</code> reads fine today, but the problem shows up
+                      <em>later</em> and is hard to trace back.</p>
+                    <p>Sharper version: <code>any</code> doesn't add complexity &mdash; it
+                      <strong>removes type-checking</strong>. With a real type, a bad value errors
+                      immediately, in the editor, at compile time. With <code>any</code>, that same
+                      bad value passes silently and only surfaces later at runtime &mdash; in
+                      production, much more expensive to trace back.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== NEXT.JS ===================== -->
+    <div class="tab-panel" id="panel-nextjs">
+
+      <h2>Next.js</h2>
+      <p class="log-intro">Concepts ordered basic &rarr; advanced, as they showed up while building.
+        Click a box &rarr; syntax + diagram. <span class="chip chip-red" style="pointer-events:none">red</span> = memorize. <span class="chip-note-yellow" style="pointer-events:none"><span class="chip-label">yellow</span></span> = good to know.</p>
+
+      <div class="log-toolbar">
+        <div class="log-buttons">
+          <button type="button" id="nextjs-log-expand-all">Expand all</button>
+          <button type="button" id="nextjs-log-collapse-all">Collapse all</button>
+        </div>
+      </div>
+
+      <div class="log-sections" id="nextjs-log-sections">
+
+        <!-- ============ NEXT.JS CONCEPTS ============ -->
+        <div class="log-story">
+          <button type="button" class="log-story-header is-open" data-target="log-body-nextjs">
+            <span class="log-story-title">App Router basics &rarr; rendering model</span>
+            <span class="status done">done</span>
+            <span class="log-chevron">&#9662;</span>
+          </button>
+
+          <div class="log-body is-open" id="log-body-nextjs">
+            <div class="log-split">
+
+              <!-- LEFT: tree, always visible -->
+              <div class="log-split-left">
+                <div class="code-tree">
+                  <div class="tree-node is-active" data-code="main">
+                    <span class="tree-file">app/*/page.tsx</span>
+                    <span class="tree-tag">1. file-based routing</span>
+                  </div>
+                  <div class="tree-branches">
+                    <div class="tree-connector"></div>
+                    <div class="tree-children">
+                      <div class="tree-node" data-code="server-client">
+                        <span class="tree-file">Nav.tsx</span>
+                        <span class="tree-tag">2. server vs client</span>
+                      </div>
+                      <div class="tree-node" data-code="ssr-csr">
+                        <span class="tree-file">Skills.tsx</span>
+                        <span class="tree-tag">3. SSR vs CSR</span>
+                      </div>
+                      <div class="tree-node" data-code="dynamic-slug">
+                        <span class="tree-file">[slug]/page.tsx</span>
+                        <span class="tree-tag">4. dynamic routes</span>
+                      </div>
+                      <div class="tree-node" data-code="hydration">
+                        <span class="tree-file">Skills.tsx</span>
+                        <span class="tree-tag">5. hydration</span>
+                      </div>
+                      <div class="tree-node" data-code="architecture">
+                        <span class="tree-file">All files</span>
+                        <span class="tree-tag">6. portfolio architecture</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="log-split-hint">&larr; click a box to load its concept here</p>
+              </div>
+
+              <!-- RIGHT: detail panel, fills in on click -->
+              <div class="log-split-right">
+
+                <!-- 1. PAGE: route -> component -> children -->
+                <div class="code-detail is-open" data-code-detail="main">
+                  <h4>1. How a URL becomes a component</h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Hotel Room Number.</strong> The room number on the door IS the
+                      address &mdash; no front-desk lookup table required. Walk to folder
+                      "203", the room ("page.tsx") is just there.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+----------------------------------------+
+| src/app/  (The Hotel Floor Plan)         |
+|  /  --room--&gt; page.tsx                  |
+|  /about --room--&gt; about/page.tsx        |
+|  /skills --room--&gt; skills/page.tsx      |
+|  --&gt; folder path === URL path            |
+|  --&gt; no room = 404 (door doesn't exist) |
++----------------------------------------+</code></pre>
+
+                  <div class="sim-box" id="sim-routing">
+                    <div class="sim-controls">
+                      <input type="text" id="sim-route-input" placeholder="/about" oninput="simRouteLookup(this.value)" />
+                    </div>
+                    <div class="sim-frame" style="margin-top:10px;">
+                      <div class="sim-slot" id="sim-route-result">Type a path above&hellip;</div>
+                    </div>
+                    <p class="sim-caption">Only real folders resolve. Anything else is a 404 &mdash; no route file to edit.</p>
+                  </div>
+                  <script>
+                    (function () {
+                      var knownRoutes = {
+                        '/': 'app/page.tsx',
+                        '/about': 'app/about/page.tsx',
+                        '/skills': 'app/skills/page.tsx',
+                        '/experience': 'app/experience/page.tsx',
+                        '/projects': 'app/projects/page.tsx',
+                        '/contact': 'app/contact/page.tsx'
+                      };
+                      window.simRouteLookup = function (value) {
+                        var result = document.getElementById('sim-route-result');
+                        var path = value.trim() || '/';
+                        var match = knownRoutes[path];
+                        result.textContent = match ? ('Match: ' + match) : ('404 — no folder named "' + path + '"');
+                        result.classList.remove('sim-pulse-swap');
+                        void result.offsetWidth;
+                        result.classList.add('sim-pulse-swap');
+                      };
+                    })();
+                  </script>
+
+                  <div class="flow-diagram">
+                    <div class="flow-box">URL: <code>/</code><span>browser request</span></div>
+                    <div class="flow-arrow-h">matches &rarr;</div>
+                    <div class="flow-box flow-box-page">app/page.tsx<span>file = route, by convention</span></div>
+                    <div class="flow-arrow-h">becomes &rarr;</div>
+                    <div class="flow-box flow-box-slot">{"{children}"}<span>inside layout.tsx</span></div>
+                  </div>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p>Next.js App Router uses <strong>file-based routing</strong>: the folder path
+                      under <code>src/app/</code> IS the URL path, and a <code>page.tsx</code> inside
+                      that folder is what renders for that route. No route config file to maintain.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY</span>
+                    <p>This is why Story 2 (About, Experience, etc.) is just "add a folder +
+                      <code>page.tsx</code>" &mdash; the routing itself needs zero extra code, only
+                      the file has to exist in the right place.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">GOOD TO KNOW</span>
+                    <p>Right now the nav already links to <code>/about</code> etc. before those
+                      folders exist &mdash; that's <em>why</em> they 404: the route-matching
+                      convention correctly finds no <code>page.tsx</code> there yet.</p>
+                  </div>
+                  <div class="explain-row explain-plain">
+                    <span class="explain-tag">WHERE THIS ACTUALLY HAPPENS</span>
+                    <p>Not magic, and not in your project. It's a hardcoded regex check inside
+                      Next.js itself, at
+                      <code>node_modules/next/dist/server/lib/find-page-file.js</code>:</p>
+                  </div>
+                  <pre><code><span class="hl">const</span> createLeafPattern = (fileNames) =&gt; {
+  <span class="hl">const</span> names = fileNames.length === 1 ? fileNames[0] : `(${fileNames.join('|')})`;
+  <span class="hl">return new</span> RegExp(`(^${names}|[\\\\/]${names})\\.${extPattern}$`);
+};
+<span class="hl-red">const leafOnlyPageFileRegex</span> = createLeafPattern(['page', 'route']);
+
+<span class="hl">function</span> isAppRouterPage(filePath) {
+  <span class="hl">return</span> leafOnlyPageFileRegex.test(filePath) || isMetadataFile(filePath);
+}</code></pre>
+                  <div class="explain-row explain-plain">
+                    <p>In plain words: this builds a regex that matches a path only if its
+                      filename (ignoring extension) is literally <code>page</code> (or
+                      <code>route</code>). <code>isAppRouterPage()</code> runs that regex against
+                      every file Next.js finds while scanning <code>src/app/</code> &mdash; when
+                      it's <code>true</code>, that file gets registered as a route.
+                      <code>layout.tsx</code>, <code>not-found.tsx</code>, etc. each get their own
+                      separate regex the same way (<code>leafOnlyLayoutFileRegex</code>,
+                      <code>rootNotFoundFileRegex</code>). This scan runs when
+                      <code>next dev</code>/<code>next build</code> starts &mdash; not on every
+                      request &mdash; which is also why creating a new <code>page.tsx</code>
+                      requires the dev server to notice the file change (it re-scans), not
+                      something your own app code triggers.</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> dev names the file <code>Page.tsx</code> (capital P)
+                      &mdash; case-sensitive deploy server 404s in prod, works fine on their Mac.</p>
+                    <p><strong>Drill:</strong> "Why no central routes file, unlike React Router?"
+                      Defend in 1 sentence.</p>
+                  </div>
+                </div>
+
+                <!-- 2. SERVER VS CLIENT COMPONENTS -->
+                <div class="code-detail" data-code-detail="server-client">
+                  <h4>2. Server Components vs. Client Components</h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Bakery Display Case and the Register.</strong> The display case
+                      is baked and arranged before the store opens &mdash; nobody touches it live.
+                      The register only exists because a customer has to press buttons right now.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+----------------------------------------+
+| page.tsx (Server Component, default)    |
+|  - baked at build/request time          |
+|  - no useState, no onClick, no browser  |
+|  - ships as plain HTML, zero JS for it  |
+|  +------------------------------------+ |
+|  | &lt;Nav /&gt; "use client" (The Register) | |
+|  |  --&gt; needs useState (active link)   | |
+|  |  --&gt; needs onClick / browser events | |
+|  |  --&gt; ships its own JS bundle        | |
+|  +------------------------------------+ |
++----------------------------------------+</code></pre>
+
+                  <div class="sim-box" id="sim-server-client">
+                    <div class="sim-controls">
+                      <button type="button" onclick="simToggleClient()">Toggle "use client" on Nav</button>
+                    </div>
+                    <div class="sim-frame" style="margin-top:10px;">
+                      <div class="sim-slot" id="sim-server-client-result">Server Component &mdash; 0kb JS shipped for Nav</div>
+                    </div>
+                    <p class="sim-caption">Flip the directive, watch the bundle cost appear.</p>
+                  </div>
+                  <script>
+                    (function () {
+                      var isClient = false;
+                      window.simToggleClient = function () {
+                        isClient = !isClient;
+                        var result = document.getElementById('sim-server-client-result');
+                        result.textContent = isClient
+                          ? 'Client Component ("use client") — Nav ships ~4kb JS for useState + onClick'
+                          : 'Server Component — 0kb JS shipped for Nav';
+                        result.classList.remove('sim-pulse-swap');
+                        void result.offsetWidth;
+                        result.classList.add('sim-pulse-swap');
+                      };
+                    })();
+                  </script>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p>In the Next.js App Router, every component is a <strong>Server Component by
+                      default</strong> &mdash; it renders on the server, ships as static HTML, and
+                      sends <strong>zero JavaScript</strong> to the browser for that component.
+                      Adding <code>"use client"</code> at the top of a file opts that component
+                      (and everything it imports) into being a <strong>Client Component</strong>
+                      &mdash; rendered in the browser, JS included.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY</span>
+                    <p>Most of a portfolio (bio text, project descriptions, static layout) never
+                      needs to run in the browser &mdash; it just needs to exist as HTML. Only
+                      things that react to a click, hold state, or use browser-only APIs
+                      (<code>useState</code>, <code>useEffect</code>, <code>onClick</code>) need
+                      <code>"use client"</code>. Marking everything client-side by default is the
+                      old Create-React-App habit &mdash; App Router flips that default to save JS
+                      bundle size.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">BREAKS IF</span>
+                    <p>You try to use <code>useState</code> or <code>onClick</code> inside a Server
+                      Component without <code>"use client"</code> &mdash; build error, not a silent
+                      bug. Inverse trap: slapping <code>"use client"</code> on a big shared layout
+                      "just to be safe" drags every child component into the client bundle too, even
+                      the ones that didn't need it &mdash; bundle size bloats for no reason.</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> dev adds <code>"use client"</code> to the root layout
+                      "to fix a hydration error" &mdash; now the entire site ships as one giant
+                      client bundle, SSG benefits gone, Lighthouse score tanks.</p>
+                    <p><strong>Drill:</strong> "Your whole homepage suddenly ships 200kb more JS
+                      after one commit &mdash; what's the first file you check, and why?" Defend in
+                      1 sentence.</p>
+                  </div>
+                </div>
+
+                <!-- 3. SSR VS CSR -->
+                <div class="code-detail" data-code-detail="ssr-csr">
+                  <h4>3. SSR vs. CSR (Server-Side Rendering vs. Client-Side Rendering)</h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Kitchen-Cooked Meal vs. the Meal-Kit Box.</strong> SSR is a meal
+                      already cooked in the restaurant's kitchen &mdash; arrives at your table
+                      ready to eat. CSR is a meal-kit box &mdash; arrives at your table, but you
+                      still have to unpack it and cook it yourself before it's edible.</p>
+                  </div>
+
+                  <!-- Enhanced Rendering Strategy Comparison: Visual Boxes -->
+                  <div style="margin: 14px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+                    <!-- SSR Box -->
+                    <div style="border: 2px solid var(--tab-active-border); border-radius: 10px; padding: 14px; background: rgba(94, 158, 255, 0.08);">
+                      <h4 style="margin: 0 0 10px; color: var(--tab-active-border); font-size: 0.95rem;">🍽️ SSR (Server-Cooked Meal)</h4>
+                      <div style="font-size: 0.8rem; line-height: 1.5; color: var(--text);">
+                        <strong>The kitchen cooks first.</strong>
+                        <pre style="background: var(--code-bg); padding: 8px; border-radius: 4px; margin: 6px 0; font-size: 0.75rem; overflow-x: auto;">Request → Server fetches data
+       → React runs (Node.js)
+       → Builds HTML
+       → Browser receives DONE HTML
+       → Paint: instant</pre>
+                        <p style="margin: 6px 0;">✅ Instant first paint<br>✅ SEO perfect<br>✅ No blank page</p>
+                      </div>
+                    </div>
+
+                    <!-- CSR Box -->
+                    <div style="border: 2px solid var(--critical-border); border-radius: 10px; padding: 14px; background: rgba(255, 84, 73, 0.08);">
+                      <h4 style="margin: 0 0 10px; color: var(--critical-text); font-size: 0.95rem;">📦 CSR (Meal-Kit Box)</h4>
+                      <div style="font-size: 0.8rem; line-height: 1.5; color: var(--text);">
+                        <strong>You cook at the table.</strong>
+                        <pre style="background: var(--code-bg); padding: 8px; border-radius: 4px; margin: 6px 0; font-size: 0.75rem; overflow-x: auto;">Request → Server sends shell HTML
+       → Browser downloads JS
+       → JS runs React (browser)
+       → Browser builds HTML
+       → Paint: AFTER JS done</pre>
+                        <p style="margin: 6px 0;">❌ Blank page first<br>❌ SEO broken<br>✅ Interactive later</p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- SSG (bonus pattern for portfolio) -->
+                  <div style="margin: 14px 0; border: 2px solid var(--done-text); border-radius: 10px; padding: 14px; background: rgba(126, 226, 168, 0.08);">
+                    <h4 style="margin: 0 0 10px; color: var(--done-text); font-size: 0.95rem;">📋 BONUS: SSG (Static Site Generation)</h4>
+                    <div style="font-size: 0.8rem; line-height: 1.5; color: var(--text);">
+                      <strong>Best for portfolios.</strong>
+                      <pre style="background: var(--code-bg); padding: 8px; border-radius: 4px; margin: 6px 0; font-size: 0.75rem; overflow-x: auto;">Build-time (once) → React runs on YOUR machine
+              → Pre-renders all pages to HTML
+              → Ships plain files to CDN
+
+Request → CDN serves pre-made HTML
+       → Browser paints instantly
+       → Zero server needed</pre>
+                      <p style="margin: 6px 0;">✅ Instant (CDN cached)<br>✅ SEO perfect<br>✅ Zero server cost<br>❌ Rebuild to update content</p>
+                    </div>
+                  </div>
+
+                  <!-- Memory Aid: Quick Decision Matrix -->
+                  <div style="margin: 14px 0; padding: 12px; background: var(--code-bg); border-radius: 8px; border: 1px solid var(--border);">
+                    <h4 style="margin: 0 0 8px; font-size: 0.9rem;">🧠 Quick Memory Aid: Pick Your Pattern</h4>
+                    <table style="width: 100%; font-size: 0.75rem;">
+                      <thead>
+                        <tr style="background: var(--tab-bg);">
+                          <th style="padding: 6px; text-align: left; border: 1px solid var(--border);">When you need...</th>
+                          <th style="padding: 6px; text-align: center; border: 1px solid var(--border);">Use SSR</th>
+                          <th style="padding: 6px; text-align: center; border: 1px solid var(--border);">Use CSR</th>
+                          <th style="padding: 6px; text-align: center; border: 1px solid var(--border);">Use SSG</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="padding: 6px; border: 1px solid var(--border);">Static content (About, Bio, Project list)</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">✅</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">❌</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">✅✅</td>
+                        </tr>
+                        <tr style="background: rgba(0,0,0,0.05);">
+                          <td style="padding: 6px; border: 1px solid var(--border);">Interactive widgets (filters, forms)</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">❌</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">✅</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">❌</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 6px; border: 1px solid var(--border);">Dynamic data (real-time updates)</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">✅</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">✅</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">❌</td>
+                        </tr>
+                        <tr style="background: rgba(0,0,0,0.05);">
+                          <td style="padding: 6px; border: 1px solid var(--border);">SEO score matters?</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">✅</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">❌</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">✅✅</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 6px; border: 1px solid var(--border);">Budget for servers?</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">💰</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">Free</td>
+                          <td style="padding: 6px; text-align: center; border: 1px solid var(--border);">Free</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <pre class="ascii-map"><code>+-----------------------------------------------------+
+| SSR (Server-Side Rendering)                          |
+|  Server: fetches data + runs React --&gt; builds HTML   |
+|  Browser: receives FINISHED HTML  --&gt; paints it       |
+|  --&gt; user sees content immediately, before JS loads   |
++-----------------------------------------------------+
+| CSR (Client-Side Rendering)                          |
+|  Server: sends near-EMPTY HTML + a JS bundle          |
+|  Browser: downloads JS --&gt; runs React --&gt; builds HTML |
+|  --&gt; user sees BLANK PAGE until JS finishes running   |
++-----------------------------------------------------+
+| SSG (Static Site Generation) — PORTFOLIO PATTERN     |
+|  Build-time: React runs on your machine, pre-renders |
+|  Server: just serves static files (no Node.js needed)|
+|  Browser: paints instantly from cached CDN file      |
+|  --&gt; fastest &amp; cheapest, perfect for portfolios     |
++-----------------------------------------------------+</code></pre>
+
+                  <div class="sim-box" id="sim-ssr-csr">
+                    <div class="sim-controls">
+                      <button type="button" onclick="simRenderMode('ssr')">Simulate SSR</button>
+                      <button type="button" onclick="simRenderMode('csr')">Simulate CSR</button>
+                    </div>
+                    <div class="sim-frame" style="margin-top:10px;">
+                      <div class="sim-slot" id="sim-render-result">Click a mode to see the paint timeline&hellip;</div>
+                    </div>
+                    <p class="sim-caption">SSR paints content immediately. CSR shows a blank/spinner gap first.</p>
+                  </div>
+                  <script>
+                    (function () {
+                      var timer = null;
+                      window.simRenderMode = function (mode) {
+                        var result = document.getElementById('sim-render-result');
+                        if (timer) { clearTimeout(timer); }
+                        if (mode === 'ssr') {
+                          result.textContent = 'Request sent — server renders HTML...';
+                          timer = setTimeout(function () {
+                            result.textContent = 'Painted: full "About" content — done in one step.';
+                            result.classList.remove('sim-pulse-swap');
+                            void result.offsetWidth;
+                            result.classList.add('sim-pulse-swap');
+                          }, 400);
+                        } else {
+                          result.textContent = 'Request sent — empty HTML shell arrives...';
+                          timer = setTimeout(function () {
+                            result.textContent = 'Blank page / spinner — downloading + running JS...';
+                            timer = setTimeout(function () {
+                              result.textContent = 'Painted: full "Skills" content — after JS ran.';
+                              result.classList.remove('sim-pulse-swap');
+                              void result.offsetWidth;
+                              result.classList.add('sim-pulse-swap');
+                            }, 700);
+                          }, 300);
+                        }
+                      };
+                    })();
+                  </script>
+
+                  <pre><code><span class="hl">// src/app/about/page.tsx — THIS IS ALREADY SSR. No directive needed.</span>
+<span class="hl">// Next.js runs this ON THE SERVER by default, sends back finished HTML.</span>
+export default function AboutPage() {
+  return &lt;h1&gt;About&lt;/h1&gt;;
+}</code></pre>
+
+                  <pre><code><span class="hl">// src/app/skills/page.tsx — force CSR by opting a component into the browser</span>
+<span class="hl-red">"use client"</span>; <span class="hl">// &lt;-- the same directive from concept #2 above</span>
+
+import { useState } from "react";
+
+export default function SkillsPage() {
+  const [filter, setFilter] = <span class="hl-red">useState</span>("all"); <span class="hl">// needs the browser</span>
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; setFilter("frontend")}&gt;Frontend&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+                  <table style="margin:14px 0;">
+                    <thead>
+                      <tr><th></th><th>SSR</th><th>CSR</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td><strong>Where it renders</strong></td><td>Server, before sending HTML</td><td>Browser, after JS downloads</td></tr>
+                      <tr><td><strong>What user sees first</strong></td><td>Finished content, fast</td><td>Blank page / spinner</td></tr>
+                      <tr><td><strong>Needs useState/onClick?</strong></td><td>Can't &mdash; no browser there</td><td>Yes &mdash; that's the point</td></tr>
+                      <tr><td><strong>SEO</strong></td><td>Great &mdash; crawlers see real HTML</td><td>Bad &mdash; crawlers may see an empty shell</td></tr>
+                      <tr><td><strong>Use for</strong></td><td>Static content: About, Skills text, Project descriptions</td><td>Interactive widgets: filters, forms, search</td></tr>
+                    </tbody>
+                  </table>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p>SSR renders the component to HTML <em>on the server</em>, before anything
+                      reaches the browser. CSR sends a near-empty HTML shell plus a JS bundle, and
+                      the browser does all the rendering after downloading and running that JS.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY</span>
+                    <p>This project's <code>About</code>, <code>Experience</code>,
+                      <code>Skills</code>, <code>Projects</code>, <code>Contact</code> pages are
+                      almost entirely SSR <strong>by default already</strong>, because none of them
+                      add <code>"use client"</code>. That's correct on purpose &mdash; nobody needs
+                      JavaScript to read a bio. CSR is only worth reaching for on a specific
+                      interactive piece <em>inside</em> a page (a filter button, a live search box)
+                      &mdash; not the whole page.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">BREAKS IF</span>
+                    <p>You mark an entire page <code>"use client"</code> because <em>one</em> small
+                      piece of it needs <code>useState</code> &mdash; now text that never needed
+                      the browser also becomes client-rendered, hurting SEO and first-paint speed
+                      for no reason. Same trap as concept #2's inverse trap, just viewed through the
+                      render-timing lens instead of the bundle-size lens.</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> dev slaps <code>"use client"</code> on a whole
+                      Projects page because one search box needs <code>useState</code> &mdash; the
+                      20 static project cards below it also become client-rendered, and search
+                      engines crawling the page see an empty shell instead of the project
+                      descriptions.</p>
+                    <p><strong>Drill:</strong> "Your Projects page has a search box (needs
+                      <code>useState</code>) and 20 static project cards below it &mdash; where
+                      exactly do you put <code>"use client"</code> so the search box works but the
+                      cards stay server-rendered?" Defend in 1 sentence.</p>
+                  </div>
+                </div>
+
+                <!-- 4. DYNAMIC ROUTE SEGMENTS -->
+                <div class="code-detail" data-code-detail="dynamic-slug">
+                  <h4>4. Dynamic route segments &mdash; <code>[slug]/page.tsx</code> &mdash; and
+                    why this project doesn't use one</h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Universal Hotel Key vs. Room Numbers.</strong> Separate folders
+                      are separate doors, each its own room. A dynamic segment is one master door
+                      with a keypad &mdash; type the room number, it opens into a different space
+                      every time.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+-------------------------------------------------------+
+| WHAT THIS PROJECT HAS (5 separate rooms)                |
+|  about/page.tsx      --&gt; /about                         |
+|  skills/page.tsx      --&gt; /skills                        |
+|  each file: its own component, own content                |
++-------------------------------------------------------+
+| THE ALTERNATIVE ([slug] dynamic route)                   |
+|  [slug]/page.tsx      --&gt; matches /about, /skills, ANY   |
+|                            single segment                 |
+|  ONE file --&gt; params.slug tells you WHICH one was hit    |
+|  --&gt; you write the if/switch yourself, Next.js just      |
+|      hands you the string                                |
++-------------------------------------------------------+</code></pre>
+
+                  <pre><code><span class="hl">// src/app/[slug]/page.tsx — square brackets = "match anything here"</span>
+export default function DynamicPage({ params }: { params: { slug: string } }) {
+  <span class="hl-red">const content</span>: Record&lt;string, string&gt; = {
+    about: "About page content",
+    skills: "Skills page content",
+    contact: "Contact page content",
+  };
+
+  return &lt;h1&gt;{content[params.slug] ?? "Not found"}&lt;/h1&gt;;
+}</code></pre>
+
+                  <div class="sim-box" id="sim-dynamic-slug">
+                    <div class="sim-controls">
+                      <input type="text" id="sim-slug-input" placeholder="try: about, skills, contact, blahblah" oninput="simSlugLookup(this.value)" />
+                    </div>
+                    <div class="sim-frame" style="margin-top:10px;">
+                      <div class="sim-slot" id="sim-slug-result">Type a slug above&hellip;</div>
+                    </div>
+                    <p class="sim-caption">One file, one component &mdash; <code>params.slug</code> decides what renders.</p>
+                  </div>
+                  <script>
+                    (function () {
+                      var content = {
+                        about: 'About page content',
+                        skills: 'Skills page content',
+                        contact: 'Contact page content'
+                      };
+                      window.simSlugLookup = function (value) {
+                        var result = document.getElementById('sim-slug-result');
+                        var slug = value.trim() || '(empty)';
+                        var match = content[slug];
+                        result.textContent = match ? ('Rendered: ' + match) : ('"Not found" — params.slug = "' + slug + '" has no entry');
+                        result.classList.remove('sim-pulse-swap');
+                        void result.offsetWidth;
+                        result.classList.add('sim-pulse-swap');
+                      };
+                    })();
+                  </script>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p><code>[slug]</code> is a real Next.js feature called a <strong>dynamic route
+                      segment</strong>. One file, one component, handles every URL matching that
+                      shape (<code>/about</code>, <code>/skills</code>, <code>/anything</code> all
+                      hit the same <code>page.tsx</code>), with <code>params.slug</code> telling
+                      you which one was requested.</p>
+                  </div>
+                  <div class="explain-row explain-plain">
+                    <span class="explain-tag">CORRECTING THE MENTAL MODEL</span>
+                    <p><code>&lt;Link href="/skills"&gt;</code> does <strong>not</strong> call any
+                      routing logic you write. It just tells the browser "navigate to this URL."
+                      The file-scanner (concept #1) already built a lookup table <em>before</em>
+                      any click happens, at server-start. Clicking <code>&lt;Link&gt;</code>
+                      triggers <strong>Next.js's own router</strong>, which checks that pre-built
+                      table &mdash; either finds <code>skills/page.tsx</code> (separate-folders
+                      approach) or finds <code>[slug]/page.tsx</code> and hands it
+                      <code>params.slug = "skills"</code> (dynamic-segment approach). Either way,
+                      you never call the routing logic yourself &mdash; <code>Link</code> is an
+                      address, Next.js decides what happens there.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY SEPARATE FOLDERS HERE</span>
+                    <p>Dynamic routes are for pages that share the same <em>structure</em> but
+                      differ only in <em>data</em> (e.g. <code>/blog/[slug]</code> &mdash; every
+                      blog post looks the same, just a different title/body from a database). This
+                      project's About, Skills, and Contact pages don't share structure &mdash;
+                      About has a bio + timeline, Skills has a badge grid, Contact has a form.
+                      Forcing different-shaped pages into one dynamic file means one giant
+                      component full of <code>if (slug === 'about') {"{...}"} else if (...) {"{...}"}</code>
+                      &mdash; worse than 5 small files, not better.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">BREAKS IF</span>
+                    <p>Unrelated pages get forced into one <code>[slug]/page.tsx</code>: every edit
+                      to any one page risks breaking the shared file for all others, and the
+                      component balloons into an unreadable switch statement. This is the real
+                      anti-pattern interviewers probe for &mdash; conflating "same URL shape" with
+                      "same content shape."</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> team builds <code>[slug]/page.tsx</code> for 15
+                      unrelated marketing pages "to reduce file count" &mdash; six months later,
+                      nobody can safely edit the pricing page without risking the careers page,
+                      because they're all one 800-line component with a switch statement.</p>
+                    <p><strong>Drill:</strong> "When would you choose <code>[slug]/page.tsx</code>
+                      over separate folders, and when would that same choice become a liability?"
+                      Defend in 1 sentence.</p>
+                  </div>
+                </div>
+
+                <!-- 5. HYDRATION -->
+                <div class="code-detail" data-code-detail="hydration">
+                  <h4>5. Hydration &mdash; the two stages hiding inside "SSR"</h4>
+                  <p style="font-size:0.85rem; color:var(--text-muted); margin-top:-4px;">Deepens
+                    concept #3 (SSR vs. CSR) &mdash; SSR isn't one step, it's two: <strong>Server
+                    Execution</strong>, then <strong>Hydration</strong>.</p>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Storefront Mannequin Coming Alive.</strong> Stage 1 places a
+                      fully-dressed mannequin in the window &mdash; looks complete, but can't move.
+                      Stage 2 is a technician quietly wiring motors into that <em>same</em>
+                      mannequin, without swapping it out, until it can finally respond to a touch.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+---------------------------------------------------------+
+| STAGE 1 &mdash; SERVER EXECUTION  (Node.js server, not browser) |
+|                                                             |
+|  User Request -----&gt; Node.js Server                        |
+|                          |                                  |
+|                          v                                  |
+|             fetches data (API / DB) ---.                    |
+|                          |             |                    |
+|                          v             v                    |
+|                    runs React ONCE, server-side              |
+|                          |                                  |
+|                          v                                  |
+|                    prints plain HTML string                  |
+|                          |                                  |
+|                          v                                  |
+|              Browser: paints HTML immediately                |
+|              --&gt; First Contentful Paint (FCP)                |
+|              --&gt; looks done, but is FROZEN                    |
+|                  (no onClick, no useState works yet)          |
++---------------------------------------------------------+
+| STAGE 2 &mdash; HYDRATION  (browser only, happens AFTER Stage 1)  |
+|                                                             |
+|  Browser: downloads JS bundle (in background)                |
+|                          |                                  |
+|                          v                                  |
+|          React walks the EXISTING html --&gt; same DOM nodes    |
+|          (does NOT re-paint or replace anything visible)     |
+|                          |                                  |
+|                          v                                  |
+|          attaches onClick / onChange / useState listeners     |
+|                          |                                  |
+|                          v                                  |
+|              --&gt; Time To Interactive (TTI)                    |
+|              --&gt; mannequin can finally move                   |
++---------------------------------------------------------+</code></pre>
+
+                  <div class="sim-box" id="sim-hydration">
+                    <div class="sim-frame">
+                      <div class="sim-slot" id="sim-hydration-stage">Stage 0 &mdash; nothing sent yet</div>
+                    </div>
+                    <div class="sim-controls">
+                      <button type="button" onclick="simHydrationStep()">Next step &rarr;</button>
+                      <button type="button" onclick="simHydrationReset()">Reset</button>
+                    </div>
+                    <p class="sim-caption">Same button, same DOM node the whole time &mdash; only its behavior changes.</p>
+                  </div>
+                  <script>
+                    (function () {
+                      var step = 0;
+                      var stages = [
+                        'Stage 0 — nothing sent yet',
+                        'Stage 1: Server Execution — HTML sent, button VISIBLE but click does nothing (frozen)',
+                        'Stage 2: Hydration — JS bundle downloading in browser...',
+                        'Stage 2 complete — SAME button, onClick now wired. Try clicking it for real above!'
+                      ];
+                      function render() {
+                        var el = document.getElementById('sim-hydration-stage');
+                        el.textContent = stages[step];
+                        el.classList.remove('sim-pulse-swap');
+                        void el.offsetWidth;
+                        el.classList.add('sim-pulse-swap');
+                      }
+                      window.simHydrationStep = function () {
+                        step = Math.min(step + 1, stages.length - 1);
+                        render();
+                      };
+                      window.simHydrationReset = function () {
+                        step = 0;
+                        render();
+                      };
+                    })();
+                  </script>
+
+                  <pre><code><span class="hl">// src/app/about/page.tsx</span>
+<span class="hl">// STAGE 1 (Server Execution): this function runs ONCE, on Node.js, per request.</span>
+<span class="hl">// No browser exists yet. Output is plain HTML text sent to the client.</span>
+export default function AboutPage() {
+  return &lt;h1&gt;About&lt;/h1&gt;; <span class="hl">// becomes: &lt;h1&gt;About&lt;/h1&gt; — literal text</span>
+}</code></pre>
+
+                  <pre><code><span class="hl">// src/app/skills/page.tsx</span>
+<span class="hl-red">"use client"</span>; <span class="hl">// &lt;-- this component needs STAGE 2 (Hydration) to do anything</span>
+
+import { useState } from "react";
+
+export default function SkillsPage() {
+  <span class="hl">// STAGE 1: renders to HTML first — button appears, but onClick does nothing yet.</span>
+  <span class="hl">// STAGE 2: React re-runs this function in the browser, matches the existing</span>
+  <span class="hl">//          &lt;button&gt; in the DOM, wires up onClick — NOW it works.</span>
+  const [filter, setFilter] = useState("all");
+  return &lt;button onClick={() =&gt; setFilter("frontend")}&gt;Frontend&lt;/button&gt;;
+}</code></pre>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p>Hydration is React running your component tree a <strong>second time</strong>,
+                      in the browser, matching each JSX element against the DOM nodes Stage 1
+                      already sent &mdash; then attaching event listeners to them. It's not a
+                      re-render in the visual sense (nothing repaints) &mdash; it's a wiring pass.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY TWO STAGES</span>
+                    <p>Node.js (the server) has no <code>window</code>, no <code>document</code>,
+                      no click events &mdash; it's just a JS runtime, no browser APIs exist there.
+                      So Stage 1 can only ever produce static output. Interactivity requires a real
+                      browser, which only exists in Stage 2. This is the deeper reason
+                      <code>"use client"</code> exists at all: it marks which components
+                      <em>need</em> Stage 2 to function.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">BREAKS IF</span>
+                    <p>The HTML Stage 1 produced doesn't exactly match what React expects to find
+                      when Stage 2 runs (e.g. using <code>Date.now()</code> or
+                      <code>Math.random()</code> directly in a component &mdash; server computes
+                      one value, browser recomputes a different one) &mdash; React logs a
+                      <strong>hydration mismatch error</strong>, because the DOM it finds doesn't
+                      match the DOM it expected to wire up.</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> dev renders <code>new Date().toLocaleString()</code>
+                      directly in a Server Component &mdash; server prints one timestamp into the
+                      HTML, then Stage 2 runs the same code in the browser a few hundred
+                      milliseconds later, computes a <em>different</em> timestamp, and React throws
+                      a hydration mismatch warning in the console, visible to every user.</p>
+                    <p><strong>Drill:</strong> "A page works fine on refresh, but the console shows
+                      a hydration mismatch warning only sometimes. What's the first thing you'd
+                      check in the component, and why?" Defend in 1 sentence.</p>
+                  </div>
+                </div>
+
+                <!-- 6. PORTFOLIO ARCHITECTURE -->
+                <div class="code-detail" data-code-detail="architecture">
+                  <h4>6. Portfolio Architecture — Component tree &amp; data flow</h4>
+
+                  <div class="explain-row explain-analogy">
+                    <span class="explain-tag">ANALOGY</span>
+                    <p><strong>The Theater Stage with Interchangeable Scenes.</strong> The building
+                      structure (walls, ceiling, lights) is permanent. The stage itself is fixed. But
+                      the <em>scenery</em> changes for each act — the cast, props, and backdrop swap
+                      out while the theater shell stays exactly where it was.</p>
+                  </div>
+
+                  <pre class="ascii-map"><code>+--------------------------------------------------------------+
+| RootLayout (The Theater Building — PERMANENT)                |
+|  ├─ Header (Fixed lights &amp; marquee — always visible)       |
+|  ├─ Main {children} (The Stage — scenery changes per route)   |
+|  │  ├─ /about         → AboutPage (cast of actors scene)      |
+|  │  ├─ /experience    → ExperiencePage (timeline scene)       |
+|  │  ├─ /skills        → SkillsPage (badge grid scene)         |
+|  │  ├─ /projects      → ProjectsPage (card grid scene)        |
+|  │  └─ /contact       → ContactPage (form scene)              |
+|  └─ Footer (Fixed curtain &amp; exit signs — always visible)  |
+|                                                               |
+| Shared Primitives (Reusable props across all scenes):         |
+|  - Card.tsx   (data-in → styled container out)                |
+|  - Section.tsx (title + children → section layout)            |
+|  - Badge.tsx   (label + variant → pill component)             |
++--------------------------------------------------------------+</code></pre>
+
+                  <!-- SVG Architecture Diagram -->
+                  <div style="margin: 14px 0; padding: 14px; background: var(--code-bg); border-radius: 8px; border: 1px solid var(--border); overflow-x: auto;">
+                    <svg width="100%" height="480" viewBox="0 0 800 480" style="min-width: 600px;">
+                      <!-- Define styles -->
+                      <defs>
+                        <style>
+                          .arch-box { fill: var(--tab-bg, #f2f2f2); stroke: var(--border, #ddd); stroke-width: 2; }
+                          .arch-box-fixed { fill: rgba(94, 158, 255, 0.1); stroke: var(--tab-active-border, #1a56db); stroke-width: 2; }
+                          .arch-box-swap { fill: rgba(126, 226, 168, 0.1); stroke: var(--done-text, #1e7d32); stroke-width: 2; }
+                          .arch-box-reuse { fill: rgba(255, 193, 7, 0.1); stroke: #f0b400; stroke-width: 2; }
+                          .arch-text { font-size: 12px; font-family: monospace; fill: var(--text, #1a1a1a); text-anchor: middle; }
+                          .arch-label { font-size: 10px; fill: var(--text-faint, #888); text-anchor: middle; }
+                          .arch-arrow { stroke: var(--text-muted, #555); stroke-width: 1.5; marker-end: url(#arrowhead); }
+                          .arch-slot { stroke: var(--done-text, #1e7d32); stroke-width: 2; stroke-dasharray: 5,5; fill: none; }
+                        </style>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                          <polygon points="0 0, 10 3, 0 6" fill="var(--text-muted, #555)" />
+                        </marker>
+                      </defs>
+
+                      <!-- Title -->
+                      <text x="400" y="25" style="font-size: 16px; font-weight: bold; text-anchor: middle; fill: var(--text, #1a1a1a);">
+                        Portfolio Component Tree (RootLayout → Pages → Primitives)
+                      </text>
+
+                      <!-- RootLayout (Fixed) -->
+                      <rect class="arch-box-fixed" x="250" y="50" width="300" height="60" rx="6" />
+                      <text class="arch-text" x="400" y="75">RootLayout</text>
+                      <text class="arch-label" x="400" y="90">(Fixed: Header + Footer)</text>
+
+                      <!-- Arrow down -->
+                      <line class="arch-arrow" x1="400" y1="110" x2="400" y2="130" />
+
+                      <!-- {children} Slot -->
+                      <rect class="arch-slot" x="280" y="130" width="240" height="50" rx="6" />
+                      <text class="arch-text" x="400" y="155">{children} Slot</text>
+                      <text class="arch-label" x="400" y="168">(Changes per route)</text>
+
+                      <!-- Arrow down -->
+                      <line class="arch-arrow" x1="400" y1="180" x2="400" y2="200" />
+
+                      <!-- Routes Row -->
+                      <g id="routes">
+                        <!-- /about -->
+                        <rect class="arch-box-swap" x="50" y="200" width="100" height="50" rx="6" />
+                        <text class="arch-text" x="100" y="220">/about</text>
+                        <text class="arch-label" x="100" y="233">AboutPage</text>
+
+                        <!-- /experience -->
+                        <rect class="arch-box-swap" x="175" y="200" width="100" height="50" rx="6" />
+                        <text class="arch-text" x="225" y="220">/exp</text>
+                        <text class="arch-label" x="225" y="233">ExpPage</text>
+
+                        <!-- /skills -->
+                        <rect class="arch-box-swap" x="300" y="200" width="100" height="50" rx="6" />
+                        <text class="arch-text" x="350" y="220">/skills</text>
+                        <text class="arch-label" x="350" y="233">SkillsPage</text>
+
+                        <!-- /projects -->
+                        <rect class="arch-box-swap" x="425" y="200" width="100" height="50" rx="6" />
+                        <text class="arch-text" x="475" y="220">/projects</text>
+                        <text class="arch-label" x="475" y="233">ProjPage</text>
+
+                        <!-- /contact -->
+                        <rect class="arch-box-swap" x="550" y="200" width="100" height="50" rx="6" />
+                        <text class="arch-text" x="600" y="220">/contact</text>
+                        <text class="arch-label" x="600" y="233">ContactPage</text>
+                      </g>
+
+                      <!-- Arrows from {children} to each route -->
+                      <line class="arch-arrow" x1="370" y1="180" x2="100" y2="200" />
+                      <line class="arch-arrow" x1="385" y1="180" x2="225" y2="200" />
+                      <line class="arch-arrow" x1="400" y1="180" x2="350" y2="200" />
+                      <line class="arch-arrow" x1="415" y1="180" x2="475" y2="200" />
+                      <line class="arch-arrow" x1="430" y1="180" x2="600" y2="200" />
+
+                      <!-- Divider line -->
+                      <line x1="40" y1="280" x2="760" y2="280" stroke="var(--border, #ddd)" stroke-width="1" stroke-dasharray="3,3" />
+
+                      <!-- Reusable Primitives Section -->
+                      <text x="400" y="310" style="font-size: 12px; font-weight: bold; text-anchor: middle; fill: var(--text, #1a1a1a);">
+                        Reusable Primitives (used by ALL pages)
+                      </text>
+
+                      <!-- Card -->
+                      <rect class="arch-box-reuse" x="100" y="330" width="120" height="70" rx="6" />
+                      <text class="arch-text" x="160" y="355">Card.tsx</text>
+                      <text class="arch-label" x="160" y="370">data, title,</text>
+                      <text class="arch-label" x="160" y="383">children → styled</text>
+
+                      <!-- Section -->
+                      <rect class="arch-box-reuse" x="340" y="330" width="120" height="70" rx="6" />
+                      <text class="arch-text" x="400" y="355">Section.tsx</text>
+                      <text class="arch-label" x="400" y="370">title, children</text>
+                      <text class="arch-label" x="400" y="383">→ section layout</text>
+
+                      <!-- Badge -->
+                      <rect class="arch-box-reuse" x="580" y="330" width="120" height="70" rx="6" />
+                      <text class="arch-text" x="640" y="355">Badge.tsx</text>
+                      <text class="arch-label" x="640" y="370">label, variant</text>
+                      <text class="arch-label" x="640" y="383">→ pill component</text>
+
+                      <!-- Arrows from pages to primitives -->
+                      <line class="arch-arrow" x1="100" y1="250" x2="160" y2="330" stroke-dasharray="3,3" />
+                      <line class="arch-arrow" x1="225" y1="250" x2="250" y2="330" stroke-dasharray="3,3" />
+                      <line class="arch-arrow" x1="350" y1="250" x2="350" y2="330" stroke-dasharray="3,3" />
+                      <line class="arch-arrow" x1="475" y1="250" x2="450" y2="330" stroke-dasharray="3,3" />
+                      <line class="arch-arrow" x1="600" y1="250" x2="550" y2="330" stroke-dasharray="3,3" />
+
+                      <!-- Legend -->
+                      <g id="legend" transform="translate(40, 430)">
+                        <text style="font-size: 10px; font-weight: bold; fill: var(--text, #1a1a1a);">Legend:</text>
+                        <rect class="arch-box-fixed" x="0" y="8" width="15" height="15" />
+                        <text style="font-size: 10px; fill: var(--text, #1a1a1a);" x="20" y="20">Fixed (never changes)</text>
+
+                        <rect class="arch-box-swap" x="180" y="8" width="15" height="15" />
+                        <text style="font-size: 10px; fill: var(--text, #1a1a1a);" x="200" y="20">Routes (swap per navigation)</text>
+
+                        <rect class="arch-box-reuse" x="420" y="8" width="15" height="15" />
+                        <text style="font-size: 10px; fill: var(--text, #1a1a1a);" x="440" y="20">Primitives (reused everywhere)</text>
+                      </g>
+                    </svg>
+                  </div>
+
+                  <pre><code><span class="hl">// src/app/layout.tsx — RootLayout (PERMANENT FRAME)</span>
+export default function RootLayout({ children }: Readonly&lt;{ children: React.ReactNode }&gt;) {
+  return (
+    &lt;body&gt;
+      &lt;Header /&gt;                {<span class="hl">/* Fixed */</span>}
+      &lt;main&gt;{children}&lt;/main&gt;  {<span class="hl">/* Swaps based on route */</span>}
+      &lt;Footer /&gt;                {<span class="hl">/* Fixed */</span>}
+    &lt;/body&gt;
+  );
+}</code></pre>
+
+                  <pre><code><span class="hl">// src/components/Card.tsx — REUSABLE PRIMITIVE</span>
+interface CardProps {
+  title: string;
+  data?: Record&lt;string, any&gt;;
+  children?: React.ReactNode;
+}
+
+export function Card({ title, data, children }: CardProps) {
+  return (
+    &lt;div className="border rounded-lg p-4 bg-white dark:bg-slate-900"&gt;
+      &lt;h3&gt;{title}&lt;/h3&gt;
+      {data &amp;&amp; &lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt;}
+      {children}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+                  <pre><code><span class="hl">// src/app/projects/page.tsx — ONE ROUTE (uses Card primitive)</span>
+import { Card } from "@/components/Card";
+
+export default function ProjectsPage() {
+  const projects = [
+    { id: 1, title: "Spotify Clone", tech: "React, Tailwind" },
+    { id: 2, title: "Weather App", tech: "Next.js, API" },
+  ];
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Projects&lt;/h1&gt;
+      {projects.map((proj) =&gt; (
+        &lt;<span class="hl">Card key={proj.id} title={proj.title} data={proj}</span> /&gt;  {<span class="hl">/* reusable! */</span>}
+      ))}
+    &lt;/&gt;
+  );
+}</code></pre>
+
+                  <div class="explain-row explain-what">
+                    <span class="explain-tag">WHAT</span>
+                    <p>Your portfolio has a <strong>three-tier architecture</strong>: (1) RootLayout
+                      wraps everything and is permanent, (2) Five separate page routes swap in/out of
+                      the <code>{"{children}"}</code> slot based on navigation, (3) Reusable
+                      primitives (Card, Section, Badge) are imported by multiple pages and reduce
+                      copy-paste.</p>
+                  </div>
+                  <div class="explain-row explain-why">
+                    <span class="explain-tag">WHY THIS SHAPE</span>
+                    <p>Each page is <strong>independent</strong> — editing About doesn't risk breaking
+                      Skills. RootLayout stays in one place so Header/Footer render once, not 5 times.
+                      Primitives live separately so when you update Card's styling, every page using
+                      it automatically gets the new look. This is component composition: each piece
+                      has one responsibility.</p>
+                  </div>
+                  <div class="explain-row explain-break">
+                    <span class="explain-tag">BREAKS IF</span>
+                    <p>You put shared state (like a global "activeTab") into a page component instead
+                      of hoisting it to RootLayout &mdash; now pages can't talk to each other, and the
+                      state only persists within that one page. Also: if you copy/paste Card markup
+                      instead of importing the component, styling changes require editing 5 files
+                      instead of 1.</p>
+                  </div>
+                  <div class="explain-row explain-trap">
+                    <span class="explain-tag">INTERVIEW TRAP</span>
+                    <p><em>Horror story:</em> dev adds a filter state to AboutPage, then a week later
+                      the PM asks for the same filter on ProjectsPage. Dev copy-pastes the entire
+                      About component into Projects, now they're two separate implementations — three
+                      weeks later, one gets a bug fix that never ships to the other.</p>
+                    <p><strong>Drill:</strong> "You have a component used on 5 pages. When should you
+                      extract it into <code>/components</code>, and what breaks if you wait too long?"
+                      Defend in 1 sentence.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== RULES ===================== -->
+    <div class="tab-panel" id="panel-rules">
+
+      <h2>Working Rules</h2>
+      <p>Rules for how this project gets built, so both Manasa and Claude stay aligned session to session.</p>
+
+      <h3>Scope</h3>
+      <ul>
+        <li>All changes are local to <code>fe-pro/vault26</code>. Never touch global tooling,
+          other repos, shell profiles, or machine-wide config to make this project work.</li>
+        <li>If a global change ever seems necessary (e.g. a global npm/nvm setting), stop and ask
+          first &mdash; don't do it silently.</li>
+      </ul>
+
+      <h3>Documentation</h3>
+      <ul>
+        <li><code>README.html</code> and <code>README.md</code> are the single source of truth for
+          this project &mdash; no separate learnings folder, no scattered notes.</li>
+        <li>Every time <code>README.html</code> is updated, <code>README.md</code> is updated in
+          the same step, so the two never drift out of sync.</li>
+        <li><code>README.html</code> is the "pretty" version (tabs, styling); <code>README.md</code>
+          is the plain-text mirror of the same content, organized with headings instead of tabs.</li>
+        <li>Exception: the Project Plan tab's interactive phase/story diagram (click-to-expand
+          tiles, expand/collapse-all) is HTML/JS-only &mdash; there's no meaningful static-markdown
+          equivalent, so <code>README.md</code> keeps the plain list form of the same phases/stories
+          instead of trying to mirror the interaction.</li>
+      </ul>
+
+      <h3>Build process</h3>
+      <ul>
+        <li>Work happens story by story (see Project Plan tab), smallest useful unit at a time
+          &mdash; not big-bang phases.</li>
+        <li>Structure/layout is built before real content is dropped in, unless a story specifically
+          says otherwise.</li>
+        <li>Every story gets explained as it's built (the "why", not just the "what") and gets a
+          Learning Log entry when done.</li>
+        <li>Verify in the running app (<code>localhost:3000</code>) before calling a story complete.</li>
+      </ul>
+
+      <h3>Learning-first</h3>
+      <ul>
+        <li>The point is for Manasa to own this project start to finish and be able to explain any
+          part of it &mdash; not just have code appear.</li>
+        <li>When a new React/Next concept shows up, it gets a short plain-English explanation before
+          or alongside the code that uses it.</li>
+        <li>The <strong>Learning Log</strong> is scoped to the portfolio app itself (React/Next/
+          TypeScript/Tailwind/etc. concepts used in <code>src/</code>) &mdash; not to how this
+          README/documentation file is built. Meta-notes about the README's own HTML/CSS tooling
+          don't belong there.</li>
+      </ul>
+
+    </div>
+
+    <!-- ===================== PROGRESS ===================== -->
+    <div class="tab-panel" id="panel-progress">
+
+      <h2>Progress Tracker</h2>
+
+      <h3>Phase 0 &mdash; Foundations <span class="status done">done</span></h3>
+      <table>
+        <tr><th>Item</th><th>Status</th></tr>
+        <tr><td>Repo located &amp; inspected</td><td><span class="status done">done</span></td></tr>
+        <tr><td>Correct Node version confirmed (20.20.2 via nvm)</td><td><span class="status done">done</span></td></tr>
+        <tr><td>Dev server runs locally</td><td><span class="status done">done</span></td></tr>
+        <tr><td>README.html / README.md set up as single source of truth</td><td><span class="status done">done</span></td></tr>
+      </table>
+
+      <h3>Phase 1 &mdash; Portfolio <span class="status wip">in progress</span></h3>
+      <table>
+        <tr><th>Story</th><th>Status</th></tr>
+        <tr><td>1. Layout shell &amp; nav</td><td><span class="status done">done</span></td></tr>
+        <tr><td>2. Route structure for Portfolio pages</td><td><span class="status done">done</span></td></tr>
+        <tr><td>3. Reusable UI primitives</td><td><span class="status todo">not started</span></td></tr>
+        <tr><td>4. Real content pass</td><td><span class="status todo">not started</span></td></tr>
+        <tr><td>5. Responsive polish &amp; dark mode check</td><td><span class="status todo">not started</span></td></tr>
+      </table>
+
+      <h3>Phase 2 &mdash; Engineering Lab <span class="status todo">not started</span></h3>
+      <table>
+        <tr><th>Story</th><th>Status</th></tr>
+        <tr><td>6. Lab route + mock API convention</td><td><span class="status todo">not started</span></td></tr>
+        <tr><td>7. First case study skeleton wired to React Query</td><td><span class="status todo">not started</span></td></tr>
+        <tr><td>8. State management case study with Zustand</td><td><span class="status todo">not started</span></td></tr>
+        <tr><td>9. Testing pass</td><td><span class="status todo">not started</span></td></tr>
+        <tr><td>10. Deploy</td><td><span class="status todo">not started</span></td></tr>
+      </table>
+
+    </div>
+
+    <footer>
+      Built by Manasa B. Last updated: see git history.
+    </footer>
+
+  </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var flow = document.getElementById('plan-flow');
+    if (!flow) return;
+
+    // Phase tile click: toggle this phase's body open/closed,
+    // and close every other phase's body + any open story detail inside it.
+    var phaseTiles = flow.querySelectorAll('.phase-tile');
+    phaseTiles.forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        if (flow.classList.contains('expand-all')) return;
+        var targetId = tile.getAttribute('data-target');
+        var body = document.getElementById(targetId);
+        var alreadyOpen = body.classList.contains('is-open');
+
+        phaseTiles.forEach(function (t) { t.classList.remove('is-open'); });
+        flow.querySelectorAll('.phase-body').forEach(function (b) { b.classList.remove('is-open'); });
+        flow.querySelectorAll('.plan-node').forEach(function (n) { n.classList.remove('is-active'); });
+        flow.querySelectorAll('.plan-detail').forEach(function (d) { d.classList.remove('is-open'); });
+
+        if (!alreadyOpen) {
+          tile.classList.add('is-open');
+          body.classList.add('is-open');
+        }
+      });
+    });
+
+    // Story node click: show only this story's detail panel within its phase.
+    var storyNodes = flow.querySelectorAll('.plan-node[data-story]');
+    storyNodes.forEach(function (node) {
+      node.addEventListener('click', function () {
+        if (flow.classList.contains('expand-all')) return;
+        var key = node.getAttribute('data-story');
+        var chain = node.closest('.story-chain');
+        var detail = chain.querySelector('.plan-detail[data-detail="' + key + '"]');
+        var alreadyActive = node.classList.contains('is-active');
+
+        chain.querySelectorAll('.plan-node').forEach(function (n) { n.classList.remove('is-active'); });
+        chain.querySelectorAll('.plan-detail').forEach(function (d) { d.classList.remove('is-open'); });
+
+        if (!alreadyActive) {
+          node.classList.add('is-active');
+          detail.classList.add('is-open');
+        }
+      });
+    });
+
+    document.getElementById('plan-expand-all').addEventListener('click', function () {
+      flow.classList.add('expand-all');
+      phaseTiles.forEach(function (t) { t.classList.add('is-open'); });
+      flow.querySelectorAll('.plan-node').forEach(function (n) { n.classList.add('is-active'); });
+    });
+
+    document.getElementById('plan-collapse-all').addEventListener('click', function () {
+      flow.classList.remove('expand-all');
+      phaseTiles.forEach(function (t) { t.classList.remove('is-open'); });
+      flow.querySelectorAll('.phase-body').forEach(function (b) { b.classList.remove('is-open'); });
+      flow.querySelectorAll('.plan-node').forEach(function (n) { n.classList.remove('is-active'); });
+      flow.querySelectorAll('.plan-detail').forEach(function (d) { d.classList.remove('is-open'); });
+    });
+  })();
+</script>
+
+<script>
+  (function () {
+    // Wires up both the React and Next.js learning-log panels the same way —
+    // each has its own #<prefix>-log-sections root and #<prefix>-log-expand-all/collapse-all buttons.
+    ['react', 'nextjs'].forEach(function (prefix) {
+      var log = document.getElementById(prefix + '-log-sections');
+      if (!log) return;
+
+      var expandBtn = document.getElementById(prefix + '-log-expand-all');
+      var collapseBtn = document.getElementById(prefix + '-log-collapse-all');
+
+      // Story header click: toggle that story's body open/closed independently of the others.
+      var storyHeaders = log.querySelectorAll('.log-story-header');
+      storyHeaders.forEach(function (header) {
+        header.addEventListener('click', function () {
+          var body = document.getElementById(header.getAttribute('data-target'));
+          var isOpen = body.classList.contains('is-open');
+          header.classList.toggle('is-open', !isOpen);
+          body.classList.toggle('is-open', !isOpen);
+        });
+      });
+
+      // Tree node click: show only that node's code detail within its own story.
+      var treeNodes = log.querySelectorAll('.tree-node[data-code]');
+      treeNodes.forEach(function (node) {
+        node.addEventListener('click', function () {
+          var key = node.getAttribute('data-code');
+          var story = node.closest('.log-story');
+          var detail = story.querySelector('.code-detail[data-code-detail="' + key + '"]');
+          var alreadyActive = node.classList.contains('is-active');
+
+          story.querySelectorAll('.tree-node').forEach(function (n) { n.classList.remove('is-active'); });
+          story.querySelectorAll('.code-detail').forEach(function (d) { d.classList.remove('is-open'); });
+
+          if (!alreadyActive) {
+            node.classList.add('is-active');
+            detail.classList.add('is-open');
+          }
+        });
+      });
+
+      if (expandBtn) {
+        expandBtn.addEventListener('click', function () {
+          storyHeaders.forEach(function (h) { h.classList.add('is-open'); });
+          log.querySelectorAll('.log-body').forEach(function (b) { b.classList.add('is-open'); });
+          log.querySelectorAll('.tree-node').forEach(function (n) { n.classList.add('is-active'); });
+          log.querySelectorAll('.code-detail').forEach(function (d) { d.classList.add('is-open'); });
+        });
+      }
+
+      if (collapseBtn) {
+        collapseBtn.addEventListener('click', function () {
+          storyHeaders.forEach(function (h) { h.classList.remove('is-open'); });
+          log.querySelectorAll('.log-body').forEach(function (b) { b.classList.remove('is-open'); });
+          log.querySelectorAll('.tree-node').forEach(function (n) { n.classList.remove('is-active'); });
+          log.querySelectorAll('.code-detail').forEach(function (d) { d.classList.remove('is-open'); });
+        });
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
