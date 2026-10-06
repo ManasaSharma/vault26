@@ -1,128 +1,167 @@
+import HeroSection from "@/components/portfolio/HeroSection";
+import StatsGrid, { type Stat } from "@/components/portfolio/StatsGrid";
+import EducationSection, {
+    type EducationEntry,
+} from "@/components/portfolio/EducationSection";
+import ContactDetails from "@/components/portfolio/ContactDetails";
+import SkillsSection, { type SkillGroup } from "@/components/portfolio/SkillsGrid";
+import ExperienceSection, { type Role } from "@/components/portfolio/ExperienceSection";
+import ContactSection from "@/components/portfolio/ContactSection";
+import ProjectsGrid, { type ProjectEntry } from "@/components/portfolio/ProjectsGrid";
+
+const heroData = {
+    eyebrow: "Frontend Software Engineer",
+    avatarEmoji: "👩‍💻",
+    name: "Manasa B.",
+    tagline: "11+ years shipping React & TypeScript at scale",
+    bio: [
+        "I'm a Senior Frontend Engineer with 11+ years of experience building systems that handle real-world complexity. I started my career learning React at JP Morgan, shipped Angular projects at Vanguard and AT&T, and now specialize in full-stack frontend architecture at Intuit.",
+        "My focus is on three things: shipping fast, scaling systems, and enabling teams. I've led React migrations, built observability systems, and designed suppression engines that serve 350K+ daily users.",
+    ],
+    ctaHref: "#contact",
+    ctaLabel: "Get in Touch",
+    resumeHref: "/resume.pdf",
+    resumeLabel: "Download Resume",
+};
+
+const stats: Stat[] = [
+    { value: "11+", label: "Years of Experience" },
+    { value: "7", label: "Companies Worked At" },
+    { value: "350K+", label: "Users Served in Production" },
+    { value: "10x", label: "Fewer Customer-Facing Errors" },
+];
+
+const educationEntries: EducationEntry[] = [
+    { degree: "MS, Computer Science", school: "University Name", location: "CA, USA", year: "20XX" },
+    { degree: "BS, Computer Science", school: "University Name", location: "City, Country", year: "20XX" },
+];
+
+const contactData = {
+    location: "Newark, CA",
+    email: "bmanasasharma@outlook.com",
+    linkedinHref: "#",
+    linkedinLabel: "LinkedIn",
+};
+
+const skillGroups: SkillGroup[] = [
+    {
+        label: "Frontend",
+        color: "accent",
+        skills: ["React 18+", "TypeScript", "Next.js", "Angular", "Tailwind", "Redux", "Zustand"],
+    },
+    {
+        label: "Data & APIs",
+        color: "accent2",
+        skills: ["GraphQL", "REST", "Apollo", "Node.js", "React Query"],
+    },
+    {
+        label: "Systems & DevOps",
+        color: "accent3",
+        skills: ["Vite", "Webpack", "Docker", "Kubernetes", "CI/CD", "Observability"],
+    },
+];
+
+// PLACEHOLDER — swap for real role/company timeline in the content pass.
+const roles: Role[] = [
+    { title: "Software Engineer II", company: "Intuit", period: "20XX — Present" },
+    { title: "Frontend Engineer", company: "AT&T", period: "20XX — 20XX" },
+    { title: "Frontend Engineer", company: "Vanguard", period: "20XX — 20XX" },
+    { title: "Software Engineer", company: "JP Morgan", period: "20XX — 20XX" },
+];
+
+const projects: ProjectEntry[] = [
+    {
+        id: 1,
+        title: "Frontend Systems Lab",
+        description: "Personal learning project built with Next.js, React Query, and Zustand. Experiments in state management, data fetching, and component architecture.",
+        tech: ["Next.js", "React", "TypeScript", "Zustand"],
+        status: "In Progress",
+    },
+    {
+        id: 2,
+        title: "AI-Powered Code Review Tool",
+        description: "Claude integration for automated code review with context awareness. Experimenting with LangGraph and MCP for agentic workflows.",
+        tech: ["Claude API", "LangGraph", "MCP", "TypeScript"],
+        status: "In Progress",
+    },
+    {
+        id: 3,
+        title: "Observability Dashboard",
+        description: "Real-time monitoring dashboard for distributed systems. Built with Recharts, WebSocket data streams, and serverless backend.",
+        tech: ["React", "Recharts", "WebSockets", "Node.js"],
+        status: "Archived",
+    },
+    {
+        id: 4,
+        title: "Component Library",
+        description: "Reusable component library with Storybook, built for design system documentation and team collaboration.",
+        tech: ["React", "Storybook", "TypeScript", "Tailwind"],
+        status: "Active",
+    },
+];
+
 export default function Home() {
-  return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-6 py-32">
-        <div className="max-w-3xl mx-auto">
-          {/* Label */}
-          <div className="inline-block mb-6 px-4 py-2 bg-[var(--accent-secondary)] text-[var(--background)] rounded text-xs font-bold uppercase tracking-widest">
-            Frontend Engineer × Systems Architect
-          </div>
+    return (
+        <div className="relative overflow-hidden">
+            {/* Aurora mesh background — soft, drifting color blobs behind the whole page */}
+            <div aria-hidden="true" className="fixed inset-0 -z-10 overflow-hidden">
+                <div
+                    className="absolute -top-32 -left-40 w-[38rem] h-[38rem] rounded-full opacity-25 blur-[110px]"
+                    style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)", animation: "aurora-drift-a 22s ease-in-out infinite" }}
+                />
+                <div
+                    className="absolute top-1/4 -right-32 w-[34rem] h-[34rem] rounded-full opacity-20 blur-[110px]"
+                    style={{ background: "radial-gradient(circle, var(--accent2) 0%, transparent 70%)", animation: "aurora-drift-b 26s ease-in-out infinite" }}
+                />
+                <div
+                    className="absolute top-[55%] left-1/4 w-[30rem] h-[30rem] rounded-full opacity-[0.14] blur-[110px]"
+                    style={{ background: "radial-gradient(circle, #7c3aed 0%, transparent 70%)", animation: "aurora-drift-a 30s ease-in-out infinite reverse" }}
+                />
+                <div
+                    className="absolute bottom-0 right-0 w-[32rem] h-[32rem] rounded-full opacity-[0.14] blur-[110px]"
+                    style={{ background: "radial-gradient(circle, var(--accent3) 0%, transparent 70%)", animation: "aurora-drift-b 24s ease-in-out infinite reverse" }}
+                />
+            </div>
 
-          {/* Main Heading */}
-          <h1 className="text-6xl md:text-7xl font-black tracking-tight mb-6 text-[var(--foreground)]">
-            Manasa B
-          </h1>
+            {/* Main content */}
+            <div className="relative isolate px-6 pt-8 lg:px-8">
+                <div className="shell">
+                    <section id="home" className="mb-16 md:mb-20 mt-0 scroll-mt-24">
+                        <div className="flex flex-col items-start gap-5 md:gap-6 w-full">
+                            <HeroSection {...heroData} />
+                            <ContactDetails {...contactData} />
+                            <EducationSection entries={educationEntries} />
+                        </div>
 
-          {/* Subtitle */}
-          <p className="text-2xl md:text-3xl font-light text-[var(--foreground-secondary)] mb-8 leading-relaxed">
-            Building scalable frontend systems and AI-powered workflows
-          </p>
+                        <StatsGrid eyebrow="Impact at a glance" title="Achievements" stats={stats} />
+                    </section>
 
-          {/* Description */}
-          <p className="text-lg text-[var(--foreground-dim)] mb-8 leading-relaxed max-w-2xl">
-            I design and ship frontend systems that handle scale. Expert in React, TypeScript, GraphQL, and the infrastructure that powers production. Currently at Intuit, building expert networks and marketing suppression engines.
-          </p>
+                    <div className="flex flex-col gap-20 md:gap-28 pb-20 md:pb-28">
+                        <SkillsSection id="skills" eyebrow="What I work with" title="Skills" groups={skillGroups} />
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 mb-12">
-            <a
-              href="/about"
-              className="px-6 py-3 bg-[var(--accent)] text-[var(--background)] rounded font-semibold text-sm hover:opacity-90 transition"
-            >
-              View My Work
-            </a>
-            <a
-              href="#contact"
-              className="px-6 py-3 border border-[var(--border)] text-[var(--foreground)] rounded font-semibold text-sm hover:bg-[var(--background-secondary)] transition"
-            >
-              Get in Touch
-            </a>
-          </div>
+                        <ExperienceSection id="experience" eyebrow="Where I've worked" title="Experience" roles={roles} />
 
-          {/* Contact Info */}
-          <div className="flex flex-col sm:flex-row gap-6 text-sm">
-            <span className="text-[var(--foreground-dim)]">📍 San Francisco, CA</span>
-            <a
-              href="mailto:bmanasasharma@outlook.com"
-              className="text-[var(--accent)] font-semibold hover:underline"
-            >
-              ✉️ bmanasasharma@outlook.com
-            </a>
-            <a href="#" className="text-[var(--accent)] font-semibold hover:underline">
-              🔗 LinkedIn
-            </a>
-          </div>
+                        <ProjectsGrid
+                            id="lab"
+                            eyebrow="Building in public"
+                            title="Projects"
+                            blurb="Experiments, tools, and learning projects."
+                            projects={projects}
+                        />
+
+                        <ContactSection
+                            id="contact"
+                            eyebrow="Let's talk"
+                            title="Contact"
+                            blurb="I'm available for full-time roles, consulting projects, and mentorship opportunities."
+                            email="bmanasasharma@outlook.com"
+                            linkedinHref="#"
+                            linkedinLabel="LinkedIn"
+                        />
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </section>
-
-      {/* Impact Section */}
-      <section className="bg-[var(--background-secondary)] border-y border-[var(--border)] py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-4xl font-black text-[var(--accent)] mb-2">350K+</div>
-              <div className="text-xs uppercase font-bold text-[var(--foreground-dim)] tracking-wide">Daily Users Served</div>
-              <p className="text-sm text-[var(--foreground-secondary)] mt-2">Production systems I architect</p>
-            </div>
-            <div>
-              <div className="text-4xl font-black text-[var(--accent)] mb-2">6+</div>
-              <div className="text-xs uppercase font-bold text-[var(--foreground-dim)] tracking-wide">Years Shipping</div>
-              <p className="text-sm text-[var(--foreground-secondary)] mt-2">From startup to enterprise</p>
-            </div>
-            <div>
-              <div className="text-4xl font-black text-[var(--accent)] mb-2">4</div>
-              <div className="text-xs uppercase font-bold text-[var(--foreground-dim)] tracking-wide">Major Migrations</div>
-              <p className="text-sm text-[var(--foreground-secondary)] mt-2">React, GraphQL, and infrastructure</p>
-            </div>
-            <div>
-              <div className="text-4xl font-black text-[var(--accent)] mb-2">10x</div>
-              <div className="text-xs uppercase font-bold text-[var(--foreground-dim)] tracking-wide">Error Reduction</div>
-              <p className="text-sm text-[var(--foreground-secondary)] mt-2">Through systems design</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Links */}
-      <section className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
-            <div className="w-1 h-6 bg-[var(--accent)] rounded"></div>
-            Explore
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <a
-              href="/about"
-              className="p-8 border border-[var(--border)] rounded hover:bg-[var(--background-secondary)] transition group"
-            >
-              <h3 className="text-xl font-bold mb-2 group-hover:text-[var(--accent)]">About Me</h3>
-              <p className="text-[var(--foreground-dim)]">Background, skills, and what I'm currently learning</p>
-            </a>
-            <a
-              href="/projects"
-              className="p-8 border border-[var(--border)] rounded hover:bg-[var(--background-secondary)] transition group"
-            >
-              <h3 className="text-xl font-bold mb-2 group-hover:text-[var(--accent)]">Projects & Case Studies</h3>
-              <p className="text-[var(--foreground-dim)]">The systems I've built and problems I've solved</p>
-            </a>
-            <a
-              href="/experience"
-              className="p-8 border border-[var(--border)] rounded hover:bg-[var(--background-secondary)] transition group"
-            >
-              <h3 className="text-xl font-bold mb-2 group-hover:text-[var(--accent)]">Experience</h3>
-              <p className="text-[var(--foreground-dim)]">Career timeline and professional highlights</p>
-            </a>
-            <a
-              href="/lab"
-              className="p-8 border border-[var(--border)] rounded hover:bg-[var(--background-secondary)] transition group"
-            >
-              <h3 className="text-xl font-bold mb-2 group-hover:text-[var(--accent)]">Engineering Lab</h3>
-              <p className="text-[var(--foreground-dim)]">Experiments, tools, and learning projects</p>
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+    );
 }
