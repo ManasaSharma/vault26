@@ -1,0 +1,344 @@
+{
+  "metadata": {
+    "name": "Manasa B.",
+    "title": "Senior Staff Frontend Architect",
+    "bio": "11+ years shipping React, Angular & TypeScript. Specializing in high-throughput enterprise architectures with proven track record modernizing and scaling digital engines across Intuit, Fidelity, AT&T, Vanguard, Korn Ferry, Virgin Mobile, and JP Morgan Chase. Deployed client error suppression systems serving 350K+ daily users with typed, zero-regression CI/CD releases.",
+    "location": "Newark, CA",
+    "email": "bmanasasharma@outlook.com",
+    "status": "OPEN TO WORK",
+    "statusSubtitle": "Staff & Lead Frontend",
+    "yearsExperience": "11+",
+    "tagline": "Architecting frontend systems, from pixels to pipelines"
+  },
+
+  "experiences": [
+    {
+      "id": 1,
+      "company": "Intuit",
+      "role": "Senior Staff Frontend Architect",
+      "startDate": "2022-01",
+      "endDate": null,
+      "duration": "2+ years",
+      "logo": "/logos/intuit.svg",
+      "description": "Led architecture and implementation of contact-expert integration platform, designing marketing suppression logic and shipping features serving 350K+ daily users. Pioneered zero-regression TypeScript CI/CD pipeline for frontend releases.",
+      "keyAccomplishments": [
+        "Architected and shipped client error suppression system serving 350K+ daily users with typed, zero-regression CI/CD releases",
+        "Designed GraphQL schema and resolver patterns for expert network platform connecting SMBs with on-demand accountants",
+        "Modernized legacy Angular codebase to React/TypeScript ecosystem, improving bundle size by 40% and reducing load time by 2.3s",
+        "Led mentorship of 4 junior engineers on frontend architecture, design patterns, and performance optimization",
+        "Implemented real-time availability updates using WebSockets and Kafka event streaming"
+      ],
+      "skills": ["React 18", "TypeScript", "GraphQL", "TailwindCSS", "Next.js", "Webpack", "Node.js", "Kafka"]
+    },
+    {
+      "id": 2,
+      "company": "Fidelity Investments",
+      "role": "Senior Frontend Engineer",
+      "startDate": "2020-06",
+      "endDate": "2021-12",
+      "duration": "1.5 years",
+      "logo": "/logos/fidelity.svg",
+      "description": "Built high-throughput investment tracking dashboard and portfolio management interfaces for institutional and retail clients. Optimized React rendering for real-time market data streaming.",
+      "keyAccomplishments": [
+        "Optimized React rendering pipeline for real-time market data (10K+ updates/sec) achieving 60 FPS with custom render batching",
+        "Built WebSocket consumer for live market quotes, reducing latency from 2.5s to <200ms",
+        "Mentored 3 junior engineers on Redux architecture, performance profiling, and React best practices",
+        "Designed responsive dashboard components serving 500K+ concurrent users",
+        "Implemented client-side caching layer reducing API calls by 65%"
+      ],
+      "skills": ["React", "Redux", "D3.js", "WebSockets", "Java", "Spring Boot", "PostgreSQL"]
+    },
+    {
+      "id": 3,
+      "company": "AT&T",
+      "role": "Frontend Engineer",
+      "startDate": "2018-03",
+      "endDate": "2020-05",
+      "duration": "2.25 years",
+      "logo": "/logos/att.svg",
+      "description": "Engineered customer-facing web applications for telecom billing, account management, and service provisioning. Scaled frontend infrastructure to support 20M+ active users.",
+      "keyAccomplishments": [
+        "Built responsive billing dashboard serving 20M+ AT&T customers with <2s load time",
+        "Implemented progressive web app (PWA) for offline-first account management",
+        "Led migration from legacy jQuery to modern React/Redux architecture across 8 teams",
+        "Optimized bundle size from 2.8MB to 640KB using code splitting and dynamic imports",
+        "Designed and documented reusable component library used across 6 product teams"
+      ],
+      "skills": ["React", "Redux", "Angular", "TypeScript", "PWA", "Webpack", "Jest", "CSS-in-JS"]
+    },
+    {
+      "id": 4,
+      "company": "Vanguard",
+      "role": "UI/UX Engineer",
+      "startDate": "2016-08",
+      "endDate": "2018-02",
+      "duration": "1.5 years",
+      "logo": "/logos/vanguard.svg",
+      "description": "Designed and developed interactive financial planning tools and investment research interfaces. Focused on accessibility and usability for diverse investor demographics.",
+      "keyAccomplishments": [
+        "Built interactive asset allocation tool reducing time-to-decision by 3x for retail investors",
+        "Achieved WCAG 2.1 AA compliance across all 40+ product pages improving accessibility for 15K+ users",
+        "Designed design system with 80+ reusable components reducing development time by 45%",
+        "Implemented real-time portfolio performance charts using D3.js and Canvas API",
+        "Mentored interns on responsive design and accessibility best practices"
+      ],
+      "skills": ["Angular", "TypeScript", "SCSS", "D3.js", "Canvas", "WCAG", "Figma", "Storybook"]
+    },
+    {
+      "id": 5,
+      "company": "Korn Ferry",
+      "role": "Frontend Developer",
+      "startDate": "2014-09",
+      "endDate": "2016-07",
+      "duration": "1.75 years",
+      "logo": "/logos/kornferry.svg",
+      "description": "Developed enterprise talent management and executive search platform. Built interactive candidate profile interfaces and search/filtering algorithms.",
+      "keyAccomplishments": [
+        "Built advanced search and filtering UI for 500K+ candidate profiles with faceted navigation",
+        "Implemented real-time chat interface for recruiter-candidate communication",
+        "Optimized query performance reducing search latency from 3.2s to 400ms",
+        "Created data visualization dashboard for hiring analytics and pipeline tracking",
+        "Built email template builder allowing recruiters to customize outreach campaigns"
+      ],
+      "skills": ["Angular", "jQuery", "Bootstrap", "Node.js", "Express", "MongoDB", "Elasticsearch"]
+    },
+    {
+      "id": 6,
+      "company": "Virgin Mobile",
+      "role": "Web Developer",
+      "startDate": "2013-02",
+      "endDate": "2014-08",
+      "duration": "1.5 years",
+      "logo": "/logos/virginmobile.svg",
+      "description": "Developed mobile-first telecommunications customer portal and billing interfaces. Focused on performance optimization for low-bandwidth users.",
+      "keyAccomplishments": [
+        "Built mobile-first customer portal serving 2M+ monthly users with focus on <3G performance",
+        "Implemented touch-optimized interface components for iOS and Android browsers",
+        "Optimized page load time from 4.2s to 1.1s through lazy loading and asset optimization",
+        "Created automated test suite reducing regression bugs by 80%",
+        "Built real-time account top-up system processing 50K+ transactions/day"
+      ],
+      "skills": ["jQuery", "HTML5", "CSS3", "Bootstrap", "Node.js", "Python", "MySQL"]
+    },
+    {
+      "id": 7,
+      "company": "JP Morgan Chase",
+      "role": "Frontend Developer (Contract)",
+      "startDate": "2012-06",
+      "endDate": "2013-01",
+      "duration": "0.5 years",
+      "logo": "/logos/jpmorgan.svg",
+      "description": "Built internal trading analytics and risk monitoring dashboards. Worked with financial data visualization and real-time updates.",
+      "keyAccomplishments": [
+        "Built real-time risk dashboard ingesting 1M+ market data points per second",
+        "Implemented WebSocket feed for live trading alerts with <50ms latency",
+        "Created interactive risk heat maps using custom Canvas rendering",
+        "Optimized memory usage of data-heavy pages reducing memory leaks by 70%"
+      ],
+      "skills": ["jQuery", "HTML5", "CSS3", "JavaScript", "WebSockets", "Java", "Python"]
+    }
+  ],
+
+  "projects": [
+    {
+      "id": 1,
+      "name": "Live Customer Hub",
+      "description": "Multi-tenant expert network platform connecting small businesses with on-demand accounting and bookkeeping services.",
+      "fullDescription": "A high-performance React SPA serving 100K+ monthly active users with real-time expert availability, video chat integration, appointment booking, and payment processing. Features AI-powered matching algorithm, 99.9% uptime SLA, and zero-regression deployment pipeline.",
+      "link": "https://github.com/intuit/live-customer-hub",
+      "repo": "live-customer-hub",
+      "tech": ["React 18", "TypeScript", "GraphQL", "TailwindCSS", "WebSockets", "Next.js"],
+      "image": "/images/lch.png",
+      "featured": true,
+      "keyFeatures": [
+        "Real-time expert availability and presence detection",
+        "Video chat and screen sharing with Agora SDK",
+        "Appointment booking and rescheduling workflow",
+        "Marketing suppression and campaign targeting",
+        "Payment processing and invoice generation"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Contact Expert Widget",
+      "description": "Embeddable React widget for QuickBooks users to discover, book, and connect with on-demand accounting experts.",
+      "fullDescription": "A self-contained web component built with React and TypeScript that integrates seamlessly into QuickBooks interfaces. Handles expert discovery, appointment booking, payment, and video conferencing. Supports multiple themes and is fully accessible (WCAG 2.1 AA).",
+      "link": "https://github.com/intuit/one-intuit-contact-expert",
+      "repo": "one-intuit-contact-expert",
+      "tech": ["React", "TypeScript", "WebComponents", "Webpack", "TailwindCSS"],
+      "image": "/images/cew.png",
+      "featured": true,
+      "keyFeatures": [
+        "Expert discovery with AI-powered recommendations",
+        "One-click appointment booking",
+        "Integrated video calling and chat",
+        "Multi-tenant support with theme customization",
+        "SSO integration with Intuit IDP"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Expert Services Bootstrap",
+      "description": "Foundational service architecture, GraphQL schema, and deployment pipeline for expert network features across Intuit products.",
+      "fullDescription": "A comprehensive engineering foundation including GraphQL API design, backend service templates, CI/CD pipelines, monitoring infrastructure, and documentation. Enables rapid development of expert-related features across multiple Intuit product teams.",
+      "link": "https://github.com/intuit/expert-services-bootstrap",
+      "repo": "expert-services-bootstrap",
+      "tech": ["Node.js", "GraphQL", "PostgreSQL", "Kafka", "Docker", "Kubernetes"],
+      "image": "/images/bootstrap.png",
+      "featured": false,
+      "keyFeatures": [
+        "Production-ready GraphQL API schema",
+        "Service template and scaffolding",
+        "Automated testing and CI/CD pipeline",
+        "Monitoring and observability setup",
+        "Performance benchmarks and optimization guide"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Portfolio & Blog Platform",
+      "description": "Next.js-based personal portfolio with in-repo database, API routes, and MDX support for technical writing.",
+      "fullDescription": "A modern portfolio website built with Next.js, featuring in-repo JSON data storage, API routes for data fetching, Tailwind CSS styling, and SEO optimization. Includes blog functionality with MDX for interactive technical articles.",
+      "link": "https://github.com/mbudamagunt/vault26",
+      "repo": "vault26",
+      "tech": ["Next.js", "React 18", "TypeScript", "TailwindCSS", "MDX", "Vercel"],
+      "image": "/images/portfolio.png",
+      "featured": true,
+      "keyFeatures": [
+        "In-repo JSON database with API routes",
+        "Dark mode with custom Tailwind theme",
+        "Rotating 'OPEN TO WORK' SVG badge animation",
+        "Responsive design and mobile optimization",
+        "SEO optimized with metadata and Open Graph"
+      ]
+    }
+  ],
+
+  "skills": [
+    {
+      "category": "Frontend Frameworks",
+      "items": [
+        "React 18",
+        "Next.js 14",
+        "Angular 16+",
+        "Vue.js 3",
+        "TypeScript",
+        "JavaScript (ES2023)"
+      ]
+    },
+    {
+      "category": "Styling & Design",
+      "items": [
+        "TailwindCSS",
+        "CSS Modules",
+        "Styled Components",
+        "SCSS/SASS",
+        "CSS-in-JS",
+        "Figma & Design Systems"
+      ]
+    },
+    {
+      "category": "APIs & Data",
+      "items": [
+        "GraphQL",
+        "REST APIs",
+        "WebSockets",
+        "gRPC",
+        "JSON & XML",
+        "Kafka Event Streaming"
+      ]
+    },
+    {
+      "category": "Backend & Infrastructure",
+      "items": [
+        "Node.js & Express",
+        "Java & Spring Boot",
+        "Python",
+        "PostgreSQL & MySQL",
+        "MongoDB",
+        "Elasticsearch"
+      ]
+    },
+    {
+      "category": "DevOps & Tools",
+      "items": [
+        "Git & GitHub",
+        "CI/CD Pipelines",
+        "Docker & Kubernetes",
+        "Jest & Testing Library",
+        "Webpack & Vite",
+        "Vercel & AWS"
+      ]
+    },
+    {
+      "category": "Performance & Quality",
+      "items": [
+        "Bundle Size Optimization",
+        "Core Web Vitals",
+        "Accessibility (WCAG 2.1)",
+        "Web Performance APIs",
+        "Error Handling & Monitoring",
+        "Security Best Practices"
+      ]
+    }
+  ],
+
+  "dailyDrivers": [
+    {
+      "name": "React 18",
+      "icon": "⚛️",
+      "description": "Building scalable, component-based UIs with hooks and concurrent rendering"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "📘",
+      "description": "Type-safe JavaScript for catching errors before production"
+    },
+    {
+      "name": "Next.js 14",
+      "icon": "▲",
+      "description": "Full-stack framework for production-ready React applications"
+    },
+    {
+      "name": "TailwindCSS",
+      "icon": "🎨",
+      "description": "Utility-first CSS framework for rapid UI development"
+    },
+    {
+      "name": "GraphQL",
+      "icon": "🔗",
+      "description": "Query language for efficient API design and data fetching"
+    },
+    {
+      "name": "Node.js",
+      "icon": "⚙️",
+      "description": "JavaScript runtime for backend services and tooling"
+    }
+  ],
+
+  "social": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/mbudamagunt",
+      "icon": "github"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://linkedin.com/in/manasasharma",
+      "icon": "linkedin"
+    },
+    {
+      "name": "Email",
+      "url": "mailto:bmanasasharma@outlook.com",
+      "icon": "mail"
+    }
+  ],
+
+  "callToAction": {
+    "primary": "Start a Conversation",
+    "secondary": "Book a Call",
+    "calendlyUrl": "https://calendly.com/manasa-budamagunt/30min"
+  }
+}
+
+
