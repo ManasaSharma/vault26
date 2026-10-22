@@ -1,5 +1,7 @@
+import Section from '@/components/common/Section';
+
 export default function HeroSection() {
-  return <section id="hero" aria-labelledby="hero-title" className="portfolio-section skeleton-hero"><div className="vault-container">
+  return <Section id="hero" className="skeleton-hero" aria-labelledby="hero-title">
     <div className="skeleton-hero-top">
       <div className="skeleton-hero-copy">
         <p className="skeleton-label">Overview / Portfolio in progress</p>
@@ -10,5 +12,5 @@ export default function HeroSection() {
       <div className="skeleton-avatar" aria-hidden="true">Profile / badge</div>
     </div>
     <div className="layout-grid layout-grid--three">{['Current focus', 'Core craft', 'Impact record'].map(label => <div key={label} className="portfolio-card"><p className="skeleton-label">{label}</p><h2 className="skeleton-title">Content to follow</h2><div className="layout-placeholder" aria-hidden="true"><span /><span /></div></div>)}</div>
-  </div></section>;
+  </Section>;
 }
