@@ -1,0 +1,19 @@
+.shared-section {
+  padding-block: var(--spacing-xl);
+  scroll-margin-top: 6rem;
+
+  > .shared-section__inner {
+    width: 100%;
+    max-width: var(--max-width-full);
+    margin-inline: auto;
+    padding-inline: var(--spacing-margin-mobile);
+  }
+
+  @media (min-width: 768px) {
+    padding-block: var(--spacing-2xl);
+
+    > .shared-section__inner {
+      padding-inline: var(--spacing-margin-desktop);
+    }
+  }
+}

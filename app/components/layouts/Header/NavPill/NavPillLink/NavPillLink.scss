@@ -1,0 +1,9 @@
+.navPillLink {
+  display: block;
+  padding: .5rem .8rem;
+  color: var(--colors-text-muted);
+  white-space: nowrap;
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  &:hover, &:focus-visible { color: var(--colors-text); background: var(--colors-hairline); }
+}

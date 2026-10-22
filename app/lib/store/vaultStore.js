@@ -31,3 +31,41 @@ export const useVaultStore = create((set) => ({
     set({ data: null, loading: true, error: null });
   },
 }));
+
+/**
+ * USAGE IN COMPONENTS:
+ *
+ * import { useVaultStore } from '@/lib/store/vaultStore';
+ *
+ * function MyComponent() {
+ *   const { data, loading, error } = useVaultStore();
+ *
+ *   if (loading) return <div>Loading...</div>;
+ *   if (error) return <div>Error: {error}</div>;
+ *
+ *   return (
+ *     <div>
+ *       <h1>{data.metadata.name}</h1>
+ *       {data.projects.map(p => <div key={p.id}>{p.name}</div>)}
+ *     </div>
+ *   );
+ * }
+ *
+ *
+ * IN ROOT src/page.jsx:
+ *
+ * import { useVaultStore } from '@/lib/store/vaultStore';
+ *
+ * export default function Home() {
+ *   const fetchData = useVaultStore(state => state.fetchData);
+ *
+ *   useEffect(() => {
+ *     fetchData();  // Fetch ONCE at app load
+ *   }, []);
+ *
+ *   return (
+ *     <>
+ *       <Header />
+ *       <HeroSection />
+ *       <TechStack />
+ *       {/* All sections use same data */

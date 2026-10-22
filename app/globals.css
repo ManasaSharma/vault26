@@ -1,160 +1,112 @@
+/* Tailwind base styles */
 @import "tailwindcss";
 
-:root {
-  --bg: #08080c;
-  --surface: #131319;
-  --surface2: #1a1a22;
-  --surface-raised: #1d1d26;
-  --grid-line: rgba(52, 211, 153, 0.045);
-  --ink: #f5f5f7;
-  --ink-soft: #9ca0aa;
-  --ink-dim: #63636e;
-  --accent: #34d399;
-  --accent2: #38bdf8;
-  --accent3: #fbbf24;
-  --border: #2d3748;
-  --color-tan: #a89968;
-  --color-green: #6b9b5c;
-  --color-blue: #5a7fa0;
-  --color-purple: #6b4fa1;
+/* Tailwind Preflight supplies the reset inside its base layer. */
+
+html {
+  scroll-behavior: smooth;
 }
 
-@theme inline {
-  --color-background: var(--bg);
-  --color-foreground: var(--ink);
-  --font-sans: var(--font-app-sans);
-  --spacing: 0.25rem;
-}
-
-@layer base {
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 70px;
-  }
-
-  body {
-    font-family: -apple-system, "Inter", "Segoe UI", sans-serif;
-    background: #030712;
-    color: var(--ink);
-    line-height: 1.6;
-  }
-}
-
-.mono {
-  font-family: "SF Mono", "Fira Code", ui-monospace, monospace;
-}
-
-.shell {
+html,
+body {
   width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 clamp(32px, 8vw, 80px);
+  height: 100%;
+  font-family: 'Bricolage Grotesque', sans-serif;
 }
 
-
-@keyframes underline-sweep {
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes glow-pulse {
-  0%, 100% {
-    text-shadow: 0 0 5px rgba(52, 211, 153, 0.3);
-  }
-  50% {
-    text-shadow: 0 0 15px rgba(52, 211, 153, 0.8);
-  }
-}
-
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes aurora-drift-a {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(4%, 6%) scale(1.08);
-  }
-}
-
-@keyframes aurora-drift-b {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(-5%, -4%) scale(1.06);
-  }
-}
-
-/* Flat-top hexagon: clip-path cuts this shape out of a plain box, no SVG needed. */
-.hexagon {
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+#__next {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  transition: all 0.3s ease;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.hexagon:hover {
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transform: translateY(-4px);
+main {
+  flex: 1;
 }
 
-
-.hexagon-solid {
-  background: linear-gradient(135deg, #2a2d3a 0%, #1f2128 100%);
-  border: 2px solid #3a3d4a;
+/* Custom animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.hexagon-outline {
-  background: transparent;
-  border: 2px dashed #4a4d5a;
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
 }
+
+.animate-spin-slow:hover {
+  animation-play-state: paused;
+}
+
+/* Blueprint grid pattern */
+.blueprint-grid {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Tech tag styles */
+.tech-tag {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-tag:hover {
+  transform: translateY(-2px);
+  border-color: rgba(192, 132, 252, 0.6);
+  background-color: #22222a;
+}
+
+/* Calendar slot styles */
+.cal-slot {
+  transition: all 0.2s ease;
+}
+
+.cal-slot:hover {
+  border-color: #38bdf8;
+  background-color: rgba(56, 189, 248, 0.1);
+}
+
+/* Custom scrollbar for cards stream */
+#exp-cards-stream::-webkit-scrollbar {
+  width: 6px;
+}
+
+#exp-cards-stream::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 9999px;
+}
+
+#exp-cards-stream::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+
+#exp-cards-stream::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 132, 252, 0.4);
+}
+
+/* Company sidebar navigation styles */
+.exp-nav-item {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exp-nav-item.active {
+  background: rgba(192, 132, 252, 0.12);
+  border-color: rgba(192, 132, 252, 0.45);
+  box-shadow: 0 0 20px -2px rgba(192, 132, 252, 0.25);
+}
+
+.exp-nav-item.active .exp-nav-dot {
+  background-color: #c084fc;
+  box-shadow: 0 0 10px #c084fc;
+  transform: scale(1.15);
+}
+

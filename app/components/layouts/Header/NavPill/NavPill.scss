@@ -1,0 +1,25 @@
+/* ========================================
+   NAV PILL - OUTER CONTAINER
+   Links inside are styled by NavPillLink
+   Values come from theme.config.js via layout.jsx
+   ======================================== */
+
+.navPill {
+  /* Hidden on phones, row of links from tablet up */
+  display: none;
+
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs);
+
+  /* Pill shape */
+  border-radius: var(--radius-full);
+  border: var(--border-width-thin) solid var(--colors-hairline);
+  background-color: var(--colors-surface-container);
+
+  /* Media queries can't read CSS variables, so the breakpoint stays here */
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+

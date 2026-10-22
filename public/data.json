@@ -334,6 +334,14 @@
     }
   ],
 
+   "navigation": [
+    { "label": "Home", "href": "#hero" },
+    { "label": "Skills", "href": "#skills" },
+    { "label": "Experience", "href": "#experience" },
+    { "label": "Projects", "href": "#projects" },
+    { "label": "Contact", "href": "#contact" }
+  ],
+
   "callToAction": {
     "primary": "Start a Conversation",
     "secondary": "Book a Call",

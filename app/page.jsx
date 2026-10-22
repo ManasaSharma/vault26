@@ -18,38 +18,20 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  if (loading) {
-    return <div className="text-center py-16">Loading portfolio...</div>;
-  }
-
-  if (error) {
-    return <div className="text-center py-16 text-red-500">Error: {error}</div>;
-  }
+  }, [fetchData]);
 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black">
-        <section id="hero">
-          <HeroSection />
-        </section>
-        <section id="techstack">
-          <TechStackSection />
-        </section>
-        <section id="experience">
-          <ExperienceSection />
-        </section>
-        <section id="skills">
-          <SkillsSection />
-        </section>
-        <section id="projects">
-          <ProjectsSection />
-        </section>
-        <section id="contact">
-          <GetInTouchSection />
-        </section>
+      <main className="portfolio-main">
+        {loading && <p className="portfolio-status" role="status">Loading navigation data…</p>}
+        {error && <p className="portfolio-status" role="status">Navigation data could not load. The layout is still available.<button type="button" onClick={fetchData}>Retry</button></p>}
+        <HeroSection />
+        <TechStackSection />
+        <ExperienceSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <GetInTouchSection />
       </main>
       <Footer />
     </>

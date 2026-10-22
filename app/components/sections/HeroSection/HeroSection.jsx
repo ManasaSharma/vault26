@@ -1,14 +1,14 @@
-'use client';
-
 export default function HeroSection() {
-  console.log('HeroSection rendering...');
-
-  return (
-    <section className="py-16">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-8">Hero Section</h2>
-        <p className="text-gray-400">Hero content coming soon...</p>
+  return <section id="hero" aria-labelledby="hero-title" className="portfolio-section skeleton-hero"><div className="vault-container">
+    <div className="skeleton-hero-top">
+      <div className="skeleton-hero-copy">
+        <p className="skeleton-label">Overview / Portfolio in progress</p>
+        <h1 id="hero-title">A space for the work, the craft, and what’s next.</h1>
+        <p>Your introduction will go here. For now, this sample text helps establish the width, spacing, and shape of the opening section.</p>
+        <div className="skeleton-actions"><a className="skeleton-link" href="#contact">Let’s connect ↗</a><a className="skeleton-link" href="#projects">Explore projects</a></div>
       </div>
-    </section>
-  );
+      <div className="skeleton-avatar" aria-hidden="true">Profile / badge</div>
+    </div>
+    <div className="layout-grid layout-grid--three">{['Current focus', 'Core craft', 'Impact record'].map(label => <div key={label} className="portfolio-card"><p className="skeleton-label">{label}</p><h2 className="skeleton-title">Content to follow</h2><div className="layout-placeholder" aria-hidden="true"><span /><span /></div></div>)}</div>
+  </div></section>;
 }
