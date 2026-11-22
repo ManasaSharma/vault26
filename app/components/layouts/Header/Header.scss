@@ -1,116 +1,16 @@
-/* ========================================
-   HEADER COMPONENT - SCSS WITH NESTING
-   ======================================== */
-
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background-color: #131315;
-  backdrop-filter: blur(12px);
-
-  /* ========================================
-     HEADER CONTENT WRAPPER
-     ======================================== */
-  .headerContent {
-    max-width: 90rem;
-    margin: 0 auto;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  /* ========================================
-     LOGO SECTION
-     ======================================== */
-  .logoContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-
-    .logoBadge {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-      flex-shrink: 0;
-    }
-
-    .logoText {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-  }
-
-
-  /* ========================================
-     CTA BUTTON
-     ======================================== */
-  .ctaContainer {
-    display: none;
-
-    @media (min-width: 768px) {
-      display: block;
-    }
-  }
-
-  /* ========================================
-     MOBILE MENU
-     ======================================== */
-  .mobileMenuButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-
-    @media (min-width: 768px) {
-      display: none;
-    }
-  }
-
-  .mobileNav {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    background-color: #201f21;
-
-    .mobileNavContent {
-      padding: 1.5rem;
-
-      .mobileNavItem {
-        display: block;
-        width: 100%;
-        text-align: left;
-        font-size: 14px;
-        font-weight: 500;
-        padding: 0.5rem 0;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        transition: opacity 0.3s ease;
-        color: #EDEDED;
-
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-
-      .mobileNavDivider {
-        padding-top: 0.5rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        margin-top: 0.5rem;
-      }
-    }
-  }
+  position: sticky; top: 0; z-index: var(--z-index-notification);
+  border-bottom: 1px solid var(--colors-hairline); background:var(--colors-surface-glass); backdrop-filter:blur(20px);
+  .headerContent { display:flex; align-items:center; justify-content:space-between; gap:var(--spacing-md); min-height:var(--layout-header-height); }
+  .logoContainer { display:inline-flex; align-items:center; gap:.625rem; color:var(--colors-text); text-decoration:none; font-weight:700; letter-spacing:-.025em; flex-shrink:0; }
+  .logoBadge { display:grid; place-items:center; width:2rem; height:2rem; border-radius:var(--radius-md); background:linear-gradient(45deg,var(--colors-primary-container),var(--colors-indigo)); font:700 12px var(--fonts-mono); color:var(--colors-text); }
+  .logoContainer:hover .logoText { color:var(--colors-primary); }
+  .headerActions { display:flex; align-items:center; gap:var(--spacing-sm); }
+  .mobileMenuButton { display:inline-grid; place-items:center; width:2.25rem; height:2.25rem; color:var(--colors-on-surface); border:1px solid var(--colors-hairline); background:var(--colors-surface-container); border-radius:var(--radius-full); cursor:pointer; }
+  .navPills { display:none; }
+  .mobileNav { border-top:1px solid var(--colors-hairline); padding-block:var(--spacing-md); }
+  .mobileNav a { display:block; padding:.75rem; font:12px var(--fonts-mono); border-radius:var(--radius-md); text-decoration:none; color:var(--colors-text-muted); }
+  .mobileNav a[aria-current] { background:var(--components-nav-active-background); color:var(--colors-primary); }
+  @media(min-width:900px) { .navPills { display:block; } .mobileMenuButton,.mobileNav { display:none; } }
+  @media(max-width:420px) { .headerActions .ui-button { padding-inline:.75rem; } .logoText { font-size:14px; } }
 }
-

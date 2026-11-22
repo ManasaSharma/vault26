@@ -1,7 +1,7 @@
 /**
  * theme.config.js
  *
- * Obsidian Engineering Design System
+ * Vault design system — visual source: abc.html
  * All colors, fonts, spacing, and styles for vault
  * Change these = entire site looks different
  *
@@ -10,46 +10,50 @@
 
 export const themeConfig = {
   // ============================================
-  // COLORS (Obsidian Engineering Palette)
+  // COLORS (reference palette)
   // ============================================
   colors: {
     // Surface Tiers (Deep Obsidian Substrates)
-    canvasBase: '#0a0a0a',                      // Tier 0 - Canvas void
-    canvas: '#131315',                          // Background of entire page
-    surface: '#131315',                         // Tier 1 - Panels & Bento Grids
-    surfaceContainer: '#201f21',                // Mid-tier container
-    surfaceContainerHigh: '#2a2a2c',            // Higher tier containers
-    surfaceHighest: '#353437',                  // Highest surface tier
-    surfaceGlass: 'rgba(17, 17, 19, 0.75)',    // Glassmorphic overlay
+    canvasBase: '#09090b',
+    canvas: '#09090b',
+    surface: '#121217',
+    surfaceContainer: '#17171e',
+    surfaceContainerHigh: '#1a1a24',
+    surfaceHighest: '#22222a',
+    surfaceGlass: 'rgba(13, 13, 17, 0.88)',
 
     // Text colors (optimized for dark surfaces)
-    text: '#EDEDED',                            // Primary text (not pure white)
-    textMuted: '#888891',                       // Secondary text (muted)
-    onSurface: '#e5e1e4',                       // On surface text
-    onSurfaceVariant: '#cfc2d6',                // Variant text
+    text: '#ffffff',
+    textMuted: '#9ca3af',
+    onSurface: '#e5e7eb',
+    onSurfaceVariant: '#d1d5db',
 
-    // Primary Brand Colors (Violet & Magenta)
-    primary: '#7E22CE',                         // Rich royal violet
-    primaryLight: '#ddb8ff',                    // Light violet
+    // Primary Brand Color (Violet)
+    primary: '#c084fc',
+    primaryLight: '#c084fc',
     primaryContainer: '#7e22ce',                // Darker purple
     onPrimaryContainer: '#e4c5ff',              // Text on primary container
 
-    // Secondary Brand Color (Magenta)
-    secondary: '#DB2777',                       // Vivid magenta
+    // Secondary Brand Color (Cyan)
+    secondary: '#38bdf8',
     secondaryContainer: '#be0062',              // Secondary container
 
     // Tertiary (Electric Cobalt)
-    tertiary: '#2932CB',                        // Deep electric cobalt
+    tertiary: '#2563eb',
+    blueLight: '#60a5fa',
+    blueMedium: '#3b82f6',
+    indigo: '#4f46e5',
+    amber: '#fbbf24',
     tertiaryContainer: '#3a44d9',               // Tertiary container
 
     // Status & System
-    statusActive: '#10B981',                    // Active/availability green
+    statusActive: '#34d399',
     error: '#ffb4ab',                           // Error state
 
     // Borders & Hairlines
     hairline: 'rgba(255, 255, 255, 0.08)',      // Subtle micro-hairline
-    hairlineBright: 'rgba(255, 255, 255, 0.12)', // Brighter hairline
-    borderGlow: 'rgba(126, 34, 206, 0.35)',     // Glow accent border
+    hairlineBright: 'rgba(255, 255, 255, 0.16)',
+    borderGlow: 'rgba(192, 132, 252, 0.4)',
     outline: '#988d9f',                         // Outline color
     outlineVariant: '#4c4354'                   // Outline variant
   },
@@ -67,9 +71,9 @@ export const themeConfig = {
   typographyScale: {
     headlineXl: {
       fontFamily: 'Newsreader',
-      fontSize: '56px',
+      fontSize: '60px',
       fontWeight: '400',
-      lineHeight: '64px',
+      lineHeight: '66px',
       letterSpacing: '-0.03em'
     },
     headlineXlMobile: {
@@ -81,9 +85,9 @@ export const themeConfig = {
     },
     headlineLg: {
       fontFamily: 'Newsreader',
-      fontSize: '40px',
+      fontSize: '36px',
       fontWeight: '400',
-      lineHeight: '48px',
+      lineHeight: '44px',
       letterSpacing: '-0.02em'
     },
     headlineMd: {
@@ -102,9 +106,9 @@ export const themeConfig = {
     },
     bodyLg: {
       fontFamily: 'Bricolage Grotesque',
-      fontSize: '16px',
+      fontSize: '18px',
       fontWeight: '400',
-      lineHeight: '26px'
+      lineHeight: '29px'
     },
     bodyMd: {
       fontFamily: 'Bricolage Grotesque',
@@ -120,7 +124,7 @@ export const themeConfig = {
     },
     labelMd: {
       fontFamily: 'JetBrains Mono',
-      fontSize: '13px',
+      fontSize: '12px',
       fontWeight: '500',
       lineHeight: '18px',
       letterSpacing: '0.02em'
@@ -151,8 +155,8 @@ export const themeConfig = {
     gutterMobile: '0.75rem',                    // Mobile: 12px
 
     // Margins
-    marginDesktop: '3rem',                      // Desktop: 48px
-    marginMobile: '1.25rem',                    // Mobile: 20px
+    marginDesktop: '1.5rem',
+    marginMobile: '1.25rem',
 
     // Modular spacing (base-4 structure)
     xs: '0.25rem',                              // 4px
@@ -163,8 +167,8 @@ export const themeConfig = {
     '2xl': '4rem',                              // 64px
 
     // Component specific
-    cardPadding: '1.5rem',
-    componentGap: '1.5rem',
+    cardPadding: '1.25rem',
+    componentGap: '1rem',
     sectionGap: '6rem'
   },
 
@@ -228,14 +232,37 @@ export const themeConfig = {
   },
 
   // ============================================
-  // LAYOUT WIDTHS (Grid bounded at 1200px)
+  // LAYOUT WIDTHS (reference max-w-6xl: 1152px)
   // ============================================
   maxWidth: {
     sm: '28rem',                                // 448px
     md: '42rem',                                // 672px
     lg: '56rem',                                // 896px
     xl: '64rem',                                // 1024px
-    full: '75rem'                               // 1200px - max content width
+    full: '72rem'                               // 1152px including gutters
+  },
+
+  // Layout and repeated component contracts extracted from abc.html.
+  layout: {
+    headerHeight: '4rem',
+    sectionSpace: '4rem',
+    sectionSpaceMobile: '3rem',
+    homeSectionGap: '2.5rem',
+    heroTop: '2.5rem',
+    heroTitleWidth: '56rem',
+    proseWidth: '48rem',
+    badgeSize: '8rem',
+    badgeSizeMobile: '6rem',
+    anchorOffset: '5.5rem',
+  },
+  components: {
+    button: { height: '2.75rem', paddingX: '1.5rem', fontSize: '12px' },
+    pill: { background: '#15151b', paddingX: '0.875rem', paddingY: '0.375rem' },
+    card: { background: '#121217', radius: '1rem', padding: '1.25rem' },
+    panel: { background: '#0e0e13', radius: '1.5rem', padding: '2.5rem', paddingMobile: '1.5rem' },
+    nav: { background: '#18181e', activeBackground: 'rgba(192,132,252,0.2)' },
+    badge: { background: '#0a0a0d', center: '#121218', star: '#bfdbfe' },
+    techTag: { background: '#17171f' },
   },
 
   // ============================================
@@ -266,19 +293,3 @@ export const themeConfig = {
   }
 };
 
-/**
- * QUICK REFERENCE
- * What you'll see when you open vault:
- *
- * Background:  Dark (#09090b)
- * Text:        White (#ffffff)
- * Buttons:     Purple (#c084fc)
- * Accents:     Light blue (#38bdf8)
- * Cards:       Dark gray (#131315)
- * Borders:     Subtle gray lines
- *
- * Fonts:
- * - Titles:    Newsreader (serif)
- * - Text:      Bricolage Grotesque (sans)
- * - Code:      JetBrains Mono (mono)
- */

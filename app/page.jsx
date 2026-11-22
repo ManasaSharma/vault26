@@ -13,6 +13,7 @@ import Footer from '@/components/layouts/Footer';
 
 export default function Home() {
   const fetchData = useVaultStore(state => state.fetchData);
+  const data = useVaultStore(state => state.data);
   const loading = useVaultStore(state => state.loading);
   const error = useVaultStore(state => state.error);
 
@@ -22,16 +23,28 @@ export default function Home() {
 
   return (
     <>
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <Header />
-      <main className="portfolio-main">
-        {loading && <p className="portfolio-status" role="status">Loading navigation data…</p>}
-        {error && <p className="portfolio-status" role="status">Navigation data could not load. The layout is still available.<button type="button" onClick={fetchData}>Retry</button></p>}
-        <HeroSection />
-        <TechStackSection />
-        <ExperienceSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <GetInTouchSection />
+      <main id="main-content" className="portfolio-main" tabIndex={-1}>
+        {loading && <p className="portfolio-status" role="status">Loading portfolio…</p>}
+        {error && <p className="portfolio-status" role="status">Portfolio data could not load. The layout is still available.<button type="button" onClick={fetchData}>Retry</button></p>}
+        <HeroSection profile={data?.metadata} hero={data?.hero} callToAction={data?.callToAction} />
+        <TechStackSection dailyDrivers={data?.dailyDrivers ?? []} filters={data?.driverFilters ?? []} />
+        {data?.projects?.length > 0 && (
+          <ProjectsSection projects={data.projects} />
+        )}
+        {data?.experiences?.length > 0 && (
+          <ExperienceSection experiences={data.experiences} />
+        )}
+        {data?.skills?.length > 0 && (
+          <SkillsSection skills={data.skills} />
+        )}
+
+        <GetInTouchSection
+          profile={data?.metadata}
+          social={data?.social ?? []}
+          callToAction={data?.callToAction}
+        />
       </main>
       <Footer />
     </>

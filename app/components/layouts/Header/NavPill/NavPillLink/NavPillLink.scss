@@ -1,9 +1,1 @@
-.navPillLink {
-  display: block;
-  padding: .5rem .8rem;
-  color: var(--colors-text-muted);
-  white-space: nowrap;
-  text-decoration: none;
-  border-radius: var(--radius-full);
-  &:hover, &:focus-visible { color: var(--colors-text); background: var(--colors-hairline); }
-}
+.navPillLink { display:block; padding:.375rem .875rem; color:var(--colors-text-muted); border-radius:var(--radius-full); white-space:nowrap; text-decoration:none; font:400 12px/1.5 var(--fonts-mono); transition:color var(--transitions-fast),background-color var(--transitions-fast); &:hover { color:var(--colors-text); } &[aria-current] { color:var(--colors-primary); font-weight:600; background:var(--components-nav-active-background); } }
