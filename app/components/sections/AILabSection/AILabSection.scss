@@ -1,0 +1,9 @@
+.ai-lab-projects { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr)); gap:var(--spacing-lg); }
+.ai-lab-project {
+  display:flex; flex-direction:column; gap:var(--spacing-md); min-width:0;
+  h3 { font:600 1.2rem/1.4 var(--fonts-sans); }
+  h4 { color:var(--colors-primary); font:500 .85rem/1.5 var(--fonts-mono); margin-bottom:var(--spacing-sm); }
+  p,li { font-size:14px; line-height:1.7; }
+  ul { padding-left:1.15rem; color:var(--colors-text-muted); list-style:disc; }
+}
+.ai-lab-links { display:flex; flex-wrap:wrap; gap:var(--spacing-sm); margin-top:auto; }

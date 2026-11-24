@@ -3,7 +3,8 @@
 import { copy } from '@/lib/content';
 
 import { useEffect } from 'react';
-import { showWorkshop } from '@/config/sections.config';
+import { showWorkshop, getVisibleAiProjects } from '@/config/sections.config';
+import AILabSection from '@/components/sections/AILabSection/AILabSection';
 import { useVaultStore } from '@/lib/store/vaultStore';
 import Header from '@/components/layouts/Header';
 import HeroSection from '@/components/sections/HeroSection';
@@ -19,6 +20,7 @@ export default function Home() {
   const data = useVaultStore(state => state.data);
   const loading = useVaultStore(state => state.loading);
   const error = useVaultStore(state => state.error);
+  const aiProjects = getVisibleAiProjects(data);
 
   useEffect(() => {
     fetchData();
@@ -39,6 +41,8 @@ export default function Home() {
         {data?.experiences?.length > 0 && (
           <ExperienceSection experiences={data.experiences} />
         )}
+
+        {aiProjects.length > 0 && <AILabSection lab={data.aiLab} projects={aiProjects} />}
 
         <GetInTouchSection
           profile={data?.metadata}
