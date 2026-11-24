@@ -1,11 +1,13 @@
 'use client';
 
+import { copy } from '@/lib/content';
+
 import { useId } from 'react';
 import './AvailabilityBadge.scss';
 
 export default function AvailabilityBadge({ profile, label }) {
   const circleId = useId();
-  const status = label ?? profile?.status ?? 'Open to work';
+  const status = label ?? profile?.status ?? copy.actions.availability;
   return (
       <div className="availability-badge" role="img" aria-label={status}>
         <svg viewBox="0 0 100 100" className="availability-ring" aria-hidden="true"><defs><path id={circleId} d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" /></defs><text><textPath href={`#${circleId}`} textLength="230" lengthAdjust="spacing" startOffset="0%">{status} • </textPath></text></svg>

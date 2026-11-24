@@ -1,5 +1,7 @@
 'use client';
 
+import { copy } from '@/lib/content';
+
 import { useEffect, useRef, useState } from 'react';
 import Card from '@/components/common/Card';
 
@@ -25,7 +27,7 @@ const monthYear = new Intl.DateTimeFormat('en-US', {
 });
 
 function formatDate(value) {
-  return value ? monthYear.format(new Date(`${value}-01T00:00:00Z`)) : 'Present';
+  return value ? monthYear.format(new Date(`${value}-01T00:00:00Z`)) : copy.common.present;
 }
 
 export default function ExperienceDesktop({ experiences = [] }) {
@@ -123,7 +125,7 @@ export default function ExperienceDesktop({ experiences = [] }) {
   return (
       <div className="experience-layout">
         <Card className="experience-dock">
-          <nav ref={timelineRef} className="experience-rail" aria-label="Career timeline">
+          <nav ref={timelineRef} className="experience-rail" aria-label={copy.experience.timelineLabel}>
             <span ref={sparkRef} className="experience-spark" aria-hidden="true" />
             <ol className="experience-timeline">
               {experiences.map(role => (
@@ -153,7 +155,7 @@ export default function ExperienceDesktop({ experiences = [] }) {
           ref={streamRef}
           className="experience-stream"
           role="region"
-          aria-label="Experience details"
+          aria-label={copy.experience.detailsLabel}
           tabIndex={0}
         >
           {experiences.map(role => (
@@ -174,12 +176,12 @@ export default function ExperienceDesktop({ experiences = [] }) {
               >
                 <div className="experience-role-meta">
                   <p className="ui-eyebrow experience-role-label">
-                    {!role.endDate ? <><span className="ui-dot" aria-hidden="true" /> Current role</> : role.company}
+                    {!role.endDate ? <><span className="ui-dot" aria-hidden="true" /> {copy.common.currentRole}</> : role.company}
                   </p>
                   <p className="experience-date-range">
                     <time dateTime={role.startDate}>{formatDate(role.startDate)}</time>
                     {' – '}
-                    {role.endDate ? <time dateTime={role.endDate}>{formatDate(role.endDate)}</time> : 'Present'}
+                    {role.endDate ? <time dateTime={role.endDate}>{formatDate(role.endDate)}</time> : copy.common.present}
                   </p>
                 </div>
                 <h3 id={`experience-heading-${role.id}`}>{role.role} @ {role.company}</h3>
@@ -190,7 +192,7 @@ export default function ExperienceDesktop({ experiences = [] }) {
                     {role.keyAccomplishments.map(item => <li key={item}>{item}</li>)}
                   </ul>
                 )}
-                <ul className="experience-skills" aria-label={`${role.company} technologies`}>
+                <ul className="experience-skills" aria-label={`${role.company} ${copy.common.technologies}`}>
                   {(role.skills ?? []).map(skill => <li key={skill}>{skill}</li>)}
                 </ul>
               </Card>

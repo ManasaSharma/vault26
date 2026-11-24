@@ -1,5 +1,7 @@
 'use client';
 
+import { copy } from '@/lib/content';
+
 import { useEffect } from 'react';
 import { showWorkshop } from '@/config/sections.config';
 import { useVaultStore } from '@/lib/store/vaultStore';
@@ -24,11 +26,11 @@ export default function Home() {
 
   return (
     <>
-      <a className="skip-link" href="#main-content">Skip to content</a>
+      <a className="skip-link" href="#main-content">{copy.common.skip}</a>
       <Header />
       <main id="main-content" className="portfolio-main" tabIndex={-1}>
-        {loading && <p className="portfolio-status" role="status">Loading portfolio…</p>}
-        {error && <p className="portfolio-status" role="status">Portfolio data could not load. The layout is still available.<button type="button" onClick={fetchData}>Retry</button></p>}
+        {loading && <p className="portfolio-status" role="status">{copy.common.loading}</p>}
+        {error && <p className="portfolio-status" role="status">{copy.common.loadError}<button type="button" onClick={fetchData}>{copy.common.retry}</button></p>}
         <HeroSection profile={data?.metadata} hero={data?.hero} callToAction={data?.callToAction} social={data?.social ?? []} />
         <TechStackSection dailyDrivers={data?.dailyDrivers ?? []} filters={data?.driverFilters ?? []} />
         {showWorkshop && data?.projects?.length > 0 && (

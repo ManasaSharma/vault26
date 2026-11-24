@@ -1,5 +1,7 @@
 'use client';
 
+import { copy } from '@/lib/content';
+
 import { useEffect, useRef } from 'react';
 import { FiArrowUpRight, FiCalendar, FiDownload, FiFileText } from 'react-icons/fi';
 import Card from '@/components/common/Card';
@@ -27,24 +29,24 @@ export default function ResumeDownload() {
   }
 
   return (
-    <aside className="portfolio-floating-actions" aria-label="Availability, resume, and booking">
-      <div className="portfolio-availability"><AvailabilityBadge label="Open to frontend roles" /></div>
+    <aside className="portfolio-floating-actions" aria-label={copy.actions.label}>
+      <div className="portfolio-availability"><AvailabilityBadge label={copy.actions.availability} /></div>
       <details ref={downloadRef} className="resume-download" onKeyDown={event => {
         if (event.key === 'Escape') {
           event.currentTarget.open = false;
           event.currentTarget.querySelector('summary')?.focus();
         }
       }}>
-        <summary className="side-action resume-download-trigger" aria-label="Download resume">
-          <span className="side-action-icon"><FiFileText aria-hidden="true" /><FiDownload className="side-action-badge" aria-hidden="true" /></span><span>Resume</span>
+        <summary className="side-action resume-download-trigger" aria-label={copy.actions.downloadLabel}>
+          <span className="side-action-icon"><FiFileText aria-hidden="true" /><FiDownload className="side-action-badge" aria-hidden="true" /></span><span>{copy.actions.resume}</span>
         </summary>
         <Card className="resume-download-options">
-          <p>Choose a format</p>
-          <a href="/resume/Manasa_Resume.pdf" download onClick={closeDownloads}><FiFileText aria-hidden="true" /><span>PDF <small>Ready to view or print</small></span><FiDownload aria-hidden="true" /></a>
-          <a href="/resume/Manasa_Resume.docx" download onClick={closeDownloads}><FiFileText aria-hidden="true" /><span>Word / DOCX <small>Editable document</small></span><FiDownload aria-hidden="true" /></a>
+          <p>{copy.actions.chooseFormat}</p>
+          <a href={copy.actions.pdfUrl} download onClick={closeDownloads}><FiFileText aria-hidden="true" /><span>{copy.actions.pdf} <small>{copy.actions.pdfDescription}</small></span><FiDownload aria-hidden="true" /></a>
+          <a href={copy.actions.wordUrl} download onClick={closeDownloads}><FiFileText aria-hidden="true" /><span>{copy.actions.word} <small>{copy.actions.wordDescription}</small></span><FiDownload aria-hidden="true" /></a>
         </Card>
       </details>
-      <a href="#contact" className="side-action portfolio-book-call"><span className="side-action-icon"><FiCalendar aria-hidden="true" /><FiArrowUpRight className="side-action-badge" aria-hidden="true" /></span><span>Book a call</span></a>
+      <a href="#contact" className="side-action portfolio-book-call"><span className="side-action-icon"><FiCalendar aria-hidden="true" /><FiArrowUpRight className="side-action-badge" aria-hidden="true" /></span><span>{copy.actions.bookCall}</span></a>
     </aside>
   );
 }

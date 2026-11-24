@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Manasa B.",
     "title": "Software Engineer",
-    "bio": "Frontend engineer with 11+ years building React, Angular, and TypeScript applications. Currently at Intuit, focused on reliable user experiences, frontend performance, and production observability. Previously worked with Fidelity, AT&T, Vanguard, Korn Ferry, Virgin Mobile, and JPMorgan Chase.",
+    "bio": "Software Engineer with 11+ years of experience, specializing in frontend development with React, Angular, and TypeScript. Currently at Intuit, focused on reliable user experiences, frontend performance, and production observability. Previously worked with Fidelity, AT&T, Vanguard, Korn Ferry, Virgin Mobile, and JPMorgan Chase.",
     "location": "Newark, CA",
     "email": "bmanasasharma@outlook.com",
     "status": "OPEN TO WORK",
@@ -761,5 +761,94 @@
       "id": "observability",
       "label": "Observability & Testing"
     }
-  ]
+  ],
+  "siteCopy": {
+    "common": {
+      "skip": "Skip to content",
+      "loading": "Loading portfolio…",
+      "loadError": "Portfolio data could not load. The layout is still available.",
+      "retry": "Retry",
+      "present": "Present",
+      "currentRole": "Current role",
+      "technologies": "technologies",
+      "openEmail": "Open your email app",
+      "optional": "(optional)"
+    },
+    "header": {
+      "mainNavigation": "Main navigation",
+      "mobileNavigation": "Mobile navigation",
+      "openNavigation": "Open navigation",
+      "closeNavigation": "Close navigation"
+    },
+    "hero": {
+      "copied": "Email copied to clipboard.",
+      "copyFailed": "Could not copy email. ",
+      "locationFallback": "Location",
+      "bioFallback": "Profile information will appear here once loaded."
+    },
+    "skills": {
+      "label": "Skills",
+      "title": "The stack behind everything I ",
+      "titleAccent": "ship.",
+      "listLabel": "Technical skills",
+      "filterLabel": "Filter technologies",
+      "all": "All",
+      "shown": "technologies shown"
+    },
+    "experience": {
+      "label": "// Track record",
+      "title": "Where I’ve built & ",
+      "titleAccent": "scaled",
+      "summary": "roles across frontend engineering, financial services, and telecommunications.",
+      "timelineLabel": "Career timeline",
+      "detailsLabel": "Experience details"
+    },
+    "contact": {
+      "label": "Connect",
+      "title": "Have something in mind? Let’s talk.",
+      "description": "Send a message, or add an optional date and time for a call.",
+      "dateLabel": "Select a date · optional",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "chooseDate": "Choose a date in",
+      "timeLabel": "Preferred time",
+      "hourLabel": "Hour, 1 to 12",
+      "minuteLabel": "Minutes, 00 to 59",
+      "periodLabel": "AM or PM",
+      "hourPlaceholder": "hh",
+      "minutePlaceholder": "mm",
+      "clearTime": "Clear preferred time",
+      "timezone": "Pacific time · America/Los_Angeles",
+      "detailsLabel": "Your details",
+      "name": "Your name",
+      "company": "Company",
+      "companyPlaceholder": "Company name",
+      "messageLabel": "What would you like to talk about?",
+      "messagePlaceholder": "Hi Manasa, we’re working on…",
+      "direct": "Reach me directly",
+      "submit": "Let’s connect",
+      "draftNote": "Opens an email draft for you to review and send. Call times aren’t confirmed bookings."
+    },
+    "actions": {
+      "label": "Availability, resume, and booking",
+      "availability": "Open to Software Engineering roles",
+      "downloadLabel": "Download resume",
+      "resume": "Resume",
+      "chooseFormat": "Choose a format",
+      "pdf": "PDF",
+      "pdfDescription": "Ready to view or print",
+      "word": "Word / DOCX",
+      "wordDescription": "Editable document",
+      "bookCall": "Book a call",
+      "pdfUrl": "/resume/Manasa_Resume.pdf",
+      "wordUrl": "/resume/Manasa_Resume.docx"
+    },
+    "footer": {
+      "description": "Frontend engineering · Built with care",
+      "backToTop": "Back to top ↑",
+      "visitor": "visitor",
+      "visitors": "visitors",
+      "visitorDescription": "Distinct browsers since tracking started. Repeat visits from the same browser are counted once."
+    }
+  }
 }

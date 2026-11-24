@@ -1,3 +1,4 @@
+import { copy } from '@/lib/content';
 import Section from '@/components/common/Section';
 import ExperienceDesktop from './ExperienceDesktop';
 import ExperienceAccordion from './ExperienceAccordion';
@@ -8,8 +9,8 @@ export default function ExperienceSection({ experiences = [] }) {
   return (
     <Section id="experience" className="experience-section" aria-labelledby="experience-title">
       <div className="experience-heading">
-        <div><p className="ui-eyebrow tone-primary">{'// Track record'}</p><h2 id="experience-title" className="ui-section-title">Where I’ve built &amp; <em className="tone-secondary">scaled</em></h2></div>
-        <p className="ui-muted">{experiences.length} roles across frontend engineering, financial services, and telecommunications.</p>
+        <div><p className="ui-eyebrow tone-primary">{copy.experience.label}</p><h2 id="experience-title" className="ui-section-title">{copy.experience.title}<em className="tone-secondary">{copy.experience.titleAccent}</em></h2></div>
+        <p className="ui-muted">{experiences.length} {copy.experience.summary}</p>
       </div>
       <div className="experience-desktop"><ExperienceDesktop experiences={experiences} /></div>
       <div className="experience-compact"><ExperienceAccordion experiences={experiences} /></div>

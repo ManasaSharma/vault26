@@ -1,5 +1,7 @@
 'use client';
 
+import { copy } from '@/lib/content';
+
 import { useState } from 'react';
 import { buildContactEmail } from '@/lib/contact';
 import { FiArrowUpRight, FiChevronLeft, FiChevronRight, FiMail } from 'react-icons/fi';
@@ -50,12 +52,12 @@ export default function GetInTouchSection({ profile }) {
   return (
     <Section id="contact" aria-labelledby="contact-title">
       <Card as="form" className="contact-panel" onSubmit={sendMessage}>
-        <div className="sectionHeading"><div><p className="sectionHeadingEyebrow">Connect</p><h2 id="contact-title" className="ui-section-title">Have something in mind? Let’s talk.</h2></div><p className="sectionHeadingDescription">Send a message, or add an optional date and time for a call.</p></div>
+        <div className="sectionHeading"><div><p className="sectionHeadingEyebrow">{copy.contact.label}</p><h2 id="contact-title" className="ui-section-title">{copy.contact.title}</h2></div><p className="sectionHeadingDescription">{copy.contact.description}</p></div>
         <div className="contact-booking-layout">
           <div className="contact-calendar">
-            <p className="ui-eyebrow ui-muted">Select a date · optional</p>
-            <div className="contact-month-nav"><h3 aria-live="polite">{monthLabel}</h3><div><button type="button" aria-label="Previous month" disabled={month.slice(0, 7) <= today.slice(0, 7)} onClick={() => changeMonth(-1)}><FiChevronLeft /></button><button type="button" aria-label="Next month" onClick={() => changeMonth(1)}><FiChevronRight /></button></div></div>
-            <div className="contact-dates" role="group" aria-label={`Choose a date in ${monthLabel}`}>
+            <p className="ui-eyebrow ui-muted">{copy.contact.dateLabel}</p>
+            <div className="contact-month-nav"><h3 aria-live="polite">{monthLabel}</h3><div><button type="button" aria-label={copy.contact.previousMonth} disabled={month.slice(0, 7) <= today.slice(0, 7)} onClick={() => changeMonth(-1)}><FiChevronLeft /></button><button type="button" aria-label={copy.contact.nextMonth} onClick={() => changeMonth(1)}><FiChevronRight /></button></div></div>
+            <div className="contact-dates" role="group" aria-label={`${copy.contact.chooseDate} ${monthLabel}`}>
               {['Su','Mo','Tu','We','Th','Fr','Sa'].map(day => <span className="contact-weekday" key={day} aria-hidden="true">{day}</span>)}
               {Array.from({ length: firstDay }, (_, i) => <span key={`empty-${i}`} />)}
               {Array.from({ length: days }, (_, i) => {
@@ -65,28 +67,28 @@ export default function GetInTouchSection({ profile }) {
             </div>
             <div className="contact-time-picker">
             <fieldset className="contact-clock" disabled={!selectedDate}>
-              <legend>Preferred time <span>(optional)</span></legend>
+              <legend>{copy.contact.timeLabel} <span>{copy.common.optional}</span></legend>
               <div className="contact-clock-line">
-                <input className="contact-clock-input" aria-label="Hour, 1 to 12" type="text" inputMode="numeric" placeholder="hh" maxLength={2} value={time.hour} onChange={event => { const value = event.target.value; if (/^\d{0,2}$/.test(value) && Number(value) <= 12) setTime(current => ({ ...current, hour: value })); }} onBlur={() => setTime(current => ({ ...current, hour: current.hour && Number(current.hour) > 0 ? current.hour.padStart(2, '0') : '' }))} />
+                <input className="contact-clock-input" aria-label={copy.contact.hourLabel} type="text" inputMode="numeric" placeholder={copy.contact.hourPlaceholder} maxLength={2} value={time.hour} onChange={event => { const value = event.target.value; if (/^\d{0,2}$/.test(value) && Number(value) <= 12) setTime(current => ({ ...current, hour: value })); }} onBlur={() => setTime(current => ({ ...current, hour: current.hour && Number(current.hour) > 0 ? current.hour.padStart(2, '0') : '' }))} />
                 <span className="contact-clock-colon" aria-hidden="true">:</span>
-                <input className="contact-clock-input" aria-label="Minutes, 00 to 59" type="text" inputMode="numeric" placeholder="mm" maxLength={2} value={time.minute} onChange={event => { const value = event.target.value; if (/^\d{0,2}$/.test(value) && Number(value) <= 59) setTime(current => ({ ...current, minute: value })); }} onBlur={() => setTime(current => ({ ...current, minute: (current.minute || '00').padStart(2, '0') }))} />
-                <div className="contact-clock-period" role="group" aria-label="AM or PM">{['AM', 'PM'].map(period => <button type="button" key={period} aria-pressed={time.period === period} onClick={() => setTime(current => ({ ...current, period }))}>{period}</button>)}</div>
-                {time.hour && <button type="button" className="contact-clock-clear" aria-label="Clear preferred time" onClick={() => setTime({ hour: '', minute: '00', period: 'PM' })}>×</button>}
+                <input className="contact-clock-input" aria-label={copy.contact.minuteLabel} type="text" inputMode="numeric" placeholder={copy.contact.minutePlaceholder} maxLength={2} value={time.minute} onChange={event => { const value = event.target.value; if (/^\d{0,2}$/.test(value) && Number(value) <= 59) setTime(current => ({ ...current, minute: value })); }} onBlur={() => setTime(current => ({ ...current, minute: (current.minute || '00').padStart(2, '0') }))} />
+                <div className="contact-clock-period" role="group" aria-label={copy.contact.periodLabel}>{['AM', 'PM'].map(period => <button type="button" key={period} aria-pressed={time.period === period} onClick={() => setTime(current => ({ ...current, period }))}>{period}</button>)}</div>
+                {time.hour && <button type="button" className="contact-clock-clear" aria-label={copy.contact.clearTime} onClick={() => setTime({ hour: '', minute: '00', period: 'PM' })}>×</button>}
               </div>
             </fieldset>
-            <p className="contact-timezone">Pacific time · America/Los_Angeles</p>
+            <p className="contact-timezone">{copy.contact.timezone}</p>
             </div>
           </div>
           <div className="contact-time">
-            <p className="ui-eyebrow ui-muted">Your details</p>
+            <p className="ui-eyebrow ui-muted">{copy.contact.detailsLabel}</p>
             <div className="contact-fields">
-              <div><label htmlFor="contact-sender-name">Your name <span className="contact-optional">(optional)</span></label><input id="contact-sender-name" type="text" autoComplete="name" placeholder="Your name" maxLength={100} value={senderName} onChange={event => setSenderName(event.target.value)} /></div>
-              <div><label htmlFor="contact-identity">Company <span className="contact-optional">(optional)</span></label><input id="contact-identity" type="text" autoComplete="organization" placeholder="Company name" maxLength={120} value={identity} onChange={event => setIdentity(event.target.value)} /></div>
+              <div><label htmlFor="contact-sender-name">{copy.contact.name} <span className="contact-optional">{copy.common.optional}</span></label><input id="contact-sender-name" type="text" autoComplete="name" placeholder={copy.contact.name} maxLength={100} value={senderName} onChange={event => setSenderName(event.target.value)} /></div>
+              <div><label htmlFor="contact-identity">{copy.contact.company} <span className="contact-optional">{copy.common.optional}</span></label><input id="contact-identity" type="text" autoComplete="organization" placeholder={copy.contact.companyPlaceholder} maxLength={120} value={identity} onChange={event => setIdentity(event.target.value)} /></div>
             </div>
-            <div className="contact-message"><label htmlFor="contact-message">What would you like to talk about?</label><textarea id="contact-message" rows={4} required minLength={5} maxLength={2000} placeholder="Hi Manasa, we’re working on…" value={message} onChange={event => setMessage(event.target.value)} /></div>
-            {email && <div className="contact-direct"><p className="ui-eyebrow ui-muted">Reach me directly</p><a className="contact-email" href={`mailto:${email}`}><FiMail aria-hidden="true" /><span>{email}</span><FiArrowUpRight aria-hidden="true" /></a></div>}
-            <button className="ui-button ui-button--primary contact-request" type="submit" disabled={!canConnect}><FiMail aria-hidden="true" />Let’s connect</button>
-            <p className="contact-description">Opens an email draft for you to review and send. Call times aren’t confirmed bookings.</p>
+            <div className="contact-message"><label htmlFor="contact-message">{copy.contact.messageLabel}</label><textarea id="contact-message" rows={4} required minLength={5} maxLength={2000} placeholder={copy.contact.messagePlaceholder} value={message} onChange={event => setMessage(event.target.value)} /></div>
+            {email && <div className="contact-direct"><p className="ui-eyebrow ui-muted">{copy.contact.direct}</p><a className="contact-email" href={`mailto:${email}`}><FiMail aria-hidden="true" /><span>{email}</span><FiArrowUpRight aria-hidden="true" /></a></div>}
+            <button className="ui-button ui-button--primary contact-request" type="submit" disabled={!canConnect}><FiMail aria-hidden="true" />{copy.contact.submit}</button>
+            <p className="contact-description">{copy.contact.draftNote}</p>
           </div>
         </div>
       </Card>

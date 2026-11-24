@@ -1,5 +1,7 @@
 'use client';
 
+import { copy } from '@/lib/content';
+
 import { useEffect, useState } from 'react';
 import { FiUsers } from 'react-icons/fi';
 import './VisitorCount.scss';
@@ -33,5 +35,5 @@ export default function VisitorCount() {
     return () => { current = false; };
   }, []);
   if (count === null) return null;
-  return <span className="visitor-count" title="Distinct browsers since tracking started. Repeat visits from the same browser are counted once."><FiUsers aria-hidden="true" /><strong>{count.toLocaleString('en-US')}</strong> {count === 1 ? 'visitor' : 'visitors'}</span>;
+  return <span className="visitor-count" title={copy.footer.visitorDescription}><FiUsers aria-hidden="true" /><strong>{count.toLocaleString('en-US')}</strong> {count === 1 ? copy.footer.visitor : copy.footer.visitors}</span>;
 }
