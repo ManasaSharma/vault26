@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { FiCalendar, FiMenu, FiX } from 'react-icons/fi';
-import Button from '@/components/common/Button';
+import { showWorkshop } from '@/config/sections.config';
+import { FiMenu, FiX } from 'react-icons/fi';
 import NavPill from './NavPill/NavPill';
 import NavPillLink from './NavPill/NavPillLink/NavPillLink';
 import { useVaultStore } from '@/lib/store/vaultStore';
@@ -18,19 +18,36 @@ export default function Header() {
   useEffect(() => {
     let frame;
     function update() {
-      const line = document.querySelector('.header').getBoundingClientRect().height + 40;
+      const headerBottom = document.querySelector('.header')?.getBoundingClientRect().bottom ?? 0;
       let current = '#hero';
+      let largestVisibleArea = 0;
       for (const item of navigation ?? []) {
+        if (!showWorkshop && item.href === '#projects') continue;
         const section = document.getElementById(item.href.slice(1));
-        if (section && section.getBoundingClientRect().top <= line) current = item.href;
+        if (!section) continue;
+        const bounds = section.getBoundingClientRect();
+        const visibleHeight = Math.max(0, Math.min(bounds.bottom, window.innerHeight) - Math.max(bounds.top, headerBottom));
+        if (visibleHeight > largestVisibleArea) {
+          largestVisibleArea = visibleHeight;
+          current = item.href;
+        }
       }
       setActive(current);
     }
     function onScroll() { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); }
     update();
+    const observer = new ResizeObserver(onScroll);
+    document.querySelectorAll('.shared-section, .header').forEach(section => observer.observe(section));
     addEventListener('scroll', onScroll, { passive: true });
     addEventListener('resize', onScroll);
-    return () => { cancelAnimationFrame(frame); removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll); };
+    addEventListener('hashchange', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      removeEventListener('scroll', onScroll);
+      removeEventListener('resize', onScroll);
+      removeEventListener('hashchange', onScroll);
+    };
   }, [navigation]);
 
   function closeMenu() { setMenuOpen(false); }
@@ -38,9 +55,9 @@ export default function Header() {
   return <header className="header">
     <div className="vault-container headerContent">
       <a href="#hero" className="logoContainer" onClick={closeMenu}><span className="logoBadge">{initials}</span><span className="logoText">{profile?.name ?? 'Manasa B.'}</span></a>
-      <nav className="navPills" aria-label="Main navigation"><NavPill>{(navigation ?? []).map(item => <NavPillLink key={item.href} {...item} active={active === item.href} onClick={closeMenu} />)}</NavPill></nav>
-      <div className="headerActions"><Button href="#contact" compact onClick={closeMenu}>Book a Call <FiCalendar aria-hidden="true" /></Button><button ref={menuButton} type="button" className="mobileMenuButton" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <FiX /> : <FiMenu />}</button></div>
+      <nav className="navPills" aria-label="Main navigation"><NavPill>{(navigation ?? []).filter(item => showWorkshop || item.href !== '#projects').map(item => <NavPillLink key={item.href} {...item} active={active === item.href} onClick={closeMenu} />)}</NavPill></nav>
+      <div className="headerActions"><button ref={menuButton} type="button" className="mobileMenuButton" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <FiX /> : <FiMenu />}</button></div>
     </div>
-    {menuOpen && <nav id="mobile-navigation" className="mobileNav vault-container" aria-label="Mobile navigation" onKeyDown={event => { if(event.key === 'Escape') { closeMenu(); menuButton.current?.focus(); } }}>{(navigation ?? []).map(item => <a key={item.href} href={item.href} aria-current={active === item.href ? 'location' : undefined} onClick={closeMenu}>{item.label}</a>)}</nav>}
+    {menuOpen && <nav id="mobile-navigation" className="mobileNav vault-container" aria-label="Mobile navigation" onKeyDown={event => { if(event.key === 'Escape') { closeMenu(); menuButton.current?.focus(); } }}>{(navigation ?? []).filter(item => showWorkshop || item.href !== '#projects').map(item => <a key={item.href} href={item.href} aria-current={active === item.href ? 'location' : undefined} onClick={closeMenu}>{item.label}</a>)}</nav>}
   </header>;
 }

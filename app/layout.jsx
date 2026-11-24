@@ -1,3 +1,5 @@
+import GalaxyBackground from '@/components/common/GalaxyBackground/GalaxyBackground';
+import CursorGlow from '@/components/common/CursorGlow/CursorGlow';
 import { themeConfig } from '@/config/theme.config';
 import { themeToCssVars } from '@/lib/theme/themeToCssVars';
 import './globals.css';
@@ -7,7 +9,7 @@ import '@/lib/styles/skeleton.scss';
 
 export const metadata = {
   title: 'Manasa Budamagunta - Software Engineer',
-  description: 'Portfolio of Manasa Budamagunta, SWE2 at Intuit',
+  description: 'Portfolio of Manasa Budamagunta, Software Engineer at Intuit',
 };
 
 /* Every theme.config.js value as a CSS variable, e.g. --colors-text-muted */
@@ -25,6 +27,8 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body style={{ backgroundColor: themeConfig.colors.canvas, color: themeConfig.colors.text }}>
+        <GalaxyBackground />
+        <CursorGlow />
         {children}
       </body>
     </html>

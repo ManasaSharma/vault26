@@ -1,5 +1,7 @@
+/* One spacing rule for every section. Account for padding when landing on anchors. */
 .shared-section {
-  padding-block: calc(var(--layout-section-space-mobile) / 2);
-  scroll-margin-top: var(--layout-anchor-offset);
-  @media(min-width:768px) { padding-block: calc(var(--layout-section-space) / 2); }
+  --section-space: clamp(1.25rem, 3vh, 2rem);
+  padding-block: var(--section-space);
+  scroll-margin-top: calc(var(--layout-header-height) - var(--section-space) + .75rem);
+  > .shared-section__inner { width: 100%; }
 }

@@ -1,8 +1,8 @@
 {
   "metadata": {
     "name": "Manasa B.",
-    "title": "Senior Staff Frontend Architect",
-    "bio": "11+ years shipping React, Angular & TypeScript. Specializing in high-throughput enterprise architectures with proven track record modernizing and scaling digital engines across Intuit, Fidelity, AT&T, Vanguard, Korn Ferry, Virgin Mobile, and JP Morgan Chase.",
+    "title": "Software Engineer",
+    "bio": "Frontend engineer with 11+ years building React, Angular, and TypeScript applications. Currently at Intuit, focused on reliable user experiences, frontend performance, and production observability. Previously worked with Fidelity, AT&T, Vanguard, Korn Ferry, Virgin Mobile, and JPMorgan Chase.",
     "location": "Newark, CA",
     "email": "bmanasasharma@outlook.com",
     "status": "OPEN TO WORK",
@@ -325,7 +325,6 @@
       "tech": [
         "Node.js",
         "GraphQL",
-        "PostgreSQL",
         "Kafka",
         "Docker",
         "Kubernetes"
@@ -368,129 +367,153 @@
   ],
   "skills": [
     {
-      "category": "Frontend Frameworks",
+      "category": "Architecture",
+      "description": "Build maintainable frontend systems with reusable components and reliable data flows.",
       "items": [
-        "React 18",
-        "Next.js 14",
-        "Angular 16+",
-        "Vue.js 3",
-        "TypeScript",
-        "JavaScript (ES2023)"
+        "Reusable React, Angular, and TypeScript components",
+        "REST and GraphQL service integrations",
+        "Lazy loading, code splitting, and server-side rendering",
+        "Responsive interfaces and WCAG accessibility"
       ]
     },
     {
-      "category": "Styling & Design",
+      "category": "Collaboration",
+      "description": "Turn shared requirements into working interfaces with cross-functional teams.",
       "items": [
-        "TailwindCSS",
-        "CSS Modules",
-        "Styled Components",
-        "SCSS/SASS",
-        "CSS-in-JS",
-        "Figma & Design Systems"
+        "Partner with product, design, backend, and QA teams",
+        "Translate Figma prototypes into production interfaces",
+        "Contribute code reviews, documentation, and knowledge sharing",
+        "Participate in Agile planning and sprint delivery"
       ]
     },
     {
-      "category": "APIs & Data",
+      "category": "Delivery",
+      "description": "Ship tested changes and support their reliability in production.",
       "items": [
-        "GraphQL",
-        "REST APIs",
-        "WebSockets",
-        "gRPC",
-        "JSON & XML",
-        "Kafka Event Streaming"
-      ]
-    },
-    {
-      "category": "Backend & Infrastructure",
-      "items": [
-        "Node.js & Express",
-        "Java & Spring Boot",
-        "Python",
-        "PostgreSQL & MySQL",
-        "MongoDB",
-        "Elasticsearch"
-      ]
-    },
-    {
-      "category": "DevOps & Tools",
-      "items": [
-        "Git & GitHub",
-        "CI/CD Pipelines",
-        "Docker & Kubernetes",
-        "Jest & Testing Library",
-        "Webpack & Vite",
-        "Vercel & AWS"
-      ]
-    },
-    {
-      "category": "Performance & Quality",
-      "items": [
-        "Bundle Size Optimization",
-        "Core Web Vitals",
-        "Accessibility (WCAG 2.1)",
-        "Web Performance APIs",
-        "Error Handling & Monitoring",
-        "Security Best Practices"
+        "Unit, integration, and end-to-end testing with Jest, React Testing Library, and Playwright",
+        "Jenkins pipelines and AWS Blue/Green releases",
+        "Production monitoring with Splunk and Wavefront",
+        "On-call triage, debugging, and production fix validation"
       ]
     }
   ],
   "dailyDrivers": [
     {
-      "id": "react-18",
-      "name": "React 18+",
+      "id": "html5",
+      "name": "HTML5",
+      "icon": "H5",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "css3",
+      "name": "CSS3",
+      "icon": "C3",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "icon": "JS",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "icon": "TS",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "react",
+      "name": "React",
       "icon": "⚛",
       "category": "frontend",
       "tone": "primary"
     },
     {
-      "name": "TypeScript",
-      "icon": "TS",
-      "description": "Type-safe JavaScript for catching errors before production",
-      "id": "typescript",
-      "category": "frontend",
-      "tone": "primary"
-    },
-    {
-      "name": "Next.js 14",
+      "id": "next-js",
+      "name": "Next.js",
       "icon": "▲",
-      "description": "Full-stack framework for production-ready React applications",
-      "id": "next-js-14",
       "category": "frontend",
       "tone": "primary"
     },
     {
-      "id": "angular-v8-14",
-      "name": "Angular (v8-14)",
-      "icon": "🅰",
+      "id": "angular",
+      "name": "Angular",
+      "icon": "A",
       "category": "frontend",
       "tone": "primary"
     },
     {
+      "id": "react-hooks-context",
+      "name": "React Hooks & Context",
+      "icon": "↻",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "redux",
+      "name": "Redux",
+      "icon": "◉",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "react-router",
+      "name": "React Router",
+      "icon": "⇢",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "tailwind-css",
       "name": "Tailwind CSS",
       "icon": "≈",
-      "description": "Utility-first CSS framework for rapid UI development",
-      "id": "tailwind-css",
       "category": "frontend",
       "tone": "primary"
     },
     {
-      "id": "zustand",
-      "name": "Zustand",
-      "icon": "🐻",
+      "id": "sass",
+      "name": "Sass",
+      "icon": "S",
       "category": "frontend",
       "tone": "primary"
     },
     {
-      "id": "redux-toolkit",
-      "name": "Redux Toolkit",
-      "icon": "🟣",
+      "id": "bootstrap",
+      "name": "Bootstrap",
+      "icon": "B",
       "category": "frontend",
       "tone": "primary"
     },
     {
-      "id": "ag-grid-enterprise",
-      "name": "AG-Grid Enterprise",
-      "icon": "⊞",
+      "id": "material-ui",
+      "name": "Material UI",
+      "icon": "M",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "styled-components",
+      "name": "styled-components",
+      "icon": "<>",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "responsive-design",
+      "name": "Responsive Design",
+      "icon": "▣",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "wcag-accessibility",
+      "name": "WCAG Accessibility",
+      "icon": "◎",
       "category": "frontend",
       "tone": "primary"
     },
@@ -498,6 +521,13 @@
       "id": "web-components",
       "name": "Web Components",
       "icon": "</>",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "ag-grid",
+      "name": "AG-Grid",
+      "icon": "⊞",
       "category": "frontend",
       "tone": "primary"
     },
@@ -511,28 +541,13 @@
     {
       "id": "highcharts",
       "name": "Highcharts",
-      "icon": "📈",
+      "icon": "▥",
       "category": "frontend",
       "tone": "primary"
     },
     {
-      "name": "GraphQL",
-      "icon": "◈",
-      "description": "Query language for efficient API design and data fetching",
-      "id": "graphql",
-      "category": "backend",
-      "tone": "secondary"
-    },
-    {
-      "id": "apollo-client",
-      "name": "Apollo Client",
-      "icon": "🚀",
-      "category": "backend",
-      "tone": "secondary"
-    },
-    {
-      "id": "node-js-ssr",
-      "name": "Node.js SSR",
+      "id": "node-js",
+      "name": "Node.js",
       "icon": "⬢",
       "category": "backend",
       "tone": "secondary"
@@ -545,57 +560,78 @@
       "tone": "secondary"
     },
     {
-      "id": "d3-js-data-viz",
-      "name": "D3.js Data Viz",
-      "icon": "📊",
+      "id": "graphql",
+      "name": "GraphQL",
+      "icon": "◈",
       "category": "backend",
       "tone": "secondary"
     },
     {
-      "id": "jenkins-pipelines",
-      "name": "Jenkins Pipelines",
+      "id": "apollo-client",
+      "name": "Apollo Client",
+      "icon": "A",
+      "category": "backend",
+      "tone": "secondary"
+    },
+    {
+      "id": "d3-js",
+      "name": "D3.js",
+      "icon": "D3",
+      "category": "backend",
+      "tone": "secondary"
+    },
+    {
+      "id": "git-github",
+      "name": "Git & GitHub",
+      "icon": "⑂",
+      "category": "devops",
+      "tone": "amber"
+    },
+    {
+      "id": "jenkins-groovy",
+      "name": "Jenkins & Groovy",
       "icon": "⚙",
       "category": "devops",
       "tone": "amber"
     },
     {
-      "id": "groovy-dps",
-      "name": "Groovy DPS",
-      "icon": "G",
-      "category": "devops",
-      "tone": "amber"
-    },
-    {
       "id": "aws-blue-green",
-      "name": "AWS (Blue/Green)",
+      "name": "AWS Blue/Green",
       "icon": "☁",
       "category": "devops",
       "tone": "amber"
     },
     {
-      "id": "docker",
-      "name": "Docker",
-      "icon": "🐳",
-      "category": "devops",
-      "tone": "amber"
+      "id": "jest",
+      "name": "Jest",
+      "icon": "J",
+      "category": "observability",
+      "tone": "secondary"
     },
     {
-      "id": "kubernetes",
-      "name": "Kubernetes",
-      "icon": "☸",
-      "category": "devops",
-      "tone": "amber"
+      "id": "react-testing-library",
+      "name": "React Testing Library",
+      "icon": "RTL",
+      "category": "observability",
+      "tone": "secondary"
     },
     {
-      "id": "webpack-vite",
-      "name": "Webpack & Vite",
-      "icon": "⚡",
-      "category": "devops",
-      "tone": "amber"
+      "id": "playwright",
+      "name": "Playwright",
+      "icon": "✓",
+      "category": "observability",
+      "tone": "secondary"
     },
     {
-      "id": "splunk-observability",
-      "name": "Splunk Observability",
+      "id": "jasmine-karma",
+      "name": "Jasmine & Karma",
+      "icon": "JK",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "splunk",
+      "name": "Splunk",
       "icon": ">",
       "category": "observability",
       "tone": "secondary"
@@ -603,35 +639,28 @@
     {
       "id": "wavefront-rum",
       "name": "Wavefront RUM",
-      "icon": "🌊",
+      "icon": "≈",
       "category": "observability",
       "tone": "secondary"
     },
     {
-      "id": "playwright-e2e",
-      "name": "Playwright E2E",
-      "icon": "🎭",
+      "id": "pagerduty",
+      "name": "PagerDuty",
+      "icon": "!",
       "category": "observability",
       "tone": "secondary"
     },
     {
-      "id": "jest-karma",
-      "name": "Jest & Karma",
-      "icon": "🃏",
+      "id": "storybook",
+      "name": "Storybook",
+      "icon": "SB",
       "category": "observability",
       "tone": "secondary"
     },
     {
-      "id": "pagerduty-alerting",
-      "name": "PagerDuty Alerting",
-      "icon": "🚨",
-      "category": "observability",
-      "tone": "secondary"
-    },
-    {
-      "id": "storybook-docs",
-      "name": "Storybook Docs",
-      "icon": "📖",
+      "id": "figma",
+      "name": "Figma",
+      "icon": "F",
       "category": "observability",
       "tone": "secondary"
     }
@@ -657,6 +686,10 @@
     {
       "label": "Overview",
       "href": "#hero"
+    },
+    {
+      "label": "Skills",
+      "href": "#skills"
     },
     {
       "label": "The Workshop",
@@ -685,7 +718,7 @@
       "Vanguard",
       "Korn Ferry",
       "Virgin Mobile",
-      "JP Morgan Chase"
+      "JPMorgan Chase"
     ],
     "highlights": [
       {

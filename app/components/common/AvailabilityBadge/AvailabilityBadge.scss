@@ -1,0 +1,34 @@
+.availability-badge {
+  --availability-accent: var(--colors-primary);
+  --availability-border: color-mix(in srgb, var(--availability-accent) 48%, transparent);
+  --availability-surface: linear-gradient(145deg, var(--colors-surface-container-high), var(--colors-surface));
+  --availability-shadow: 0 0 24px color-mix(in srgb, var(--availability-accent) 24%, transparent);
+  position:relative; display:grid; place-items:center; width:var(--layout-badge-size); aspect-ratio:1; flex-shrink:0; border:1px solid var(--availability-border); border-radius:50%; background:var(--availability-surface); box-shadow:var(--availability-shadow); }
+.availability-ring { width:100%; height:100%; animation:vault-badge-spin 20s linear infinite; text { fill:var(--availability-accent); font:700 9.5px var(--fonts-mono); letter-spacing:.2em; text-transform:uppercase; } }
+.availability-badge:hover .availability-ring { animation-play-state:paused; }
+.availability-center { position:absolute; display:grid; place-items:center; width:1.8rem; height:1.8rem; border-radius:50%; background:color-mix(in srgb, var(--availability-accent) 12%, var(--colors-surface)); border:1px solid var(--availability-border); box-shadow:inset 0 0 10px color-mix(in srgb, var(--availability-accent) 20%, transparent); svg { width:1rem; fill:var(--availability-accent); filter:drop-shadow(0 0 8px var(--availability-accent)); } }
+@keyframes vault-badge-spin { to { transform:rotate(360deg); } }
+
+@media(max-width:639px) { .availability-badge { width:4.75rem; } }
+@media(prefers-reduced-motion:reduce) { .availability-ring { animation:none; } }
+
+/* A soft moving highlight stays inside the badge, behind its lettering. */
+.availability-badge {
+  isolation:isolate;
+  border-color:color-mix(in srgb,var(--availability-accent) 65%,transparent);
+  box-shadow:0 0 28px color-mix(in srgb,var(--availability-accent) 30%,transparent),inset 0 0 18px color-mix(in srgb,var(--availability-accent) 8%,transparent);
+  &::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    border-radius:inherit;
+    pointer-events:none;
+    background:conic-gradient(from 0deg,transparent 0deg 245deg,color-mix(in srgb,var(--availability-accent) 12%,transparent) 280deg,rgba(241,222,255,.24) 305deg,transparent 335deg);
+    animation:vault-badge-shine 8s linear infinite;
+  }
+}
+.availability-ring text { filter:drop-shadow(0 0 3px color-mix(in srgb,var(--availability-accent) 55%,transparent)); }
+.availability-badge:hover::before { animation-play-state:paused; }
+@keyframes vault-badge-shine { to { transform:rotate(360deg); } }
+@media(prefers-reduced-motion:reduce) { .availability-badge::before { animation:none; opacity:.65; } }

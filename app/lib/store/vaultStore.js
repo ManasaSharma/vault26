@@ -17,7 +17,7 @@ export const useVaultStore = create((set) => ({
   fetchData: async () => {
     set({ loading: true, error: null });
     try {
-      const res = await fetch('/api/data');
+      const res = await fetch('/api/data', { cache: 'no-store' });
       if (!res.ok) throw new Error('Failed to fetch data');
       const data = await res.json();
       set({ data, loading: false });

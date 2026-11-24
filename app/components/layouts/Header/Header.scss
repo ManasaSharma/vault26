@@ -2,7 +2,7 @@
   position: sticky; top: 0; z-index: var(--z-index-notification);
   border-bottom: 1px solid var(--colors-hairline); background:var(--colors-surface-glass); backdrop-filter:blur(20px);
   .headerContent { display:flex; align-items:center; justify-content:space-between; gap:var(--spacing-md); min-height:var(--layout-header-height); }
-  .logoContainer { display:inline-flex; align-items:center; gap:.625rem; color:var(--colors-text); text-decoration:none; font-weight:700; letter-spacing:-.025em; flex-shrink:0; }
+  .logoContainer { display:inline-flex; align-items:center; gap:.75rem; color:var(--colors-text); text-decoration:none; font-weight:700; letter-spacing:-.025em; flex-shrink:0; }
   .logoBadge { display:grid; place-items:center; width:2rem; height:2rem; border-radius:var(--radius-md); background:linear-gradient(45deg,var(--colors-primary-container),var(--colors-indigo)); font:700 12px var(--fonts-mono); color:var(--colors-text); }
   .logoContainer:hover .logoText { color:var(--colors-primary); }
   .headerActions { display:flex; align-items:center; gap:var(--spacing-sm); }
@@ -11,6 +11,6 @@
   .mobileNav { border-top:1px solid var(--colors-hairline); padding-block:var(--spacing-md); }
   .mobileNav a { display:block; padding:.75rem; font:12px var(--fonts-mono); border-radius:var(--radius-md); text-decoration:none; color:var(--colors-text-muted); }
   .mobileNav a[aria-current] { background:var(--components-nav-active-background); color:var(--colors-primary); }
-  @media(min-width:900px) { .navPills { display:block; } .mobileMenuButton,.mobileNav { display:none; } }
+  @media(min-width:900px) { .navPills { display:block; margin-left:auto; } .headerActions,.mobileNav { display:none; } }
   @media(max-width:420px) { .headerActions .ui-button { padding-inline:.75rem; } .logoText { font-size:14px; } }
 }

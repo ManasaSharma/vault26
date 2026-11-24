@@ -19,7 +19,7 @@ export async function GET(request) {
     // Return with cache headers
     return Response.json(data, {
       headers: {
-        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+        'Cache-Control': process.env.NODE_ENV === 'development' ? 'no-store' : 'public, s-maxage=3600, stale-while-revalidate=86400',
         'Content-Type': 'application/json',
       },
     });

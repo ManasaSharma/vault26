@@ -1,0 +1,13 @@
+.visitor-count {
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.4rem .7rem;
+  border:1px solid var(--colors-hairline-bright);
+  border-radius:var(--radius-full);
+  background:var(--colors-surface-container);
+  color:var(--colors-text-muted);
+  font:400 11px/1.5 var(--fonts-mono);
+  svg { color:var(--colors-primary); }
+  strong { color:var(--colors-on-surface); font-weight:500; font-variant-numeric:tabular-nums; }
+}

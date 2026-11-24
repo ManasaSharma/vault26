@@ -20,7 +20,7 @@
 
 
 /* Remaining section skeletons inherit the common design system. */
-.portfolio-main { background: var(--colors-canvas-base); }
+.portfolio-main { background: transparent; }
 .layout-grid { display: grid; gap: var(--spacing-component-gap); grid-template-columns: minmax(0, 1fr); }
 .layout-placeholder { display: grid; gap: .75rem; margin-top: var(--spacing-lg); }
 .layout-placeholder span { display: block; height: .5rem; background: var(--colors-hairline-bright); border-radius: var(--radius-full); }
