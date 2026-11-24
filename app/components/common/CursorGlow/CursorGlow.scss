@@ -1,0 +1,18 @@
+/* The isolated negative layer sits above the surface background, below its text. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  :where(.cursor-glow-surface) { position: relative; isolation: isolate; }
+  .cursor-glow-surface::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(280px circle at var(--cursor-glow-x, 50%) var(--cursor-glow-y, 50%), color-mix(in srgb, var(--colors-primary) 12%, transparent), transparent 75%);
+    opacity: var(--cursor-glow-visible, 0);
+    transition: opacity 350ms ease;
+  }
+  .portfolio-main.cursor-glow-surface::after {
+    background: radial-gradient(420px circle at var(--cursor-glow-x) var(--cursor-glow-y), color-mix(in srgb, var(--colors-primary) 10%, transparent), transparent 75%);
+  }
+}

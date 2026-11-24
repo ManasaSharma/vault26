@@ -1,0 +1,92 @@
+/* ========================================
+   TYPOGRAPHY - text styles for the whole site
+
+   One class per entry in theme.config.js typographyScale.
+   Values come from CSS variables that layout.jsx generates from the theme,
+   so change the font in theme.config.js and every class follows.
+
+   Usage: <p className="type-body-md">...</p>
+   ======================================== */
+
+@layer components {
+  /* Headlines (Newsreader = serif, Bricolage Grotesque = sans) */
+  .type-headline-xl {
+    font-family: var(--typography-scale-headline-xl-font-family);
+    font-size: var(--typography-scale-headline-xl-font-size);
+    font-weight: var(--typography-scale-headline-xl-font-weight);
+    line-height: var(--typography-scale-headline-xl-line-height);
+    letter-spacing: var(--typography-scale-headline-xl-letter-spacing);
+  }
+
+  .type-headline-xl-mobile {
+    font-family: var(--typography-scale-headline-xl-mobile-font-family);
+    font-size: var(--typography-scale-headline-xl-mobile-font-size);
+    font-weight: var(--typography-scale-headline-xl-mobile-font-weight);
+    line-height: var(--typography-scale-headline-xl-mobile-line-height);
+    letter-spacing: var(--typography-scale-headline-xl-mobile-letter-spacing);
+  }
+
+  .type-headline-lg {
+    font-family: var(--typography-scale-headline-lg-font-family);
+    font-size: var(--typography-scale-headline-lg-font-size);
+    font-weight: var(--typography-scale-headline-lg-font-weight);
+    line-height: var(--typography-scale-headline-lg-line-height);
+    letter-spacing: var(--typography-scale-headline-lg-letter-spacing);
+  }
+
+  .type-headline-md {
+    font-family: var(--typography-scale-headline-md-font-family);
+    font-size: var(--typography-scale-headline-md-font-size);
+    font-weight: var(--typography-scale-headline-md-font-weight);
+    line-height: var(--typography-scale-headline-md-line-height);
+    letter-spacing: var(--typography-scale-headline-md-letter-spacing);
+  }
+
+  .type-headline-sm {
+    font-family: var(--typography-scale-headline-sm-font-family);
+    font-size: var(--typography-scale-headline-sm-font-size);
+    font-weight: var(--typography-scale-headline-sm-font-weight);
+    line-height: var(--typography-scale-headline-sm-line-height);
+    letter-spacing: var(--typography-scale-headline-sm-letter-spacing);
+  }
+
+  /* Body (no letter-spacing in the theme for these) */
+  .type-body-lg {
+    font-family: var(--typography-scale-body-lg-font-family);
+    font-size: var(--typography-scale-body-lg-font-size);
+    font-weight: var(--typography-scale-body-lg-font-weight);
+    line-height: var(--typography-scale-body-lg-line-height);
+  }
+
+  .type-body-md {
+    font-family: var(--typography-scale-body-md-font-family);
+    font-size: var(--typography-scale-body-md-font-size);
+    font-weight: var(--typography-scale-body-md-font-weight);
+    line-height: var(--typography-scale-body-md-line-height);
+  }
+
+  .type-body-sm {
+    font-family: var(--typography-scale-body-sm-font-family);
+    font-size: var(--typography-scale-body-sm-font-size);
+    font-weight: var(--typography-scale-body-sm-font-weight);
+    line-height: var(--typography-scale-body-sm-line-height);
+  }
+
+  /* Labels (JetBrains Mono) - metadata, nav links, tags */
+  .type-label-md {
+    font-family: var(--typography-scale-label-md-font-family);
+    font-size: var(--typography-scale-label-md-font-size);
+    font-weight: var(--typography-scale-label-md-font-weight);
+    line-height: var(--typography-scale-label-md-line-height);
+    letter-spacing: var(--typography-scale-label-md-letter-spacing);
+  }
+
+  .type-label-sm {
+    font-family: var(--typography-scale-label-sm-font-family);
+    font-size: var(--typography-scale-label-sm-font-size);
+    font-weight: var(--typography-scale-label-sm-font-weight);
+    line-height: var(--typography-scale-label-sm-line-height);
+    letter-spacing: var(--typography-scale-label-sm-letter-spacing);
+  }
+}
+

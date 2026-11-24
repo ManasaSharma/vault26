@@ -1,0 +1,854 @@
+{
+  "metadata": {
+    "name": "Manasa B.",
+    "title": "Software Engineer",
+    "bio": "Software Engineer with 11+ years of experience, specializing in frontend development with React, Angular, and TypeScript. Currently at Intuit, focused on reliable user experiences, frontend performance, and production observability. Previously worked with Fidelity, AT&T, Vanguard, Korn Ferry, Virgin Mobile, and JPMorgan Chase.",
+    "location": "Newark, CA",
+    "email": "bmanasasharma@outlook.com",
+    "status": "OPEN TO WORK",
+    "yearsExperience": "11+",
+    "tagline": "Architecting frontend systems, from pixels to pipelines"
+  },
+  "experiences": [
+    {
+      "id": "intuit-2024",
+      "company": "Intuit",
+      "location": "California",
+      "role": "Software Engineer",
+      "startDate": "2024-04",
+      "endDate": null,
+      "description": "Developed reusable React and TypeScript components for customer-facing QuickBooks workflows, supporting responsive layouts, real-time data, feature flags, and customer-specific experiences.",
+      "keyAccomplishments": [
+        "Reduced Failed Customer Interactions from 0.76% to 0.076% by instrumenting components to capture failures, tracing root causes, shipping targeted fixes, and validating the improvement in production.",
+        "Migrated a legacy frontend Data API integration to GraphQL, refactoring React data-fetching logic and partnering with backend engineers to validate schemas, data mappings, error handling, and regression coverage.",
+        "Collaborate with backend and platform engineers to integrate GraphQL and REST services using JSON-based data exchange, error handling, and client-server communication.",
+        "Improved frontend rendering performance through lazy loading, optimized network requests, reusable abstractions, and production-focused architectural patterns.",
+        "Developed unit, integration, and end-to-end tests using Jest and Playwright to validate component behavior, service integrations, error scenarios, and customer workflows.",
+        "Established production observability using Splunk logging, Wavefront dashboards, Real User Monitoring, Failed Customer Interaction metrics, PagerDuty thresholds, Slack notifications, and component-level lifecycle tracking.",
+        "Owned on-call triage, investigated production issues, coordinated cross-team resolution, and validated fixes.",
+        "Delivered production-ready code through Git-based workflows, collaborative code reviews, Jenkins pipelines, automated testing, and release validation.",
+        "Partner with product, design, backend, data, platform, and support teams to translate complex requirements into reliable and maintainable product capabilities.",
+        "Contribute to technical documentation, debugging, code reviews, knowledge sharing, and frontend engineering-quality improvements."
+      ],
+      "skills": [
+        "React",
+        "TypeScript",
+        "GraphQL",
+        "REST APIs",
+        "Jest",
+        "Playwright",
+        "Splunk",
+        "Wavefront",
+        "PagerDuty"
+      ]
+    },
+    {
+      "id": "fidelity-investments-2022",
+      "company": "Fidelity Investments",
+      "location": "Remote",
+      "role": "Senior Frontend Developer",
+      "startDate": "2022-09",
+      "endDate": "2024-02",
+      "description": "Built responsive React and TypeScript applications using reusable components, React Router, custom hooks, and maintainable state-sharing patterns.",
+      "keyAccomplishments": [
+        "Developed Node.js REST services consumed by frontend applications and implemented server-side rendering to improve backend integration, SEO, and initial-load performance.",
+        "Improved application reliability through unit tests with Jest, React Testing Library, browser debugging, technical documentation, production support, and collaborative code reviews.",
+        "Managed Jenkins CI/CD pipelines, authored Groovy deployment scripts, and performed AWS Blue/Green releases to support reliable delivery with minimal downtime.",
+        "Performed Angular updates from version 8 to 14, ensuring compatibility with the latest technologies and leveraging AG-Grid for robust data presentation.",
+        "Developed and maintained highly responsive Angular applications in TypeScript, focusing on performance optimization and cross-browser compatibility.",
+        "Partnered with product managers, designers, business stakeholders, and engineers to translate requirements and Figma prototypes into production web applications.",
+        "Conducted requirements analysis to align React development with client needs and business objectives.",
+        "Participated in Agile sprint planning and retrospectives and used JIRA for project tracking, supporting timely delivery and clear communication across all project phases."
+      ],
+      "skills": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "SSR",
+        "Angular",
+        "AG-Grid",
+        "Jenkins",
+        "Groovy",
+        "AWS Blue/Green"
+      ]
+    },
+    {
+      "id": "at-t-2021",
+      "company": "AT&T",
+      "location": "Remote",
+      "role": "Senior Angular Developer",
+      "startDate": "2021-10",
+      "endDate": "2022-08",
+      "description": "Developed reusable Angular and TypeScript components for enterprise applications using Angular Material, Bootstrap, Tailwind CSS, AG-Grid, PrimeNG, and Highcharts.",
+      "keyAccomplishments": [
+        "Created reusable UI components using web-component architecture with standard HTML, CSS, JavaScript, and HTML templates.",
+        "Worked in a lean Agile workflow across the full SDLC (Agile/Scrum and Waterfall), building new features and refining existing functionality in Angular 11.",
+        "Converted business and application-flow requirements into responsive, maintainable web features.",
+        "Integrated REST APIs using JSON- and XML-based data exchange, worked with OpenSSL, and collaborated with backend engineers to troubleshoot client-server integration issues.",
+        "Improved software quality through code reviews, unit and integration testing, mocking, coverage analysis, debugging, and Git, GitHub, and Jenkins-based delivery.",
+        "Partnered with product, design, and engineering teams to translate requirements into maintainable frontend features, documenting implementation decisions and sharing technical knowledge."
+      ],
+      "skills": [
+        "Angular",
+        "TypeScript",
+        "Web Components",
+        "Angular Material",
+        "AG-Grid",
+        "PrimeNG",
+        "Highcharts",
+        "REST APIs"
+      ]
+    },
+    {
+      "id": "fidelity-investments-2020",
+      "company": "Fidelity Investments",
+      "location": "Remote",
+      "role": "Senior Frontend Developer",
+      "startDate": "2020-10",
+      "endDate": "2021-09",
+      "description": "Developed reusable Angular and TypeScript components and services for REST-integrated, data-intensive web applications using AG-Grid and D3.js.",
+      "keyAccomplishments": [
+        "Upgraded Angular applications from version 8 to version 10 and modernized dependencies while maintaining application stability and compatibility.",
+        "Implemented Jasmine and Karma tests, WCAG accessibility validation, browser-compatibility testing, debugging, and cross-functional code reviews.",
+        "Improved application performance and responsive behavior across browsers and devices.",
+        "Gathered requirements from a diverse client base and mapped them to application flows to deliver tailored solutions.",
+        "Built responsive, cross-browser interfaces with Bootstrap, translating Figma prototypes, mockups, and wireframes for Angular 11 into functional pages with HTML and CSS.",
+        "Implemented AG-Grid across multiple internal Angular 11 applications and upgraded internal dependency modules to maintain performance.",
+        "Managed dependencies with npm and debugged using Chrome DevTools, DOM inspectors, and JavaScript debugging techniques.",
+        "Developed Groovy scripts for Jenkins pipelines and executed continuous-deployment jobs on DPS pipelines."
+      ],
+      "skills": [
+        "Angular",
+        "TypeScript",
+        "AG-Grid",
+        "D3.js",
+        "Jasmine",
+        "Karma",
+        "Bootstrap",
+        "Groovy"
+      ]
+    },
+    {
+      "id": "vanguard-2020",
+      "company": "Vanguard",
+      "location": "Remote",
+      "role": "Software Developer",
+      "startDate": "2020-01",
+      "endDate": "2020-10",
+      "description": "Built a React and TypeScript application using modular components, custom hooks, styled-components, responsive layouts, and accessible UI patterns to enhance rendering efficiency and application speed.",
+      "keyAccomplishments": [
+        "Developed a high-confidentiality tool using React, Redux, and Apollo Client, with Redux reducers for state management and React Router for navigation.",
+        "Developed Next.js API routes and collaborated with backend teams to design and consume GraphQL APIs.",
+        "Created reusable frontend components and production interfaces from Adobe XD and Sketch designs.",
+        "Improved web-application performance through code splitting, lazy loading, efficient component rendering, log analysis, and targeted production fixes.",
+        "Wrote unit tests with React Testing Library and Jest to ensure component quality and reliability.",
+        "Engaged in Agile ceremonies, including sprint planning, daily standups, and retrospectives, to drive continuous product delivery.",
+        "Managed production support for React and TypeScript applications, triaging runtime defects and analyzing application logs to improve system uptime.",
+        "Connected third-party integrations and backend microservices via Node.js middleware layers to expand platform features.",
+        "Configured Apollo Client caching and GraphQL subscriptions to optimize real-time data synchronization and network request efficiency.",
+        "Partnered with backend engineers to define GraphQL schemas, validate payload structures, and integrate data services into React workflows."
+      ],
+      "skills": [
+        "React",
+        "TypeScript",
+        "Redux",
+        "Apollo Client",
+        "GraphQL",
+        "Next.js",
+        "Node.js",
+        "Jest"
+      ]
+    },
+    {
+      "id": "korn-ferry-2018",
+      "company": "Korn Ferry",
+      "location": "Pennsylvania",
+      "role": "Angular Developer",
+      "startDate": "2018-05",
+      "endDate": "2019-12",
+      "description": "Developed Angular and AngularJS single-page applications using TypeScript, JavaScript, HTML5, CSS3, Bootstrap, Sass, Less, reusable components, and REST APIs.",
+      "keyAccomplishments": [
+        "Built accessible, responsive, and cross-browser interfaces using WCAG guidelines and modern web standards.",
+        "Built jQuery-driven interfaces with attention to DOM compatibility, SEO, and web standards, and resolved cross-browser issues across IE, Firefox, and Chrome.",
+        "Created reusable TypeScript components and services to consume REST APIs, built UI components such as editable drop-downs and data-driven menus, and managed dependencies with npm.",
+        "Collaborated with development, QA, and business teams on feature development, testing, releases, performance validation, and defect resolution.",
+        "Deployed infrastructure through the AWS Console, created page objects, and reported performance-testing results; fixed defects and delivered enhancements that improved site speed.",
+        "Supported Git and SVN workflows, JIRA tracking, code reviews, and Agile delivery."
+      ],
+      "skills": [
+        "Angular",
+        "AngularJS",
+        "TypeScript",
+        "JavaScript",
+        "Sass",
+        "Less",
+        "REST APIs",
+        "AWS"
+      ]
+    },
+    {
+      "id": "virgin-mobile-2017",
+      "company": "Virgin Mobile",
+      "location": "Missouri",
+      "role": "Frontend Web Developer",
+      "startDate": "2017-04",
+      "endDate": "2018-04",
+      "description": "Co-developed a secure Angular 2 web application using reusable TypeScript components and responsive HTML, CSS, and JavaScript.",
+      "keyAccomplishments": [
+        "Developed Adobe Experience Manager components and implemented CSS Grid, Flexbox, and responsive layouts.",
+        "Created a custom CSS grid system with media queries for mobile responsiveness, and used Gulp, Grunt, Firebug, and Chrome Developer Tools for build tooling and debugging.",
+        "Troubleshot browser, CSS, JavaScript, and client-side application issues and validated fixes before production releases.",
+        "Collaborated with business stakeholders, designers, and the web content management team to design, develop, and implement website UI; participated in Agile sprint planning.",
+        "Supported Git and GitHub workflows, build scripts, release documentation, JIRA tracking, and Agile delivery."
+      ],
+      "skills": [
+        "Angular 2",
+        "TypeScript",
+        "AEM",
+        "CSS Grid",
+        "Flexbox",
+        "Gulp",
+        "Grunt"
+      ]
+    },
+    {
+      "id": "vanguard-2016",
+      "company": "Vanguard",
+      "location": "Pennsylvania",
+      "role": "Angular Developer",
+      "startDate": "2016-03",
+      "endDate": "2017-03",
+      "description": "Developed banking web applications using AngularJS, JavaScript, Node.js, HTML, CSS, Bootstrap, and responsive design.",
+      "keyAccomplishments": [
+        "Partnered with business analysts, data teams, and backend engineers to convert requirements into technical specifications and production UI capabilities.",
+        "Delivered UI design artifacts including task flows, storyboards, wireframes, and high-fidelity prototypes.",
+        "Built responsive pages with Bootstrap and media queries, ran unit tests and compilation through Grunt, and developed with Eclipse, WebStorm, and Tortoise SVN.",
+        "Created Jasmine and Karma unit tests and Protractor and Cucumber integration tests.",
+        "Improved page-rendering performance, resolved browser-compatibility issues, and supported UAT and production releases.",
+        "Participated in Crucible code reviews and design and test inspections, and ran page-performance tests against rendering-time specifications.",
+        "Coordinated releases using JIRA, SVN, SharePoint, and Grunt."
+      ],
+      "skills": [
+        "AngularJS",
+        "JavaScript",
+        "Node.js",
+        "Bootstrap",
+        "Jasmine",
+        "Karma",
+        "Protractor",
+        "Cucumber"
+      ]
+    },
+    {
+      "id": "jpmorgan-chase-2014",
+      "company": "JPMorgan Chase",
+      "location": "Delaware",
+      "role": "UI Developer",
+      "startDate": "2014-12",
+      "endDate": "2015-12",
+      "description": "Built responsive, multi-browser financial web applications using HTML5, CSS3, JavaScript, jQuery, Bootstrap, AngularJS, and Adobe Experience Manager.",
+      "keyAccomplishments": [
+        "Collaborated with business analysts, designers, and engineers to translate requirements and wireframes into maintainable UI solutions.",
+        "Defined UI architecture for an internal web application, building wireframes and mockups with designers, and integrated dynamic code into Adobe AEM.",
+        "Worked in Agile with sprint planning and user-story grooming; used Grunt, Stylus, Tortoise SVN, Firebug, and Chrome Developer Tools.",
+        "Supported browser debugging, defect resolution, frontend performance improvements, and version-control workflows."
+      ],
+      "skills": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "jQuery",
+        "Bootstrap",
+        "AngularJS",
+        "AEM",
+        "Grunt"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Live Customer Hub",
+      "description": "Multi-tenant expert network platform connecting small businesses with on-demand accounting and bookkeeping services.",
+      "fullDescription": "A high-performance React SPA serving 100K+ monthly active users with real-time expert availability, video chat integration, appointment booking, and payment processing. Features AI-powered matching algorithm, 99.9% uptime SLA, and zero-regression deployment pipeline.",
+      "link": "https://github.com/intuit/live-customer-hub",
+      "repo": "live-customer-hub",
+      "tech": [
+        "React 18",
+        "TypeScript",
+        "GraphQL",
+        "TailwindCSS",
+        "WebSockets",
+        "Next.js"
+      ],
+      "image": "/images/lch.png",
+      "featured": true,
+      "keyFeatures": [
+        "Real-time expert availability and presence detection",
+        "Video chat and screen sharing with Agora SDK",
+        "Appointment booking and rescheduling workflow",
+        "Marketing suppression and campaign targeting",
+        "Payment processing and invoice generation"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Contact Expert Widget",
+      "description": "Embeddable React widget for QuickBooks users to discover, book, and connect with on-demand accounting experts.",
+      "fullDescription": "A self-contained web component built with React and TypeScript that integrates seamlessly into QuickBooks interfaces. Handles expert discovery, appointment booking, payment, and video conferencing. Supports multiple themes and is fully accessible (WCAG 2.1 AA).",
+      "link": "https://github.com/intuit/one-intuit-contact-expert",
+      "repo": "one-intuit-contact-expert",
+      "tech": [
+        "React",
+        "TypeScript",
+        "WebComponents",
+        "Webpack",
+        "TailwindCSS"
+      ],
+      "image": "/images/cew.png",
+      "featured": true,
+      "keyFeatures": [
+        "Expert discovery with AI-powered recommendations",
+        "One-click appointment booking",
+        "Integrated video calling and chat",
+        "Multi-tenant support with theme customization",
+        "SSO integration with Intuit IDP"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Expert Services Bootstrap",
+      "description": "Foundational service architecture, GraphQL schema, and deployment pipeline for expert network features across Intuit products.",
+      "fullDescription": "A comprehensive engineering foundation including GraphQL API design, backend service templates, CI/CD pipelines, monitoring infrastructure, and documentation. Enables rapid development of expert-related features across multiple Intuit product teams.",
+      "link": "https://github.com/intuit/expert-services-bootstrap",
+      "repo": "expert-services-bootstrap",
+      "tech": [
+        "Node.js",
+        "GraphQL",
+        "Kafka",
+        "Docker",
+        "Kubernetes"
+      ],
+      "image": "/images/bootstrap.png",
+      "featured": false,
+      "keyFeatures": [
+        "Production-ready GraphQL API schema",
+        "Service template and scaffolding",
+        "Automated testing and CI/CD pipeline",
+        "Monitoring and observability setup",
+        "Performance benchmarks and optimization guide"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Portfolio & Blog Platform",
+      "description": "Next.js-based personal portfolio with in-repo database, API routes, and MDX support for technical writing.",
+      "fullDescription": "A modern portfolio website built with Next.js, featuring in-repo JSON data storage, API routes for data fetching, Tailwind CSS styling, and SEO optimization. Includes blog functionality with MDX for interactive technical articles.",
+      "link": "https://github.com/mbudamagunt/vault26",
+      "repo": "vault26",
+      "tech": [
+        "Next.js",
+        "React 18",
+        "TypeScript",
+        "TailwindCSS",
+        "MDX",
+        "Vercel"
+      ],
+      "image": "/images/portfolio.png",
+      "featured": true,
+      "keyFeatures": [
+        "In-repo JSON database with API routes",
+        "Dark mode with custom Tailwind theme",
+        "Rotating 'OPEN TO WORK' SVG badge animation",
+        "Responsive design and mobile optimization",
+        "SEO optimized with metadata and Open Graph"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Architecture",
+      "description": "Build maintainable frontend systems with reusable components and reliable data flows.",
+      "items": [
+        "Reusable React, Angular, and TypeScript components",
+        "REST and GraphQL service integrations",
+        "Lazy loading, code splitting, and server-side rendering",
+        "Responsive interfaces and WCAG accessibility"
+      ]
+    },
+    {
+      "category": "Collaboration",
+      "description": "Turn shared requirements into working interfaces with cross-functional teams.",
+      "items": [
+        "Partner with product, design, backend, and QA teams",
+        "Translate Figma prototypes into production interfaces",
+        "Contribute code reviews, documentation, and knowledge sharing",
+        "Participate in Agile planning and sprint delivery"
+      ]
+    },
+    {
+      "category": "Delivery",
+      "description": "Ship tested changes and support their reliability in production.",
+      "items": [
+        "Unit, integration, and end-to-end testing with Jest, React Testing Library, and Playwright",
+        "Jenkins pipelines and AWS Blue/Green releases",
+        "Production monitoring with Splunk and Wavefront",
+        "On-call triage, debugging, and production fix validation"
+      ]
+    }
+  ],
+  "dailyDrivers": [
+    {
+      "id": "html5",
+      "name": "HTML5",
+      "icon": "H5",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "css3",
+      "name": "CSS3",
+      "icon": "C3",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "icon": "JS",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "icon": "TS",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "icon": "⚛",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "next-js",
+      "name": "Next.js",
+      "icon": "▲",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "angular",
+      "name": "Angular",
+      "icon": "A",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "react-hooks-context",
+      "name": "React Hooks & Context",
+      "icon": "↻",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "redux",
+      "name": "Redux",
+      "icon": "◉",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "react-router",
+      "name": "React Router",
+      "icon": "⇢",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "tailwind-css",
+      "name": "Tailwind CSS",
+      "icon": "≈",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "sass",
+      "name": "Sass",
+      "icon": "S",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "bootstrap",
+      "name": "Bootstrap",
+      "icon": "B",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "material-ui",
+      "name": "Material UI",
+      "icon": "M",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "styled-components",
+      "name": "styled-components",
+      "icon": "<>",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "responsive-design",
+      "name": "Responsive Design",
+      "icon": "▣",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "wcag-accessibility",
+      "name": "WCAG Accessibility",
+      "icon": "◎",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "web-components",
+      "name": "Web Components",
+      "icon": "</>",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "ag-grid",
+      "name": "AG-Grid",
+      "icon": "⊞",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "primeng",
+      "name": "PrimeNG",
+      "icon": "◆",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "highcharts",
+      "name": "Highcharts",
+      "icon": "▥",
+      "category": "frontend",
+      "tone": "primary"
+    },
+    {
+      "id": "node-js",
+      "name": "Node.js",
+      "icon": "⬢",
+      "category": "backend",
+      "tone": "secondary"
+    },
+    {
+      "id": "rest-apis",
+      "name": "REST APIs",
+      "icon": "⇌",
+      "category": "backend",
+      "tone": "secondary"
+    },
+    {
+      "id": "graphql",
+      "name": "GraphQL",
+      "icon": "◈",
+      "category": "backend",
+      "tone": "secondary"
+    },
+    {
+      "id": "apollo-client",
+      "name": "Apollo Client",
+      "icon": "A",
+      "category": "backend",
+      "tone": "secondary"
+    },
+    {
+      "id": "d3-js",
+      "name": "D3.js",
+      "icon": "D3",
+      "category": "backend",
+      "tone": "secondary"
+    },
+    {
+      "id": "git-github",
+      "name": "Git & GitHub",
+      "icon": "⑂",
+      "category": "devops",
+      "tone": "amber"
+    },
+    {
+      "id": "jenkins-groovy",
+      "name": "Jenkins & Groovy",
+      "icon": "⚙",
+      "category": "devops",
+      "tone": "amber"
+    },
+    {
+      "id": "aws-blue-green",
+      "name": "AWS Blue/Green",
+      "icon": "☁",
+      "category": "devops",
+      "tone": "amber"
+    },
+    {
+      "id": "jest",
+      "name": "Jest",
+      "icon": "J",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "react-testing-library",
+      "name": "React Testing Library",
+      "icon": "RTL",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "playwright",
+      "name": "Playwright",
+      "icon": "✓",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "jasmine-karma",
+      "name": "Jasmine & Karma",
+      "icon": "JK",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "splunk",
+      "name": "Splunk",
+      "icon": ">",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "wavefront-rum",
+      "name": "Wavefront RUM",
+      "icon": "≈",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "pagerduty",
+      "name": "PagerDuty",
+      "icon": "!",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "storybook",
+      "name": "Storybook",
+      "icon": "SB",
+      "category": "observability",
+      "tone": "secondary"
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "icon": "F",
+      "category": "observability",
+      "tone": "secondary"
+    }
+  ],
+  "social": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/mbudamagunt",
+      "icon": "github"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://linkedin.com/in/manasasharma",
+      "icon": "linkedin"
+    },
+    {
+      "name": "Email",
+      "url": "mailto:bmanasasharma@outlook.com",
+      "icon": "mail"
+    }
+  ],
+  "navigation": [
+    {
+      "label": "Overview",
+      "href": "#hero"
+    },
+    {
+      "label": "Skills",
+      "href": "#skills"
+    },
+    {
+      "label": "The Workshop",
+      "href": "#projects"
+    },
+    {
+      "label": "Experience",
+      "href": "#experience"
+    },
+    {
+      "label": "Connect",
+      "href": "#contact"
+    }
+  ],
+  "callToAction": {
+    "primary": "Start a Conversation",
+    "secondary": "Book a Call",
+    "calendlyUrl": "https://calendly.com/manasa-budamagunt/30min"
+  },
+  "hero": {
+    "metaSummary": "11+ yrs shipping React, Angular & TypeScript",
+    "bioEmphasis": [
+      "Intuit",
+      "Fidelity",
+      "AT&T",
+      "Vanguard",
+      "Korn Ferry",
+      "Virgin Mobile",
+      "JPMorgan Chase"
+    ],
+    "highlights": [
+      {
+        "id": "now",
+        "label": "NOW",
+        "title": "Software Engineer @ Intuit",
+        "description": "Distributed frontend platform, FCI suppression, and Splunk / Wavefront RUM observability.",
+        "tone": "active"
+      },
+      {
+        "id": "craft",
+        "label": "CORE CRAFT",
+        "title": "React 18+, TypeScript & Angular",
+        "description": "High-agency systems, strict typing from schema to DOM, zero runtime escape hatches.",
+        "tone": "primary"
+      },
+      {
+        "id": "impact",
+        "label": "IMPACT RECORD",
+        "title": "350K+ Users · 10x Error Reduction",
+        "description": "Automated FCI error suppression, Playwright E2E suites, and AWS Blue/Green enterprise deploys.",
+        "tone": "secondary"
+      }
+    ]
+  },
+  "driverFilters": [
+    {
+      "id": "frontend",
+      "label": "Frontend"
+    },
+    {
+      "id": "backend",
+      "label": "Data & APIs"
+    },
+    {
+      "id": "devops",
+      "label": "DevOps & CI/CD"
+    },
+    {
+      "id": "observability",
+      "label": "Observability & Testing"
+    }
+  ],
+  "siteCopy": {
+    "common": {
+      "skip": "Skip to content",
+      "loading": "Loading portfolio…",
+      "loadError": "Portfolio data could not load. The layout is still available.",
+      "retry": "Retry",
+      "present": "Present",
+      "currentRole": "Current role",
+      "technologies": "technologies",
+      "openEmail": "Open your email app",
+      "optional": "(optional)"
+    },
+    "header": {
+      "mainNavigation": "Main navigation",
+      "mobileNavigation": "Mobile navigation",
+      "openNavigation": "Open navigation",
+      "closeNavigation": "Close navigation"
+    },
+    "hero": {
+      "copied": "Email copied to clipboard.",
+      "copyFailed": "Could not copy email. ",
+      "locationFallback": "Location",
+      "bioFallback": "Profile information will appear here once loaded."
+    },
+    "skills": {
+      "label": "Skills",
+      "title": "The stack behind everything I ",
+      "titleAccent": "ship.",
+      "listLabel": "Technical skills",
+      "filterLabel": "Filter technologies",
+      "all": "All",
+      "shown": "technologies shown"
+    },
+    "experience": {
+      "label": "// Track record",
+      "title": "Where I’ve built & ",
+      "titleAccent": "scaled",
+      "summary": "roles across frontend engineering, financial services, and telecommunications.",
+      "timelineLabel": "Career timeline",
+      "detailsLabel": "Experience details"
+    },
+    "contact": {
+      "label": "Connect",
+      "title": "Have something in mind? Let’s talk.",
+      "description": "Send a message, or add an optional date and time for a call.",
+      "dateLabel": "Select a date · optional",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "chooseDate": "Choose a date in",
+      "timeLabel": "Preferred time",
+      "hourLabel": "Hour, 1 to 12",
+      "minuteLabel": "Minutes, 00 to 59",
+      "periodLabel": "AM or PM",
+      "hourPlaceholder": "hh",
+      "minutePlaceholder": "mm",
+      "clearTime": "Clear preferred time",
+      "timezone": "Pacific time · America/Los_Angeles",
+      "detailsLabel": "Your details",
+      "name": "Your name",
+      "company": "Company",
+      "companyPlaceholder": "Company name",
+      "messageLabel": "What would you like to talk about?",
+      "messagePlaceholder": "Hi Manasa, we’re working on…",
+      "direct": "Reach me directly",
+      "submit": "Let’s connect",
+      "draftNote": "Opens an email draft for you to review and send. Call times aren’t confirmed bookings."
+    },
+    "actions": {
+      "label": "Availability, resume, and booking",
+      "availability": "Open to Software Engineering roles",
+      "downloadLabel": "Download resume",
+      "resume": "Resume",
+      "chooseFormat": "Choose a format",
+      "pdf": "PDF",
+      "pdfDescription": "Ready to view or print",
+      "word": "Word / DOCX",
+      "wordDescription": "Editable document",
+      "bookCall": "Book a call",
+      "pdfUrl": "/resume/Manasa_Resume.pdf",
+      "wordUrl": "/resume/Manasa_Resume.docx"
+    },
+    "footer": {
+      "description": "Frontend engineering · Built with care",
+      "backToTop": "Back to top ↑",
+      "visitor": "visitor",
+      "visitors": "visitors",
+      "visitorDescription": "Distinct browsers since tracking started. Repeat visits from the same browser are counted once."
+    }
+  }
+}

@@ -1,0 +1,13 @@
+body { position:relative; isolation:isolate; }
+.galaxy-background {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+  pointer-events:none;
+  background:radial-gradient(ellipse at 76% 12%,color-mix(in srgb,var(--colors-primary) 9%,transparent),transparent 48%),radial-gradient(ellipse at 13% 76%,color-mix(in srgb,var(--colors-indigo) 10%,transparent),transparent 48%),var(--colors-canvas);
+  span { position:absolute; display:block; border-radius:50%; background:var(--colors-on-surface); box-shadow:0 0 4px color-mix(in srgb,var(--colors-primary) 30%,transparent); }
+}
+.portfolio-main { background:transparent; }
+@media(max-width:639px) { .galaxy-background span:nth-child(even) { display:none; } }
+

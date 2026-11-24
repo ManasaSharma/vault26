@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manasa B. — Senior Staff Frontend Architect Portfolio</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface": "#131315",
+        "surface-low": "#1b1b1d",
+        "surface-lowest": "#0c0c0e",
+        "canvas": "#09090b",
+        "primary": "#c084fc",
+        "primary-container": "#7e22ce",
+        "secondary": "#38bdf8",
+        "accent-blue": "#2563eb",
+        "text-muted": "#9ca3af",
+        "hairline": "rgba(255, 255, 255, 0.08)",
+        "hairline-bright": "rgba(255, 255, 255, 0.16)"
+      },
+      fontFamily: {
+        serif: ["Newsreader", "serif"],
+        sans: ["Bricolage Grotesque", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"]
+      }
+    }
+  }
+};
+</script>
+<style>
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+.animate-spin-slow:hover {
+  animation-play-state: paused;
+}
+.blueprint-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.tech-tag {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tech-tag:hover {
+  transform: translateY(-2px);
+  border-color: rgba(192, 132, 252, 0.6);
+  background-color: #22222a;
+}
+.cal-slot {
+  transition: all 0.2s ease;
+}
+.cal-slot:hover {
+  border-color: #38bdf8;
+  background-color: rgba(56, 189, 248, 0.1);
+}
+
+/* Custom scrollbar for cards stream */
+#exp-cards-stream::-webkit-scrollbar {
+  width: 6px;
+}
+#exp-cards-stream::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 9999px;
+}
+#exp-cards-stream::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+#exp-cards-stream::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 132, 252, 0.4);
+}
+
+/* Company sidebar navigation styles */
+.exp-nav-item {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.exp-nav-item.active {
+  background: rgba(192, 132, 252, 0.12);
+  border-color: rgba(192, 132, 252, 0.45);
+  box-shadow: 0 0 20px -2px rgba(192, 132, 252, 0.25);
+}
+.exp-nav-item.active .exp-nav-dot {
+  background-color: #c084fc;
+  box-shadow: 0 0 10px #c084fc;
+  transform: scale(1.15);
+}
+.exp-nav-item.active .exp-nav-company {
+  color: #ffffff;
+}
+
+/* Experience detail card states */
+.exp-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.exp-card.is-active {
+  border-color: rgba(192, 132, 252, 0.55) !important;
+  box-shadow: 0 10px 32px -10px rgba(126, 34, 206, 0.3), 0 0 0 1px rgba(192, 132, 252, 0.25);
+  background-color: #15151d !important;
+}
+</style>
+</head>
+<body class="bg-canvas text-gray-200 font-sans antialiased selection:bg-purple-900 selection:text-white min-h-screen">
+<!-- Top Navigation -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#0d0d11]/80 backdrop-blur-xl border-b border-hairline">
+<div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+<a class="flex items-center gap-2.5 font-bold tracking-tight text-white group" href="#">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-700 to-indigo-600 flex items-center justify-center text-xs font-mono font-bold text-white shadow-md">
+        MB
+      </div>
+<span class="group-hover:text-primary transition-colors">Manasa B.</span>
+</a>
+<nav class="hidden md:flex items-center gap-1 p-1 rounded-full bg-[#18181e] border border-hairline text-xs font-mono">
+<a class="px-3.5 py-1.5 rounded-full bg-primary/20 text-primary font-semibold" href="#overview">Overview</a>
+<a class="px-3.5 py-1.5 rounded-full text-text-muted hover:text-white transition-colors" href="#daily-drivers">Daily Drivers</a>
+<a class="px-3.5 py-1.5 rounded-full text-text-muted hover:text-white transition-colors" href="#workshop">The Workshop</a>
+<a class="px-3.5 py-1.5 rounded-full text-text-muted hover:text-white transition-colors" href="#experience">Experience</a>
+<a class="px-3.5 py-1.5 rounded-full text-text-muted hover:text-white transition-colors" href="#connect">Connect</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-black text-xs font-medium hover:bg-gray-200 transition-all shadow-sm" href="#connect">
+<span class="">Book a Call</span>
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+</a>
+</div>
+</div>
+</header>
+<main class="pt-24 max-w-6xl mx-auto px-6 pb-24 flex flex-col gap-24">
+<!-- HERO SECTION WITH ROTATING "OPEN TO WORK" BADGE -->
+<section class="pt-8 relative" id="overview">
+<div class="absolute -top-16 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-purple-600/15 via-blue-600/10 to-transparent blur-[120px] pointer-events-none -z-10"></div>
+<!-- Top Meta Row -->
+<div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+<div class="flex items-center gap-2">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#15151b] border border-hairline text-xs font-mono text-gray-300">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="">📍 Newark, CA · 11+ yrs shipping React, Angular &amp; TypeScript</span>
+</div>
+<span class="hidden sm:inline-block px-3 py-1 rounded-full bg-[#1a1a24] border border-hairline text-xs font-mono text-primary">Senior Staff Frontend Architect</span>
+</div>
+<!-- FEATURE: Rotating "OPEN TO WORK" Circular Badge -->
+<a class="relative group cursor-pointer" href="#connect" title="Click to open calendar booking">
+<div class="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-60 blur-md group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+<div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#0a0a0d] border-[3px] border-[#2563eb] shadow-[0_0_25px_rgba(37,99,235,0.45)] flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-300">
+<!-- Rotating SVG Text Ring -->
+<svg class="w-full h-full animate-spin-slow" viewbox="0 0 100 100">
+<defs>
+<path d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" id="circlePath"></path>
+</defs>
+<text class="text-[9.5px] font-bold font-mono tracking-[0.22em] fill-white uppercase">
+<textpath href="#circlePath" startoffset="0%">
+                OPEN TO WORK • STAFF &amp; LEAD FRONTEND • 
+              </textpath>
+</text>
+</svg>
+<!-- Center 4-Point Star -->
+<div class="absolute inset-0 m-auto w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#121218] border border-blue-400/40 flex items-center justify-center shadow-[inset_0_0_10px_rgba(59,130,246,0.3)]">
+<svg class="w-5 h-5 text-blue-200 fill-current drop-shadow-[0_0_8px_rgba(191,219,254,0.9)] group-hover:rotate-45 transition-transform duration-500" viewbox="0 0 24 24">
+<path d="M12 0C12 7 7 12 0 12C7 12 12 17 12 24C12 17 17 12 24 12C17 12 12 7 12 0Z"></path>
+</svg>
+</div>
+</div>
+</a>
+</div>
+<!-- Main Title & Bio -->
+<div class="max-w-4xl">
+<h1 class="text-4xl sm:text-6xl font-serif tracking-tight text-white leading-[1.1] mb-6">
+        Architecting frontend systems, from <span class="italic text-primary">pixels</span> to <span class="italic text-secondary">pipelines</span>
+</h1>
+<p class="text-base sm:text-lg text-gray-400 font-sans leading-relaxed mb-8 max-w-3xl">
+        Senior Frontend Engineer specializing in high-throughput enterprise architectures. Proven 11+ year track record modernizing and scaling digital engines across <strong class="text-white">Intuit, Fidelity, AT&amp;T, Vanguard, Korn Ferry, Virgin Mobile,</strong> and <strong class="text-white">JP Morgan Chase</strong>. Deployed client error suppression systems serving 350K+ daily users with typed, zero-regression CI/CD releases.
+      </p>
+<div class="flex flex-wrap items-center gap-3">
+<a class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold text-xs tracking-wider uppercase hover:bg-gray-200 transition-all shadow-lg group" href="#connect">
+<span class="">Start a Conversation</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">north_east</span>
+</a>
+<button class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#17171e] border border-hairline text-gray-300 hover:text-white hover:border-hairline-bright text-xs font-mono transition-all" onclick="copyEmailToClipboard()">
+<span class="material-symbols-outlined text-[16px] text-primary">mail</span>
+<span class="" id="hero-email-label">bmanasasharma@outlook.com</span>
+</button>
+</div>
+</div>
+<!-- Ticker Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+<div class="p-5 rounded-2xl bg-[#121217] border border-hairline flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-[11px] font-mono text-emerald-400">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="">NOW</span>
+</div>
+<div class="text-white font-semibold">Software Engineer @ Intuit</div>
+<div class="text-xs text-text-muted">Distributed frontend platform, FCI suppression, and Splunk / Wavefront RUM observability.</div>
+</div>
+<div class="p-5 rounded-2xl bg-[#121217] border border-hairline flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-[11px] font-mono text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="">CORE CRAFT</span>
+</div>
+<div class="text-white font-semibold">React 18+, TypeScript &amp; Angular</div>
+<div class="text-xs text-text-muted">High-agency systems, strict typing from schema to DOM, zero runtime escape hatches.</div>
+</div>
+<div class="p-5 rounded-2xl bg-[#121217] border border-hairline flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-[11px] font-mono text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="">IMPACT RECORD</span>
+</div>
+<div class="text-white font-semibold">350K+ Users · 10x Error Reduction</div>
+<div class="text-xs text-text-muted">Automated FCI error suppression, Playwright E2E suites, and AWS Blue/Green enterprise deploys.</div>
+</div>
+</div>
+</section>
+<!-- DAILY DRIVERS: The stack behind everything I ship -->
+<section class="relative" id="daily-drivers">
+<div class="rounded-3xl bg-[#0e0e13] border border-white/10 p-6 sm:p-10 blueprint-grid relative overflow-hidden shadow-2xl">
+<!-- Glow -->
+<div class="absolute -top-24 right-0 w-80 h-80 bg-purple-600/10 blur-[90px] pointer-events-none"></div>
+<div class="flex flex-col gap-1 mb-8">
+<span class="text-xs font-mono uppercase tracking-[0.2em] text-text-muted">DAILY DRIVERS</span>
+<h2 class="text-2xl sm:text-4xl font-serif text-white tracking-tight">The stack behind everything I ship</h2>
+</div>
+<!-- Tag Container -->
+<div class="flex flex-wrap gap-2.5 sm:gap-3 py-2 min-h-[160px]" id="tech-tags-list">
+<!-- Frontend -->
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-blue-400 font-bold font-mono">⚛</span>
+<span class="">React 18+</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-blue-400 font-mono text-xs px-1 rounded bg-blue-500/20 font-bold">TS</span>
+<span class="">TypeScript</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-white font-mono font-bold text-xs">▲</span>
+<span class="">Next.js 14</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-red-400 font-bold">🅰</span>
+<span class="">Angular (v8-14)</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-cyan-400 font-bold">≈</span>
+<span class="">Tailwind CSS</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-purple-400 font-bold">🐻</span>
+<span class="">Zustand</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-purple-400 font-bold">🟣</span>
+<span class="">Redux Toolkit</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-yellow-400 font-mono font-bold">⊞</span>
+<span class="">AG-Grid Enterprise</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-emerald-400 font-mono text-xs font-bold">&lt;/&gt;</span>
+<span class="">Web Components</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-blue-400 font-mono font-bold">◆</span>
+<span class="">PrimeNG</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="frontend">
+<span class="text-amber-400 font-mono">📈</span>
+<span class="">Highcharts</span>
+</div>
+<!-- Backend & APIs -->
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="backend">
+<span class="text-pink-400 font-mono font-bold">◈</span>
+<span class="">GraphQL</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="backend">
+<span class="text-indigo-400">🚀</span>
+<span class="">Apollo Client</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="backend">
+<span class="text-green-500 font-mono font-bold">⬢</span>
+<span class="">Node.js SSR</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="backend">
+<span class="text-teal-400 font-mono font-bold">⇌</span>
+<span class="">REST APIs</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="backend">
+<span class="text-orange-400">📊</span>
+<span class="">D3.js Data Viz</span>
+</div>
+<!-- DevOps & CI/CD -->
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="devops">
+<span class="text-red-400">⚙</span>
+<span class="">Jenkins Pipelines</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="devops">
+<span class="text-cyan-400 font-mono font-bold">G</span>
+<span class="">Groovy DPS</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="devops">
+<span class="text-amber-500 font-bold">☁</span>
+<span class="">AWS (Blue/Green)</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="devops">
+<span class="text-blue-400 font-mono font-bold">🐳</span>
+<span class="">Docker</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="devops">
+<span class="text-blue-500 font-mono font-bold">☸</span>
+<span class="">Kubernetes</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="devops">
+<span class="text-sky-400 font-mono font-bold">⚡</span>
+<span class="">Webpack &amp; Vite</span>
+</div>
+<!-- Observability & Testing -->
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="observability">
+<span class="text-pink-500 font-bold">&gt;</span>
+<span class="">Splunk Observability</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="observability">
+<span class="text-blue-400">🌊</span>
+<span class="">Wavefront RUM</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="observability">
+<span class="text-green-400 font-mono font-bold">🎭</span>
+<span class="">Playwright E2E</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="observability">
+<span class="text-rose-400">🃏</span>
+<span class="">Jest &amp; Karma</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="observability">
+<span class="text-green-500 font-mono font-bold">🚨</span>
+<span class="">PagerDuty Alerting</span>
+</div>
+<div class="tech-tag flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#17171f] border border-hairline text-sm text-gray-300" data-category="observability">
+<span class="text-pink-400 font-mono font-bold">📖</span>
+<span class="">Storybook Docs</span>
+</div>
+</div>
+<!-- Filter Row -->
+<div class="mt-8 pt-5 border-t border-hairline flex flex-wrap items-center gap-4 text-xs font-mono">
+<button class="filter-btn text-blue-400 font-semibold flex items-center gap-1.5 focus:outline-none" data-filter="all" onclick="filterTags('all')">
+<span class="w-2.5 h-2.5 bg-blue-500 rounded-sm"></span> ALL
+        </button>
+<button class="filter-btn text-text-muted hover:text-white flex items-center gap-1.5 focus:outline-none" data-filter="frontend" onclick="filterTags('frontend')">
+<span class="w-2.5 h-2.5 border border-gray-500 rounded-sm"></span> FRONTEND
+        </button>
+<button class="filter-btn text-text-muted hover:text-white flex items-center gap-1.5 focus:outline-none" data-filter="backend" onclick="filterTags('backend')">
+<span class="w-2.5 h-2.5 border border-gray-500 rounded-sm"></span> DATA &amp; APIS
+        </button>
+<button class="filter-btn text-text-muted hover:text-white flex items-center gap-1.5 focus:outline-none" data-filter="devops" onclick="filterTags('devops')">
+<span class="w-2.5 h-2.5 border border-gray-500 rounded-sm"></span> DEVOPS &amp; CI/CD
+        </button>
+<button class="filter-btn text-text-muted hover:text-white flex items-center gap-1.5 focus:outline-none" data-filter="observability" onclick="filterTags('observability')">
+<span class="w-2.5 h-2.5 border border-gray-500 rounded-sm"></span> OBSERVABILITY &amp; TESTING
+        </button>
+</div>
+</div>
+</section>
+<!-- THE WORKSHOP: Apps, sites, tools -->
+<section class="flex flex-col gap-8" id="workshop">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="text-xs font-mono text-primary uppercase tracking-widest">// BUILDING</span>
+<h2 class="text-3xl sm:text-4xl font-serif text-white tracking-tight mt-1">
+          The Workshop — <span class="italic text-secondary">Apps, sites, tools</span>
+</h2>
+</div>
+<p class="text-sm text-text-muted max-w-md">
+        Curated enterprise systems, agentic workflow tooling, and distributed telemetry shipped to production.
+      </p>
+</div>
+<div class="grid grid-cols-1 gap-8">
+<!-- Project 1: Frontend Systems Lab -->
+<div class="p-6 sm:p-8 rounded-3xl bg-[#111116] border border-hairline hover:border-primary/40 transition-all group">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<div class="lg:col-span-5 flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-purple-950/60 text-primary border border-purple-800/40 text-xs font-mono font-medium">ACTIVE LAB</span>
+<span class="text-xs font-mono text-emerald-400">● In Progress</span>
+</div>
+<h3 class="text-2xl font-serif text-white group-hover:text-primary transition-colors">Frontend Systems Lab</h3>
+<p class="text-sm text-gray-400 leading-relaxed">
+              Personal architecture laboratory exploring streaming state hydration, micro-frontend module federation, and optimistic client mutations. Features custom telemetry hooks, zero-digestion re-renders, and resilient fallback states.
+            </p>
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="px-2.5 py-1 rounded-md bg-[#1a1a24] text-gray-300 text-xs font-mono">Next.js 14</span>
+<span class="px-2.5 py-1 rounded-md bg-[#1a1a24] text-gray-300 text-xs font-mono">React Query</span>
+<span class="px-2.5 py-1 rounded-md bg-[#1a1a24] text-gray-300 text-xs font-mono">TypeScript</span>
+<span class="px-2.5 py-1 rounded-md bg-[#1a1a24] text-gray-300 text-xs font-mono">Zustand</span>
+</div>
+</div>
+<div class="lg:col-span-7">
+<div class="rounded-2xl overflow-hidden bg-[#0a0a0e] border border-hairline shadow-2xl">
+<div class="flex items-center justify-between px-4 py-2.5 bg-[#16161e] border-b border-hairline text-xs font-mono text-text-muted">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+<span class="ml-2 text-gray-400">systems-lab.manasa.dev/benchmarks</span>
+</div>
+<span class="material-symbols-outlined text-[15px]">terminal</span>
+</div>
+<img alt="Frontend Systems Lab Telemetry" class="w-full h-64 sm:h-72 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm0q1VA4IJnm15hnuDSzCk3GszolGAoWFsL9GjkhZgwod_LNECI5tYvUzL5vT3HBvmqE1CICcwA6frqdtXIQRll1VX58zqjmg8TuC9_uBDKbmm8JqWwtqZFgQYRxOjPQ1_rcIMW-Cg1PtYiMQxmpjMrxCOp5YKY8TYVpnhBFkTgHDSSkbo_dxJ9rO0Y8AvBgHBnc7oI6tydAFvYdt1iWU3KZEkPDIB_4J0i8DxOD_DA88wqiPEcjy6xQ"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 2: AI-Powered Code Review Engine -->
+<div class="p-6 sm:p-8 rounded-3xl bg-[#111116] border border-hairline hover:border-secondary/40 transition-all group">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<div class="lg:col-span-7 order-2 lg:order-1">
+<div class="rounded-2xl overflow-hidden bg-[#0a0a0e] border border-hairline shadow-2xl">
+<div class="flex items-center justify-between px-4 py-2.5 bg-[#16161e] border-b border-hairline text-xs font-mono text-text-muted">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+<span class="ml-2 text-gray-400">agentic-mcp.internal/review-stream</span>
+</div>
+<span class="text-primary text-[11px]">ANTHROPIC_MCP</span>
+</div>
+<img alt="AI-Powered Code Review Engine" class="w-full h-64 sm:h-72 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6yicUHwPh915bP1DpdvYrrouwpLVke84sgrWqy_eI95bEvvGqv4QvuXtEg2p__bGQ_GGWpdTD2IXOXJer8jPHEPCaq_PabQ0ZRNcYQgrTT-7av1v1aL-aI_rDZTW_sOg4LRDYCvT21LNG-DYY2ecHwAa4IO3gkk62nr1Qe6TcyWVmsvLqJJZ4909CJN6cWQSFpOu8LRR2Za0JE64Db79tfaL-3c9mS86gdZakZWZ2PQ_PBXJLR6K1-A"/>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-3 order-1 lg:order-2">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-blue-950/60 text-secondary border border-blue-800/40 text-xs font-mono font-medium">AGENTIC TOOLING</span>
+<span class="text-xs font-mono text-emerald-400">● Active Dev</span>
+</div>
+<h3 class="text-2xl font-serif text-white group-hover:text-secondary transition-colors">AI-Powered Code Review Engine</h3>
+<p class="text-sm text-gray-400 leading-relaxed">
+              Automated PR analysis tooling integrating Anthropic Claude models with Model Context Protocol (MCP) and LangGraph. Evaluates deep TypeScript type safety, design system token adherence, and performance regressions before CI approval.
+            </p>
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="px-2.5 py-1 rounded-md bg-[#1a1a24] text-gray-300 text-xs font-mono">Claude API</span>
+<span class="px-2.5 py-1 rounded-md bg-[#1a1a24] text-gray-300 text-xs font-mono">LangGraph</span>
+<span class="px-2.5 py-1 rounded-md bg-[#1a1a24] text-gray-300 text-xs font-mono">MCP Protocol</span>
+<span class="px-2.5 py-1 rounded-md bg-[#1a1a24] text-gray-300 text-xs font-mono">Node.js</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CAREER & SYSTEMS TIMELINE (Interactive Sticky Dock Navigation) -->
+<section class="flex flex-col gap-8 scroll-mt-24" id="experience">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="text-xs font-mono text-primary uppercase tracking-widest">// TRACK RECORD</span>
+<h2 class="text-3xl sm:text-4xl font-serif text-white tracking-tight mt-1">
+          Where I've built &amp; <span class="italic text-secondary">scaled</span>
+</h2>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center gap-4">
+<p class="text-sm text-text-muted max-w-sm">
+        11+ continuous years across 9 enterprise tours of duty in FinTech, Wealth Management, and Telecommunications.
+      </p>
+</div>
+</div>
+<!-- 2-Column Split: Sticky Dock on Left + Dynamic Slide-in Card on Right -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
+<!-- LEFT COLUMN: Sticky Company Navigation Dock -->
+<div class="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-24 z-20">
+<div class="p-3 sm:p-4 rounded-3xl bg-[#0f0f14]/90 backdrop-blur-xl border border-hairline shadow-2xl flex flex-col gap-1.5">
+<div class="px-3 py-2 flex items-center justify-between border-b border-hairline/60 mb-1">
+<span class="text-[11px] font-mono uppercase tracking-wider text-text-muted flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              9 Enterprise Tours
+            </span>
+<span class="text-[10px] font-mono text-gray-400">Scroll to explore</span>
+</div>
+<!-- Nav Items -->
+<div class="flex flex-col gap-1" id="exp-nav-list">
+<!-- 1. Intuit -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group active" data-target="exp-intuit" onclick="handleCompanyClick('exp-intuit')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-semibold text-white group-hover:text-white transition-colors truncate">Intuit</div>
+<div class="text-[11px] font-mono text-text-muted truncate">Software Engineer</div>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<span class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-mono text-emerald-400">Staff</span>
+<span class="text-[11px] font-mono text-gray-400">2024–Now</span>
+</div>
+</button>
+<!-- 2. Fidelity 2022-2024 -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group" data-target="exp-fidelity-2" onclick="handleCompanyClick('exp-fidelity-2')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-purple-500/60 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-medium text-gray-300 group-hover:text-white transition-colors truncate">Fidelity Investments</div>
+<div class="text-[11px] font-mono text-text-muted truncate">Senior Front End Dev</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-text-muted flex-shrink-0">2022–2024</span>
+</button>
+<!-- 3. AT&T -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group" data-target="exp-att" onclick="handleCompanyClick('exp-att')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-sky-400/60 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-medium text-gray-300 group-hover:text-white transition-colors truncate">AT&amp;T</div>
+<div class="text-[11px] font-mono text-text-muted truncate">Senior Angular Dev</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-text-muted flex-shrink-0">2021–2022</span>
+</button>
+<!-- 4. Fidelity 2020-2021 -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group" data-target="exp-fidelity-1" onclick="handleCompanyClick('exp-fidelity-1')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-gray-600 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-medium text-gray-300 group-hover:text-white transition-colors truncate">Fidelity Investments</div>
+<div class="text-[11px] font-mono text-text-muted truncate">Senior Front End Dev</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-text-muted flex-shrink-0">2020–2021</span>
+</button>
+<!-- 5. Vanguard 2020 -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group" data-target="exp-vanguard-2" onclick="handleCompanyClick('exp-vanguard-2')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-gray-600 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-medium text-gray-300 group-hover:text-white transition-colors truncate">Vanguard</div>
+<div class="text-[11px] font-mono text-text-muted truncate">Senior Front End Dev</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-text-muted flex-shrink-0">2020</span>
+</button>
+<!-- 6. Korn Ferry -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group" data-target="exp-kornferry" onclick="handleCompanyClick('exp-kornferry')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-gray-600 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-medium text-gray-300 group-hover:text-white transition-colors truncate">Korn Ferry</div>
+<div class="text-[11px] font-mono text-text-muted truncate">Angular Developer</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-text-muted flex-shrink-0">2018–2019</span>
+</button>
+<!-- 7. Virgin Mobile -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group" data-target="exp-virgin" onclick="handleCompanyClick('exp-virgin')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-gray-600 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-medium text-gray-300 group-hover:text-white transition-colors truncate">Virgin Mobile</div>
+<div class="text-[11px] font-mono text-text-muted truncate">Front-End Web Dev</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-text-muted flex-shrink-0">2017–2018</span>
+</button>
+<!-- 8. Vanguard 2016-2017 -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group" data-target="exp-vanguard-1" onclick="handleCompanyClick('exp-vanguard-1')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-gray-600 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-medium text-gray-300 group-hover:text-white transition-colors truncate">Vanguard</div>
+<div class="text-[11px] font-mono text-text-muted truncate">Angular Developer</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-text-muted flex-shrink-0">2016–2017</span>
+</button>
+<!-- 9. JP Morgan Chase -->
+<button class="exp-nav-item w-full text-left p-3 rounded-2xl border border-transparent hover:border-hairline hover:bg-white/5 flex items-center justify-between group" data-target="exp-jpmorgan" onclick="handleCompanyClick('exp-jpmorgan')">
+<div class="flex items-center gap-3 min-w-0">
+<span class="exp-nav-dot w-2 h-2 rounded-full bg-gray-600 flex-shrink-0 transition-all"></span>
+<div class="min-w-0">
+<div class="exp-nav-company text-sm font-medium text-gray-300 group-hover:text-white transition-colors truncate">JP Morgan Chase</div>
+<div class="text-[11px] font-mono text-text-muted truncate">UI Developer</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-text-muted flex-shrink-0">2014–2015</span>
+</button>
+</div>
+<!-- Bottom micro footer inside sticky dock -->
+<div class="pt-3 mt-1 border-t border-hairline/60 px-3 flex items-center justify-between text-[11px] font-mono text-text-muted">
+<span class="" id="dock-status-label">Active: 1 of 9</span>
+<span class="text-primary font-semibold">100% Client-Side</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Detailed Card Stream (Scrollable Experience Stream with Dynamic Active Tracking) -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-4">
+<div class="flex flex-col gap-5 min-h-[380px] space-y-3" id="exp-cards-stream" style="max-height: 680px; overflow-y: auto; scroll-behavior: smooth; padding-right: 0.5rem;">
+<!-- 1. Intuit -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl is-active" id="exp-intuit">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[11px] font-mono text-emerald-400 uppercase tracking-wider font-semibold">● Current Staff Tour</span>
+<span class="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono text-emerald-300">Tier-1 On-Call</span>
+</div>
+<h3 class="text-xl sm:text-2xl font-bold text-white">Software Engineer @ Intuit</h3>
+</div>
+<span class="text-xs font-mono text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20 self-start sm:self-auto">April 2024 – Present</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Engineered scalable React enterprise components powering mission-critical workflows. Automated Jenkins CI/CD pipelines with zero-regression rollouts. Integrated Splunk &amp; Wavefront RUM observability, slashing customer errors 10x with custom Failed Customer Interaction (FCI) suppression logic. Active tier-1 production on-call triage.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">React 18+</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Splunk Observability</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Wavefront RUM</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Playwright E2E</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Jenkins Pipelines</span>
+</div>
+</div>
+</article>
+<!-- 2. Fidelity 2 -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl" id="exp-fidelity-2">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<span class="text-[11px] font-mono text-purple-400 uppercase tracking-wider font-semibold">Wealth Management Platform</span>
+<h3 class="text-lg sm:text-xl font-bold text-white">Senior Front End Developer @ Fidelity Investments</h3>
+</div>
+<span class="text-xs font-mono text-text-muted self-start sm:self-auto">Sep 2022 – Feb 2024</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Architected React &amp; TypeScript client navigation with React Router, custom state hooks, and Node.js REST services. Upgraded legacy Angular 8 to Angular 14 with high-frequency AG-Grid enterprise tables. Implemented Node.js SSR and zero-downtime AWS Blue/Green rollouts.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">React</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Angular 14</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">AG-Grid Enterprise</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">AWS Blue/Green</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Groovy DPS</span>
+</div>
+</div>
+</article>
+<!-- 3. AT&T -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl" id="exp-att">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<span class="text-[11px] font-mono text-sky-400 uppercase tracking-wider font-semibold">Telecom Analytics</span>
+<h3 class="text-lg sm:text-xl font-bold text-white">Senior Angular Developer @ AT&amp;T</h3>
+</div>
+<span class="text-xs font-mono text-text-muted self-start sm:self-auto">Oct 2021 – Aug 2022</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Engineered atomic Web Components in Angular 11, integrating PrimeNG, Ag-Grid, and Highcharts for telecom data analytics. Designed pixel-perfect responsive layouts with Tailwind CSS under Lean Agile workflows.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Angular 11</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">PrimeNG</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Highcharts</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Web Components</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Tailwind CSS</span>
+</div>
+</div>
+</article>
+<!-- 4. Fidelity 1 -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl" id="exp-fidelity-1">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<span class="text-[11px] font-mono text-purple-400 uppercase tracking-wider font-semibold">Financial Data Visualization</span>
+<h3 class="text-lg sm:text-xl font-bold text-white">Senior Front End Developer @ Fidelity Investments</h3>
+</div>
+<span class="text-xs font-mono text-text-muted self-start sm:self-auto">Oct 2020 – Sep 2021</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Upgraded Angular 8 to Angular 10, constructed AG-Grid high-performance data tables, and engineered interactive financial data visualizations using D3.js with 85%+ Jasmine/Karma code coverage.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Angular 10</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">AG-Grid</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">D3.js</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Karma / Jasmine</span>
+</div>
+</div>
+</article>
+<!-- 5. Vanguard 2 -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl" id="exp-vanguard-2">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<span class="text-[11px] font-mono text-emerald-400 uppercase tracking-wider font-semibold">Confidential Client Banking</span>
+<h3 class="text-lg sm:text-xl font-bold text-white">Senior Front End Developer @ Vanguard</h3>
+</div>
+<span class="text-xs font-mono text-text-muted self-start sm:self-auto">Jan 2020 – Oct 2020</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Engineered high-confidentiality banking tools using React, styled-components, Next.js dynamic code splitting, and GraphQL multi-tier data queries for institutional accounts.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">React</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">GraphQL</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Next.js</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Styled-Components</span>
+</div>
+</div>
+</article>
+<!-- 6. Korn Ferry -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl" id="exp-kornferry">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<span class="text-[11px] font-mono text-amber-400 uppercase tracking-wider font-semibold">Enterprise Talent Suite</span>
+<h3 class="text-lg sm:text-xl font-bold text-white">Angular Developer @ Korn Ferry</h3>
+</div>
+<span class="text-xs font-mono text-text-muted self-start sm:self-auto">May 2018 – Dec 2019</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Phased migration from legacy AngularJS to Angular component architecture. Enforced strict WCAG 2.0 / 2.1 AA accessibility standards and AWS Console cloud hosting configurations.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Angular</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">WCAG 2.1 AA</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">AWS Console</span>
+</div>
+</div>
+</article>
+<!-- 7. Virgin Mobile -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl" id="exp-virgin">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<span class="text-[11px] font-mono text-red-400 uppercase tracking-wider font-semibold">Mobile E-Commerce Flow</span>
+<h3 class="text-lg sm:text-xl font-bold text-white">Front-End Web Developer @ Virgin Mobile</h3>
+</div>
+<span class="text-xs font-mono text-text-muted self-start sm:self-auto">Apr 2017 – Apr 2018</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Greenfield implementation of dynamic Angular 2 single-page application with Adobe Experience Manager (AEM) components and responsive CSS Grid/Flexbox checkout flows.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Angular 2</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Adobe AEM</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">CSS Grid</span>
+</div>
+</div>
+</article>
+<!-- 8. Vanguard 1 -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl" id="exp-vanguard-1">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<span class="text-[11px] font-mono text-emerald-400 uppercase tracking-wider font-semibold">Banking Portals &amp; Node.js</span>
+<h3 class="text-lg sm:text-xl font-bold text-white">Angular Developer @ Vanguard</h3>
+</div>
+<span class="text-xs font-mono text-text-muted self-start sm:self-auto">Feb 2016 – Mar 2017</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Developed client banking portals using AngularJS and Node.js, authoring Protractor/Karma end-to-end test suites and tuning digest cycle rendering latency for high load.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">AngularJS</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Protractor</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Node.js</span>
+</div>
+</div>
+</article>
+<!-- 9. JP Morgan Chase -->
+<article class="exp-card scroll-mt-28 p-6 sm:p-7 rounded-3xl bg-[#121217] border border-hairline shadow-xl" id="exp-jpmorgan">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<span class="text-[11px] font-mono text-blue-400 uppercase tracking-wider font-semibold">Financial Web Systems</span>
+<h3 class="text-lg sm:text-xl font-bold text-white">UI Developer @ JP Morgan Chase</h3>
+</div>
+<span class="text-xs font-mono text-text-muted self-start sm:self-auto">Apr 2014 – Dec 2015</span>
+</div>
+<div class="exp-card-body">
+<p class="text-sm text-gray-300 leading-relaxed mb-4">Built foundational high-frequency financial web interfaces with HTML5, vanilla JavaScript, jQuery, Bootstrap, and Adobe AEM content management templates.</p>
+<div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">JavaScript</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">jQuery</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">Bootstrap</span>
+<span class="px-2.5 py-1 rounded-lg bg-[#1c1c24] border border-hairline">AEM</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+</div>
+</section>
+<!-- REACH OUT: START A CONVERSATION / CONNECT (Interactive Calendar Booking) -->
+<section class="relative" id="connect">
+<div class="rounded-3xl bg-[#0c0c10] border border-white/10 p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+<!-- Glow -->
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[250px] bg-gradient-to-b from-blue-600/20 via-purple-600/10 to-transparent blur-[100px] pointer-events-none"></div>
+<!-- Top Header Row -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pb-8 mb-8 border-b border-hairline relative z-10">
+<!-- Profile Snippet -->
+<div class="lg:col-span-4 flex items-center gap-3.5">
+<div class="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-700 to-indigo-600 p-0.5 shadow-xl flex-shrink-0">
+<div class="w-full h-full rounded-[14px] bg-[#121217] flex items-center justify-center font-bold text-white text-lg">
+              MB
+            </div>
+<span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 ring-2 ring-[#0c0c10]"></span>
+</div>
+<div>
+<h3 class="text-base font-bold text-white">Manasa B.</h3>
+<div class="flex items-center gap-1.5 text-xs font-mono text-text-muted">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+<span class="">2:30 PM in Newark, CA (PST)</span>
+</div>
+<span class="text-[11px] font-mono text-primary">Senior Staff Frontend Architect</span>
+</div>
+</div>
+<!-- What brings you here? Chips -->
+<div class="lg:col-span-4 flex flex-col gap-2">
+<span class="text-[11px] font-mono uppercase tracking-wider text-text-muted">WHAT BRINGS YOU HERE?</span>
+<div class="flex flex-wrap gap-2">
+<button class="purpose-chip px-3 py-1.5 rounded-full text-xs font-medium border border-primary bg-primary/10 text-primary transition-all">Role / Staff Eng</button>
+<button class="purpose-chip px-3 py-1.5 rounded-full text-xs font-medium border border-hairline bg-[#16161d] text-gray-300 hover:text-white transition-all">Advisory / Consulting</button>
+<button class="purpose-chip px-3 py-1.5 rounded-full text-xs font-medium border border-hairline bg-[#16161d] text-gray-300 hover:text-white transition-all">Just a hey</button>
+</div>
+</div>
+<!-- Or reach me directly -->
+<div class="lg:col-span-4 flex flex-col gap-2">
+<span class="text-[11px] font-mono uppercase tracking-wider text-text-muted">OR REACH ME DIRECTLY</span>
+<div class="flex items-center gap-2">
+<button class="flex-1 flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#16161d] border border-hairline hover:border-hairline-bright text-xs font-mono text-white transition-all group" onclick="copyEmailToClipboard()">
+<span class="truncate">bmanasasharma@outlook.com</span>
+<span class="flex items-center gap-1 text-text-muted group-hover:text-primary transition-colors text-[11px] ml-2">
+<span class="material-symbols-outlined text-[15px]" id="copy-icon">content_copy</span>
+<span class="" id="copy-text">Copy</span>
+</span>
+</button>
+<a class="p-2 rounded-xl bg-[#16161d] border border-hairline text-gray-400 hover:text-white transition-colors" href="https://linkedin.com" target="_blank" title="LinkedIn">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</a>
+<a class="p-2 rounded-xl bg-[#16161d] border border-hairline text-gray-400 hover:text-white transition-colors" href="https://github.com" target="_blank" title="GitHub">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Mode Toggle -->
+<div class="flex justify-center mb-8 relative z-10">
+<div class="inline-flex p-1 rounded-full bg-[#16161d] border border-hairline">
+<button class="px-5 py-2 rounded-full text-xs font-mono font-medium flex items-center gap-2 bg-white/10 text-white shadow-sm" id="tab-call-btn" onclick="toggleContactView('call')">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+<span class="">Book a call</span>
+</button>
+<button class="px-5 py-2 rounded-full text-xs font-mono font-medium flex items-center gap-2 text-text-muted hover:text-white" id="tab-msg-btn" onclick="toggleContactView('msg')">
+<span class="material-symbols-outlined text-[16px]">chat_bubble_outline</span>
+<span class="">Send a message</span>
+</button>
+</div>
+</div>
+<!-- CALENDAR BOOKING WIDGET -->
+<div class="relative z-10 rounded-2xl bg-[#101015] border border-hairline shadow-2xl grid grid-cols-1 lg:grid-cols-12 overflow-hidden" id="calendar-widget">
+<!-- Left: Meeting Specs -->
+<div class="lg:col-span-4 p-6 sm:p-7 border-b lg:border-b-0 lg:border-r border-hairline flex flex-col justify-between bg-[#131319]/50">
+<div>
+<div class="flex items-center gap-2.5 mb-5">
+<div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white text-xs">
+                MB
+              </div>
+<span class="text-sm text-gray-300">Manasa B.</span>
+</div>
+<h4 class="text-xl font-bold text-white mb-4">30 Min Architecture Chat</h4>
+<div class="space-y-3 text-xs font-mono text-gray-300">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-text-muted">check_circle</span>
+<span class="">Requires confirmation</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-text-muted">schedule</span>
+<span class="">30m</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-blue-400">videocam</span>
+<span class="">Google Meet</span>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<span class="material-symbols-outlined text-[18px] text-text-muted">public</span>
+<span class="text-gray-300">America/Los_Angeles (PST)</span>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-4 border-t border-hairline text-xs font-mono text-text-muted">
+            Let's discuss frontend engineering leadership, micro-frontend migrations, or scaling React architectures.
+          </div>
+</div>
+<!-- Center: Month View -->
+<div class="lg:col-span-5 p-6 sm:p-7 border-b lg:border-b-0 lg:border-r border-hairline flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-6">
+<div class="text-base font-bold text-white">
+                May <span class="text-text-muted font-normal">2025</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="p-1 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Day Headers -->
+<div class="grid grid-cols-7 gap-1 text-center font-mono text-[11px] text-text-muted uppercase mb-3">
+<div class="">SUN</div>
+<div class="">MON</div>
+<div class="">TUE</div>
+<div class="">WED</div>
+<div class="">THU</div>
+<div class="">FRI</div>
+<div class="">SAT</div>
+</div>
+<!-- Calendar Days -->
+<div class="grid grid-cols-7 gap-1.5 text-center text-xs font-mono" id="cal-grid">
+<!-- Empty slots for May 2025 starting on Thursday -->
+<div class="py-2.5 text-transparent">.</div>
+<div class="py-2.5 text-transparent">.</div>
+<div class="py-2.5 text-transparent">.</div>
+<div class="py-2.5 text-transparent">.</div>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(1)">1</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(2)">2</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(3)">3</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(4)">4</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(5)">5</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(6)">6</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(7)">7</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(8)">8</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(9)">9</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(10)">10</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(11)">11</button>
+<button class="py-2.5 rounded-lg relative text-white hover:bg-white/10" onclick="pickDate(12)">
+                12
+                <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400"></span>
+</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(13)">13</button>
+<!-- Selected 14th Date matching screenshot -->
+<button class="py-2.5 rounded-lg bg-white text-black font-bold shadow-md" id="date-14-btn" onclick="pickDate(14)">14</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(15)">15</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(16)">16</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(17)">17</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(18)">18</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(19)">19</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(20)">20</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(21)">21</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(22)">22</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(23)">23</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(24)">24</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(25)">25</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(26)">26</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(27)">27</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(28)">28</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(29)">29</button>
+<button class="py-2.5 rounded-lg text-gray-300 hover:bg-white/10" onclick="pickDate(30)">30</button>
+<button class="py-2.5 rounded-lg text-gray-400 hover:bg-white/10" onclick="pickDate(31)">31</button>
+</div>
+</div>
+<div class="mt-4 text-xs font-mono text-text-muted">
+            ● Selected: <strong class="text-white" id="selected-date-str">Wed 14th May</strong>
+</div>
+</div>
+<!-- Right: Time Slots -->
+<div class="lg:col-span-3 p-6 sm:p-7 flex flex-col justify-between bg-[#131319]/30">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-sm font-bold text-white" id="time-header">Wed 14th</span>
+<div class="inline-flex p-0.5 rounded bg-white/5 border border-hairline text-[10px] font-mono">
+<span class="px-1.5 py-0.5 rounded bg-white/20 text-white font-medium">12h</span>
+<span class="px-1.5 py-0.5 text-text-muted">24h</span>
+</div>
+</div>
+<div class="flex flex-col gap-2.5" id="slots-wrapper">
+<button class="cal-slot w-full py-2.5 px-4 rounded-xl border border-hairline bg-[#171720] text-white text-xs font-mono font-medium text-center" onclick="selectSlot('10:30pm')">
+                10:30pm
+              </button>
+<button class="cal-slot w-full py-2.5 px-4 rounded-xl border border-hairline bg-[#171720] text-white text-xs font-mono font-medium text-center" onclick="selectSlot('11:00pm')">
+                11:00pm
+              </button>
+<button class="cal-slot w-full py-2.5 px-4 rounded-xl border border-hairline bg-[#171720] text-white text-xs font-mono font-medium text-center" onclick="selectSlot('11:30pm')">
+                11:30pm
+              </button>
+</div>
+<div class="hidden mt-4 p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-xs font-mono text-center" id="slot-alert">
+              Slot selected! Google Meet invite ready.
+            </div>
+</div>
+<div class="mt-6 text-center text-[11px] font-mono text-text-muted">
+            Instant Calendar Sync
+          </div>
+</div>
+</div>
+<!-- DIRECT MESSAGE VIEW (Toggle) -->
+<div class="hidden relative z-10 max-w-xl mx-auto p-6 sm:p-8 rounded-2xl bg-[#101015] border border-hairline" id="message-widget">
+<form class="flex flex-col gap-4" onsubmit="event.preventDefault(); document.getElementById('msg-done').classList.remove('hidden');">
+<div>
+<label class="block text-xs font-mono text-text-muted uppercase mb-1">Your Name</label>
+<input class="w-full px-4 py-2 rounded-xl bg-[#171720] border border-hairline text-white text-sm focus:border-primary focus:outline-none" placeholder="Alex Mercer" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-mono text-text-muted uppercase mb-1">Email Address</label>
+<input class="w-full px-4 py-2 rounded-xl bg-[#171720] border border-hairline text-white text-sm focus:border-primary focus:outline-none" placeholder="alex@company.com" required="" type="email"/>
+</div>
+<div>
+<label class="block text-xs font-mono text-text-muted uppercase mb-1">Message</label>
+<textarea class="w-full px-4 py-2 rounded-xl bg-[#171720] border border-hairline text-white text-sm focus:border-primary focus:outline-none" placeholder="Tell me about your frontend architecture or upcoming challenge..." required="" rows="4"></textarea>
+</div>
+<button class="w-full py-3 rounded-full bg-white text-black font-semibold text-xs tracking-wider uppercase hover:bg-gray-200 transition-all mt-2" type="submit">
+            Send Message
+          </button>
+<div class="hidden text-center text-xs font-mono text-emerald-400 pt-2" id="msg-done">
+            Message received! Manasa will reply within 24 hours.
+          </div>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Minimal Footer -->
+<footer class="border-t border-hairline bg-[#09090b] py-12">
+<div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-text-muted">
+<div class="flex items-center gap-2 text-white">
+<div class="w-6 h-6 rounded bg-purple-700 flex items-center justify-center text-[10px] font-bold">MB</div>
+<span class="">Manasa B. — Senior Staff Frontend Architect</span>
+</div>
+<div class="">
+      © 2026 Manasa B. Built with obsidian glass, precision geometry, and high agency.
+    </div>
+</div>
+</footer>
+<!-- Interactive Scripts -->
+<script>
+function copyEmailToClipboard() {
+  const email = "bmanasasharma@outlook.com";
+  navigator.clipboard.writeText(email).then(() => {
+    const copyText = document.getElementById("copy-text");
+    const heroLabel = document.getElementById("hero-email-label");
+    if (copyText) copyText.textContent = "Copied!";
+    if (heroLabel) heroLabel.textContent = "Copied to clipboard!";
+    setTimeout(() => {
+      if (copyText) copyText.textContent = "Copy";
+      if (heroLabel) heroLabel.textContent = email;
+    }, 2500);
+  });
+}
+
+function filterTags(category) {
+  const tags = document.querySelectorAll("#tech-tags-list .tech-tag");
+  const buttons = document.querySelectorAll(".filter-btn");
+
+  buttons.forEach(btn => {
+    const filter = btn.getAttribute("data-filter");
+    if (filter === category) {
+      btn.className = "filter-btn text-blue-400 font-semibold flex items-center gap-1.5 focus:outline-none";
+      btn.querySelector("span").className = "w-2.5 h-2.5 bg-blue-500 rounded-sm";
+    } else {
+      btn.className = "filter-btn text-text-muted hover:text-white flex items-center gap-1.5 focus:outline-none";
+      btn.querySelector("span").className = "w-2.5 h-2.5 border border-gray-500 rounded-sm";
+    }
+  });
+
+  tags.forEach(tag => {
+    if (category === "all" || tag.getAttribute("data-category") === category) {
+      tag.style.display = "flex";
+      tag.style.opacity = "1";
+    } else {
+      tag.style.display = "none";
+      tag.style.opacity = "0";
+    }
+  });
+}
+
+function toggleContactView(view) {
+  const calWidget = document.getElementById("calendar-widget");
+  const msgWidget = document.getElementById("message-widget");
+  const tabCall = document.getElementById("tab-call-btn");
+  const tabMsg = document.getElementById("tab-msg-btn");
+
+  if (view === "call") {
+    calWidget.classList.remove("hidden");
+    msgWidget.classList.add("hidden");
+    tabCall.className = "px-5 py-2 rounded-full text-xs font-mono font-medium flex items-center gap-2 bg-white/10 text-white shadow-sm";
+    tabMsg.className = "px-5 py-2 rounded-full text-xs font-mono font-medium flex items-center gap-2 text-text-muted hover:text-white";
+  } else {
+    calWidget.classList.add("hidden");
+    msgWidget.classList.remove("hidden");
+    tabMsg.className = "px-5 py-2 rounded-full text-xs font-mono font-medium flex items-center gap-2 bg-white/10 text-white shadow-sm";
+    tabCall.className = "px-5 py-2 rounded-full text-xs font-mono font-medium flex items-center gap-2 text-text-muted hover:text-white";
+  }
+}
+
+function pickDate(day) {
+  const label = document.getElementById("selected-date-str");
+  const header = document.getElementById("time-header");
+  const allBtns = document.querySelectorAll("#cal-grid button");
+  
+  allBtns.forEach(b => {
+    b.className = "py-2.5 rounded-lg text-gray-400 hover:bg-white/10";
+  });
+  
+  event.target.className = "py-2.5 rounded-lg bg-white text-black font-bold shadow-md";
+  if (label) label.textContent = `May ${day}th, 2025`;
+  if (header) header.textContent = `May ${day}th`;
+}
+
+function selectSlot(time) {
+  const alertBox = document.getElementById("slot-alert");
+  if (alertBox) {
+    alertBox.textContent = `Confirmed for ${time}! Calendar invite generated.`;
+    alertBox.classList.remove("hidden");
+  }
+}
+
+// Purpose chips interactive toggle
+document.querySelectorAll(".purpose-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".purpose-chip").forEach(c => {
+      c.className = "purpose-chip px-3 py-1.5 rounded-full text-xs font-medium border border-hairline bg-[#16161d] text-gray-300 hover:text-white transition-all";
+    });
+    chip.className = "purpose-chip px-3 py-1.5 rounded-full text-xs font-medium border border-primary bg-primary/10 text-primary transition-all";
+  });
+});
+
+// Company Sticky Navigation & Dynamic Scroll Highlighting Logic
+const companyIds = [
+  "exp-intuit",
+  "exp-fidelity-2",
+  "exp-att",
+  "exp-fidelity-1",
+  "exp-vanguard-2",
+  "exp-kornferry",
+  "exp-virgin",
+  "exp-vanguard-1",
+  "exp-jpmorgan"
+];
+
+let activeIndex = 0;
+let isProgrammaticScroll = false;
+let scrollTimeout = null;
+
+function updateExperienceActiveState(targetId) {
+  const index = companyIds.indexOf(targetId);
+  if (index === -1) return;
+  activeIndex = index;
+
+  // Update Left Dock Buttons
+  const navItems = document.querySelectorAll(".exp-nav-item");
+  navItems.forEach(item => {
+    if (item.getAttribute("data-target") === targetId) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });
+
+  // Update Right Detail Cards
+  const cards = document.querySelectorAll(".exp-card");
+  cards.forEach(card => {
+    if (card.id === targetId) {
+      card.classList.add("is-active");
+    } else {
+      card.classList.remove("is-active");
+    }
+  });
+
+  // Update Status Label
+  const dockStatus = document.getElementById("dock-status-label");
+  if (dockStatus) {
+    dockStatus.textContent = `Active: ${activeIndex + 1} of ${companyIds.length}`;
+  }
+}
+
+function handleCompanyClick(id) {
+  const container = document.getElementById("exp-cards-stream");
+  const targetCard = document.getElementById(id);
+  
+  if (container && targetCard) {
+    isProgrammaticScroll = true;
+    updateExperienceActiveState(id);
+
+    // Calculate relative scroll position inside the scrollable container
+    const containerTop = container.getBoundingClientRect().top;
+    const cardTop = targetCard.getBoundingClientRect().top;
+    const scrollOffset = cardTop - containerTop + container.scrollTop - 8;
+
+    container.scrollTo({
+      top: scrollOffset,
+      behavior: "smooth"
+    });
+
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      isProgrammaticScroll = false;
+    }, 600);
+  }
+}
+
+// Set up IntersectionObserver and container scroll tracker
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("exp-cards-stream");
+  const cards = document.querySelectorAll(".exp-card");
+
+  if (container && cards.length > 0) {
+    // 1. Intersection Observer tracking within container
+    const observerOptions = {
+      root: container,
+      rootMargin: "-10% 0px -40% 0px",
+      threshold: [0.1, 0.4, 0.7]
+    };
+
+    const cardObserver = new IntersectionObserver((entries) => {
+      if (isProgrammaticScroll) return;
+
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+          updateExperienceActiveState(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    cards.forEach(card => cardObserver.observe(card));
+
+    // 2. High-precision scroll position tracker for tight container scrolling
+    container.addEventListener("scroll", () => {
+      if (isProgrammaticScroll) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const containerAnchor = containerRect.top + 90; // Top detection line
+
+      let closestCard = null;
+      let minDistance = Infinity;
+
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        // Distance of card top to the detection line
+        const dist = Math.abs(rect.top - containerAnchor);
+        if (dist < minDistance) {
+          minDistance = dist;
+          closestCard = card;
+        }
+      });
+
+      if (closestCard && closestCard.id) {
+        updateExperienceActiveState(closestCard.id);
+      }
+    }, { passive: true });
+  }
+
+  // Initialize with the first item active
+  updateExperienceActiveState(companyIds[0]);
+});
+</script>
+</body></html>
