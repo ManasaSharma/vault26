@@ -8,7 +8,19 @@
   .headerActions { display:flex; align-items:center; gap:var(--spacing-sm); }
   .mobileMenuButton { display:inline-grid; place-items:center; width:2.25rem; height:2.25rem; color:var(--colors-on-surface); border:1px solid var(--colors-hairline); background:var(--colors-surface-container); border-radius:var(--radius-full); cursor:pointer; }
   .navPills { display:none; }
-  .mobileNav { border-top:1px solid var(--colors-hairline); padding-block:var(--spacing-md); }
+  .mobileNav {
+    position:absolute;
+    inset:100% 0 auto;
+    width:100%;
+    max-width:none;
+    max-height:calc(100dvh - var(--layout-header-height));
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    border-block:1px solid var(--colors-hairline);
+    padding-block:var(--spacing-md);
+    background:var(--colors-surface);
+    box-shadow:0 16px 32px #0005;
+  }
   .mobileNav a { display:block; padding:.75rem; font:12px var(--fonts-mono); border-radius:var(--radius-md); text-decoration:none; color:var(--colors-text-muted); }
   .mobileNav a[aria-current] { background:var(--components-nav-active-background); color:var(--colors-primary); }
   @media(min-width:900px) { .navPills { display:block; margin-left:auto; } .headerActions,.mobileNav { display:none; } }
